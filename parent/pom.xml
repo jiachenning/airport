@@ -121,6 +121,13 @@
 
       <!-- jdbc driver -->
       <dependency>
+        <groupId>com.h2datbase</groupId>
+        <artifactId>h2</artifactId>
+        <version>${h2.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      
+      <dependency>
         <groupId>${jdbc.driver.groupId}</groupId>
         <artifactId>${jdbc.driver.artifactId}</artifactId>
         <version>${jdbc.driver.version}</version>
