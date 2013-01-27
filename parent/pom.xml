@@ -166,6 +166,13 @@
         <version>1</version>
       </dependency>
       <!-- utils lib end -->
+      
+      <!-- groovy -->
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <version>2.1.0</version>
+      </dependency>
 
       <!-- logging begin -->
       <dependency>
