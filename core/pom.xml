@@ -80,26 +80,6 @@
     </dependency>
     <!-- utils lib end -->
 
-    <!-- logging begin -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <!-- logging end -->
-
-    <!-- test begin -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-    <!-- test end -->
-
   </dependencies>
 
   <build>
