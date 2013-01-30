@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wonders.framework.repository.MyRepository;
 
 public abstract class AbstractCrudController<T, ID extends Serializable> {
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected abstract MyRepository<T, ID> getRepository();
 
 	@RequestMapping(method = RequestMethod.GET)
 	protected @ResponseBody
 	Page<T> findAll(@RequestParam Map<String, ?> params, Pageable pageable) {
-
 		Map<?, ?> searchParams = getSearchParams(params);
 		return getRepository().findAll(searchParams, pageable);
 	}

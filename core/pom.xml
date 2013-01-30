@@ -80,6 +80,17 @@
     </dependency>
     <!-- utils lib end -->
 
+    <!-- logging begin -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <!-- logging end -->
+
   </dependencies>
 
   <build>
