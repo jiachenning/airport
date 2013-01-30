@@ -44,6 +44,7 @@ public class User extends AbstractPersistable<Long> {
 	
 	private Set<Role> roles = new HashSet<>(0);
 
+	@Column(unique = true)
 	public String getUsername() {
 		return this.username;
 	}
