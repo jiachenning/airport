@@ -30,16 +30,12 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 	@RequestMapping(value = "findByParentId", method = RequestMethod.GET)
 	protected @ResponseBody
 	List<Group> findByParentId(@RequestParam("node") long parentId) {
-		
-		List<Group> groups = null;
 		try {
-			groups = groupRepository.findByParentId(parentId);
+			return groupRepository.findByParentId(parentId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
-		return groups;
 	}
 
 }
