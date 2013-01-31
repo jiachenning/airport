@@ -5,7 +5,7 @@
 <script type="text/javascript" src="http://cdn.sencha.io/ext/beta/4.2.0.265/ext-all-dev.js"></script>
 <script type="text/javascript">
 Ext.onReady(function() {
-
+    
     var store = Ext.create('Ext.data.TreeStore', {
         proxy: {
             type: 'ajax',
@@ -20,14 +20,13 @@ Ext.onReady(function() {
 
     var tree = Ext.create('Ext.tree.Panel', {
         title: '组织机构',
+        region: 'west',
         width: 300,
-        height: 450,
-        frame: true,
-        collapsible: true,
-        renderTo: Ext.getBody(),
         bodyPadding: 3,
+        collapsible: true,
+        split: true,
+        margin: '0 0 0 4',
         useArrows: true,
-        margin: 25,
         store: store,
         dockedItems: {
             xtype: 'toolbar',
@@ -44,10 +43,53 @@ Ext.onReady(function() {
             }]
         }
     });
+
+    var usergrid = Ext.create('Ext.grid.Panel', {
+        region: 'center',
+        title: '用户列表',
+        columnLines: true,
+        columns: [{
+            text: '用户名'
+        },{
+            text: '密码'
+        },{
+            text: '年龄'
+        },{
+            text: '出生年月'
+        },{
+            text: '是否启用',
+            flex: 1
+        }],
+        dockedItems: {
+            xtype: 'pagingtoolbar',
+            displayInfo: true,
+            dock: 'bottom'
+        }
+    });
+
+    Ext.create('Ext.container.Viewport', {
+        layout: 'border',
+        items: [{
+            region: 'north',
+            xtype: 'toolbar',
+            margin: '0 0 4 0',
+            items: ['->', {
+                text: '注销',
+                handler: function() {
+                    location.replace('j_spring_security_logout');
+                }
+            }]
+        }, tree, usergrid, {
+            region: 'south',
+            xtype: 'toolbar',
+            items: '万达信息股份有限公司版权所有v1.0',
+            margin: '4 0 0 0'
+        }]
+    });
+
 });
 </script>
 </head>
 <body>
-<a href="j_spring_security_logout"><font size=2>注销</font></a>
 </body>
 </html>
