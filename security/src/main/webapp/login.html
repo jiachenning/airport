@@ -1,0 +1,60 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link type="text/css" rel="stylesheet" href="http://cdn.sencha.io/ext/beta/4.2.0.265/resources/css/ext-all.css">
+<script type="text/javascript" src="http://cdn.sencha.io/ext-4.1.1a-gpl/ext-all.js"></script>
+<script type="text/javascript">
+Ext.onReady(function() {
+
+    Ext.create('Ext.window.Window', {
+        autoShow: true,
+        title: '用户登录',
+        plain: true,
+        bodyPadding: 1,
+        modal: true,
+        constrainHeader: true,
+        layout: 'fit',
+        items: [{
+            xtype: 'form',
+            width: 270,
+            standardSubmit: true,
+            url: 'j_spring_security_check',
+            bodyPadding: 5,
+            frame: true,
+            fieldDefaults: {
+                labelWidth: 60
+            },
+            defaultType: 'textfield',
+            defaults: {
+                allowBlank: false,
+                anchor: '100%'
+            },
+            items: [{
+                fieldLabel: '用户名',
+                name: 'j_username'
+            },{
+                fieldLabel: '密码',
+                name: 'j_password',
+                inputType: 'password'
+            }],
+        }],
+        buttonAlign: 'center',
+        buttons: [{
+            text: '登录',
+            handler: function() {
+                var f = this.up('window').child('form').getForm();
+                if (f.isValid()) {
+                    f.submit();
+                }
+            }
+        }, {
+            text: '重置',
+            handler: function() {
+                this.up('window').child('form').getForm().reset();
+            }
+        }]
+    });
+    
+});
+</script>
+</head>
+</html>

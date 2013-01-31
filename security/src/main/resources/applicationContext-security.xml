@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -15,10 +14,12 @@
 
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 
-		<form-login always-use-default-target="true"
-			default-target-url="/index.html" />
+		<form-login login-page="/login.html"
+			always-use-default-target="true"
+			default-target-url="/index.html"
+			authentication-failure-url="/login.html?loginerror" />
 
-		<logout logout-success-url="/index.html" delete-cookies="JSESSIONID" />
+		<logout logout-success-url="/login.html" delete-cookies="JSESSIONID" />
 
 	</http>
 
