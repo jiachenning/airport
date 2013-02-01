@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.wonders.framework.entity.AbstractPersistable;
 
@@ -27,6 +28,7 @@ public class Role extends AbstractPersistable<Long> {
 	
 	private Set<Authority> authorities = new HashSet<>();
 
+	@NotNull
 	public String getName() {
 		return this.name;
 	}

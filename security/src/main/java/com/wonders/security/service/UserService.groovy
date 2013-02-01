@@ -22,18 +22,18 @@ class UserService implements UserDetailsService {
 		
 //		println "username ===================== $username"
 		
-		def user = userRepository.findByUsername(username)
-		if (!user) {
-			throw new UsernameNotFoundException('user not fount with username [$username]')
-		}
-		
-		def authorities = []
-		user.roles.each { role ->
-			def authority = new SimpleGrantedAuthority(role.name)
-			authorities << authority
-		}
-		
-		new User(user.username, user.password, authorities)
+//		def user = userRepository.findByUsername(username)
+//		if (!user) {
+//			throw new UsernameNotFoundException('user not fount with username [$username]')
+//		}
+//		
+//		def authorities = []
+//		user.roles.each { role ->
+//			def authority = new SimpleGrantedAuthority(role.name)
+//			authorities << authority
+//		}
+//		
+//		new User(user.username, user.password, authorities)
 	}
 	
 }

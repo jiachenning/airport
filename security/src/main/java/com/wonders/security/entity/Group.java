@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.Hibernate;
 
@@ -28,6 +29,7 @@ public class Group extends AbstractTreeNode<Group, Long> {
 	private String name;
 	private boolean enabled;
 	
+	@NotNull
 	public String getName() {
 		return this.name;
 	}
