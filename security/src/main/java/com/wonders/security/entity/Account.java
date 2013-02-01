@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.wonders.framework.entity.AbstractPersistable;
 
@@ -47,7 +46,7 @@ public class Account extends AbstractPersistable<Long> {
 		this.loginName = loginName;
 	}
 
-	@Size(min = 6, max = 8)
+	@NotNull
 	public String getPassword() {
 		return password;
 	}
@@ -83,8 +82,8 @@ public class Account extends AbstractPersistable<Long> {
 	}
 
 	@ManyToMany
-	@JoinTable(name = "sec_user_role", 
-		joinColumns = @JoinColumn(name = "user_id"), 
+	@JoinTable(name = "sec_acc_role", 
+		joinColumns = @JoinColumn(name = "acc_id"), 
 		inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	@OrderBy
@@ -97,8 +96,8 @@ public class Account extends AbstractPersistable<Long> {
 	}
 
 	@ManyToMany
-	@JoinTable(name = "sec_user_auth", 
-		joinColumns = @JoinColumn(name = "user_id"), 
+	@JoinTable(name = "sec_acc_auth", 
+		joinColumns = @JoinColumn(name = "acc_id"), 
 		inverseJoinColumns = @JoinColumn(name = "auth_id")
 	)
 	@OrderBy
