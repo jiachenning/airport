@@ -3,8 +3,33 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <link type="text/css" rel="stylesheet" href="http://cdn.sencha.io/ext/beta/4.2.0.265/resources/css/ext-all.css">
 <script type="text/javascript" src="http://cdn.sencha.io/ext/beta/4.2.0.265/ext-all-dev.js"></script>
+<script type="text/javascript" src="http://cdn.sencha.io/ext/beta/4.2.0.265/locale/ext-lang-zh_CN.js"></script>
 <script type="text/javascript">
 Ext.onReady(function() {
+
+    Ext.define('User', {
+        extend: 'Ext.data.Model',
+
+        fields: [{
+            name: 'id',
+            type: 'int'
+        },{
+            name: 'username',
+            type: 'string'
+        },{
+            name: 'password',
+            type: 'string'
+        },{
+            name: 'age',
+            type: 'int'
+        },{
+            name: 'birthday',
+            type: 'date'
+        },{
+            name: 'enabled',
+            type: 'boolean'
+        }]
+    });
     
     var store = Ext.create('Ext.data.TreeStore', {
         proxy: {
@@ -18,10 +43,24 @@ Ext.onReady(function() {
         }
     });
 
+    var userStore = Ext.create('Ext.data.Store', {
+        model: 'User',
+        proxy: {
+            type: 'ajax',
+            url: 'users',
+            pageParam: 'page.page',
+            limitParam: 'page.size',
+            reader: {
+               type: 'json',
+               root: 'content'
+            }
+        }
+    });
+
     var tree = Ext.create('Ext.tree.Panel', {
         title: '组织机构',
         region: 'west',
-        width: 300,
+        width: 270,
         bodyPadding: 3,
         collapsible: true,
         split: true,
@@ -41,30 +80,63 @@ Ext.onReady(function() {
                     tree.collapseAll();
                 }
             }]
+        },
+        listeners: {
+            itemclick: function(tree, node, item, index, e, eOpts) {
+                if (node.isLeaf()) {
+                    userStore.getProxy().extraParams = {
+                        'search_group.id_eq': node.get('id')
+                    };
+                    userStore.load();
+                }
+            }
         }
     });
 
     var usergrid = Ext.create('Ext.grid.Panel', {
         region: 'center',
         title: '用户列表',
+        selType: 'checkboxmodel',
+        store: userStore,
         columnLines: true,
         columns: [{
-            text: '用户名'
+            text: '用户名',
+            dataIndex: 'username',
+            width: 150
         },{
-            text: '密码'
+            text: '密码',
+            dataIndex: 'password',
+            width: 260
         },{
-            text: '年龄'
+            text: '年龄',
+            dataIndex: 'age'
         },{
-            text: '出生年月'
+            xtype: 'datecolumn',
+            text: '出生年月',
+            dataIndex: 'birthday',
+            format: 'Y年m月d日',
+            width: 180
         },{
+            xtype: 'booleancolumn',
             text: '是否启用',
+            dataIndex: 'enabled',
+            trueText: '是',
+            falseText: '否',
             flex: 1
         }],
-        dockedItems: {
+        dockedItems: [{
+            xtype: 'toolbar',
+            items: [{
+                text: '查询'
+            },'-',{
+                text: '删除'
+            }]
+        },{
             xtype: 'pagingtoolbar',
+            store: userStore,
             displayInfo: true,
             dock: 'bottom'
-        }
+        }]
     });
 
     Ext.create('Ext.container.Viewport', {

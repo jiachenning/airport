@@ -15,7 +15,7 @@ import com.wonders.security.repository.UserRepository
 class UserService implements UserDetailsService {
 	
 	@Inject
-	UserRepository userRepository
+	private UserRepository userRepository
 
 	@Override
 	UserDetails loadUserByUsername(String username) {
