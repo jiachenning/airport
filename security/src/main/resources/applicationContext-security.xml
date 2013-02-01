@@ -9,6 +9,7 @@
 	<global-method-security pre-post-annotations="enabled" />
 
 	<http pattern="/login.html" security="none" />
+    <http pattern="/extjs/**"   security="none" />
 
 	<http use-expressions="true">
 
