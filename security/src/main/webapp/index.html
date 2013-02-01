@@ -45,6 +45,7 @@ Ext.onReady(function() {
 
     var userStore = Ext.create('Ext.data.Store', {
         model: 'User',
+        pageSize: 2,
         proxy: {
             type: 'ajax',
             url: 'users',
@@ -88,7 +89,7 @@ Ext.onReady(function() {
                     userStore.getProxy().extraParams = {
                         'search_group.id_eq': node.get('id')
                     };
-                    userStore.load();
+                    userStore.loadPage(1);
                 }
             }
         }
