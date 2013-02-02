@@ -3,7 +3,6 @@ Ext.define('security.view.account.AccountGrid', {
     alias: 'widget.accountgrid',
 
     title: '账号列表',
-    frame: true,
 
     initComponent: function(arguments) {
     	

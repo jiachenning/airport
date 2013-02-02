@@ -1,6 +1,6 @@
 Ext.define('security.view.Viewport', {
     extend: 'Ext.container.Viewport',
-    requires: ['Ext.ux.TabCloseMenu'],
+    requires: ['Ext.ux.TabCloseMenu', 'security.view.user.UserTab'],
 
     layout: 'border',
     items: [{
@@ -25,7 +25,7 @@ Ext.define('security.view.Viewport', {
         xtype: 'tabpanel',
         plain: true,
         items: {
-            xtype: 'usergrid',
+            xtype: 'usertab',
             closable: true
         },
         plugins: [{

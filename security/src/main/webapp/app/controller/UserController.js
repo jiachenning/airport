@@ -1,9 +1,9 @@
 Ext.define('security.controller.UserController', {
     extend: 'Ext.app.Controller',
     
-    stores: ['UserStore'],
+    stores: ['UserStore', 'AccountStore'],
 
-    views: ['user.UserGrid', 'user.UserWin'],
+    views: ['user.UserGrid', 'user.UserWin', 'account.AccountGrid'],
     
     refs: [{
     	ref: 'userGrid',
