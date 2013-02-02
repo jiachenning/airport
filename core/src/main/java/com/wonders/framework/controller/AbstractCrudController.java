@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,13 @@ public abstract class AbstractCrudController<T, ID extends Serializable> {
 	protected @ResponseBody
 	T findOne(@PathVariable ID id) {
 		return getRepository().findOne(id);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	protected @ResponseBody
+	String add(@RequestBody T entity) {
+		getRepository().save(entity);
+		return "{success: true}";
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
