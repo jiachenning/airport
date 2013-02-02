@@ -6,14 +6,14 @@ Ext.define('security.view.user.UserGrid', {
     title: '用户通信录',
 
     initComponent: function(arguments) {
-    	
+        
         var me = this;
 
         Ext.applyIf(me, {
             store: 'UserStore',
             columnLines: true,
             columns: [{
-            	xtype: 'rownumberer'
+                xtype: 'rownumberer'
             },{
                 text: '用户名',
                 dataIndex: 'username'
@@ -50,11 +50,11 @@ Ext.define('security.view.user.UserGrid', {
                     width: 200,
                     store: Ext.StoreMgr.lookup('UserStore')
                 },'-',{
-                	text: '添加',
-                	tooltip: '添加'
+                    text: '添加',
+                    tooltip: '添加'
                 },'-',{
-                	text: '维护用户账号',
-                	tooltip: '维护用户账号'
+                    text: '维护用户账号',
+                    tooltip: '维护用户账号'
                 }]
             },{
                 xtype: 'pagingtoolbar',

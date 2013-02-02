@@ -5,14 +5,14 @@ Ext.define('security.view.account.AccountGrid', {
     title: '账号列表',
 
     initComponent: function(arguments) {
-    	
+        
         var me = this;
 
         Ext.applyIf(me, {
-        	store: 'AccountStore',
+            store: 'AccountStore',
             columnLines: true,
             columns: [{
-            	xtype: 'rownumberer'
+                xtype: 'rownumberer'
             },{
                 text: '登录名',
                 dataIndex: 'loginName',
@@ -22,7 +22,7 @@ Ext.define('security.view.account.AccountGrid', {
                 dataIndex: 'password',
                 width: 300
             },{
-            	xtype: 'booleancolumn',
+                xtype: 'booleancolumn',
                 text: '是否启用',
                 trueText: '是',
                 falseText: '否',
