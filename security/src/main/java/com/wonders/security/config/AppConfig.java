@@ -9,7 +9,6 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaDialect;
@@ -27,8 +26,8 @@ import com.wonders.framework.repository.MyRepositoryFactoryBean;
 @ComponentScan(
 	basePackages = "com.wonders.security",
 	excludeFilters = {
-		@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class),
-		@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
+		@ComponentScan.Filter(Controller.class),
+		@ComponentScan.Filter(Configuration.class)
 	}
 )
 @EnableJpaRepositories(

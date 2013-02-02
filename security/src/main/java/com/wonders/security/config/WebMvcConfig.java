@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,9 @@ import com.wonders.framework.utils.PageableArgumentResolver;
 @ComponentScan(
 	basePackages = "com.wonders.security.**.controller",
 	useDefaultFilters = false, 
-	includeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class) }
+	includeFilters = { 
+		@ComponentScan.Filter(Controller.class)
+	}
 )
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {

@@ -39,11 +39,7 @@ public abstract class AbstractCrudController<T, ID extends Serializable> {
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	protected @ResponseBody
 	String delete(@PathVariable ID id) {
-		try {
-			getRepository().delete(id);
-		} catch (Exception e) {
-			return "{success: false}";
-		}
+		getRepository().delete(id);
 		return "{success: true}";
 	}
 	
