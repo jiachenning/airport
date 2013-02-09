@@ -16,13 +16,6 @@ Ext.define('security.model.Account', {
     }],
     proxy: {
         type: 'rest',
-        url: 'accounts',
-        startParam: undefined,
-        pageParam: 'page.page',
-        limitParam: 'page.size',
-        reader: {
-           root: 'content',
-           totalProperty: 'totalElements'
-        }
+        url: 'accounts/findByUserId',
     }
 });

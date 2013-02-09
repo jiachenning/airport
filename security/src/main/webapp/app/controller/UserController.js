@@ -9,14 +9,20 @@ Ext.define('security.controller.UserController', {
         ref: 'userGrid',
         selector: 'usergrid'
     },{
+        ref: 'accountGrid',
+        selector: 'accountgrid'
+    },{
        ref: 'userWin',
        selector: 'userwin'
     }],
     
     init: function() {
         this.control({
-            'userwin button[text="保存"]': {
-                click: this.saveUser
+            'usergrid': {
+                itemclick: this.onUserGridItemClick
+            },
+            'usergrid actioncolumn': {
+                click: this.doAction
             },
             'usergrid button[text="添加"]': {
                 click: this.showUserWin
@@ -24,35 +30,21 @@ Ext.define('security.controller.UserController', {
             'usergrid button[text="维护用户账号"]': {
                 click: this.matainUserAccount
             },
-            'usergrid actioncolumn': {
-                click: this.doAction
+            'userwin button[text="保存"]': {
+                click: this.saveUser
             }
         });
     },
     
-    showUserWin: function(btn) {
-        Ext.widget('userwin').show(btn);
-    },
-    
-    matainUserAccount: function(btn) {
-        Ext.example.msg('提示', btn.text + "功能尚未实现!!");
-    },
-    
-    saveUser: function(btn) {
-        var win = this.getUserWin(),
-            f = win.child('form').getForm();
+    onUserGridItemClick: function(grid, record, item, index, e, eOpts) {
+
+        var userId = record.get('id'),
+            accountStore = this.getAccountGrid().getStore();
+
+        accountStore.getProxy().setExtraParam('userId', userId);
+
+        accountStore.load();
         
-        if (f.isValid()) {
-            var user = Ext.create('security.model.User', f.getValues())
-                userGrid = this.getUserGrid();
-            
-            user.save({
-                success: function() {
-                    win.close();
-                    userGrid.getStore().loadPage(1);
-                }
-            });
-        }
     },
     
     doAction: function(grid, cell, row, col, e) {
@@ -78,6 +70,34 @@ Ext.define('security.controller.UserController', {
                 });
             }
         }, this);
+    },
+
+    showUserWin: function(btn) {
+        Ext.widget('userwin').show(btn);
+    },
+
+    matainUserAccount: function(btn) {
+        var tabpanel = Ext.ComponentQuery.query('tabpanel').pop(),
+            tab = tabpanel.getActiveTab();
+
+        tab.removeAll();
+    },
+
+    saveUser: function(btn) {
+        var win = this.getUserWin(),
+            f = win.child('form').getForm();
+        
+        if (f.isValid()) {
+            var user = Ext.create('security.model.User', f.getValues())
+                userGrid = this.getUserGrid();
+            
+            user.save({
+                success: function() {
+                    win.close();
+                    userGrid.getStore().loadPage(1);
+                }
+            });
+        }
     }
 
 });

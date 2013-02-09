@@ -1,7 +1,10 @@
 Ext.define('security.view.user.UserGrid', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.usergrid',
-    requires: ['Ext.ux.form.SearchField'],
+    requires: [
+        'Ext.ux.form.SearchField',
+        'Ext.ux.SlidingPager'
+    ],
 
     title: '用户通信录',
 
@@ -60,7 +63,8 @@ Ext.define('security.view.user.UserGrid', {
                 xtype: 'pagingtoolbar',
                 store: 'UserStore',
                 displayInfo: true,
-                dock: 'bottom'
+                dock: 'bottom',
+                plugins: Ext.create('Ext.ux.SlidingPager', {})
             }]
         });
 
