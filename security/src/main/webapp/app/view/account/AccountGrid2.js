@@ -1,15 +1,16 @@
-Ext.define('security.view.account.AccountGrid', {
+Ext.define('security.view.account.AccountGrid2', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.accountgrid',
+    alias: 'widget.accountgrid2',
 
     title: '用户账号',
 
     initComponent: function(arguments) {
         
-        var me = this;
+        var me = this,
+        	store = Ext.create('security.store.AccountStore');
 
         Ext.applyIf(me, {
-            store: 'AccountStore',
+            store: store,
             columnLines: true,
             columns: [{
                 xtype: 'rownumberer'
@@ -18,16 +19,19 @@ Ext.define('security.view.account.AccountGrid', {
                 dataIndex: 'loginName',
                 width: 150
             },{
-                text: '密码',
-                dataIndex: 'password',
-                width: 200
-            },{
                 xtype: 'booleancolumn',
                 text: '是否启用',
                 trueText: '是',
                 falseText: '否',
                 dataIndex: 'enabled',
                 flex: 1
+            }],
+            dockedItems: [{
+                xtype: 'toolbar',
+                items: [{
+                    text: '添加',
+                    tooltip: '添加'
+                }]
             }]
         });
 

@@ -3,7 +3,7 @@ Ext.define('security.controller.UserController', {
     
     stores: ['UserStore', 'AccountStore'],
 
-    views: ['user.UserGrid', 'user.UserWin', 'account.AccountGrid'],
+    views: ['user.UserTab'],
     
     refs: [{
         ref: 'userGrid',
@@ -28,7 +28,7 @@ Ext.define('security.controller.UserController', {
                 click: this.showUserWin
             },
             'usergrid button[text="维护用户账号"]': {
-                click: this.matainUserAccount
+                click: this.maintainUserAccount
             },
             'userwin button[text="保存"]': {
                 click: this.saveUser
@@ -39,19 +39,18 @@ Ext.define('security.controller.UserController', {
     onUserGridItemClick: function(grid, record, item, index, e, eOpts) {
 
         var userId = record.get('id'),
-            accountStore = this.getAccountGrid().getStore();
+            accountStore = this.getStore('AccountStore');
 
         accountStore.getProxy().setExtraParam('userId', userId);
 
         accountStore.load();
-        
     },
     
-    doAction: function(grid, cell, row, col, e) {
+    doAction: function(grid, cell, row, col, e, eOpts) {
         var rec = grid.getStore().getAt(row);
         var action = e.target.getAttribute('class');
         if (action.indexOf("x-action-col-0") != -1) { // edit user
-            Ext.example.msg('提示', '删除功能尚未实现!!');
+            this.showUserWin(e.target, e, eOpts,rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete user
             this.deleteUser(rec.get('id'));
         }
@@ -72,15 +71,28 @@ Ext.define('security.controller.UserController', {
         }, this);
     },
 
-    showUserWin: function(btn) {
-        Ext.widget('userwin').show(btn);
+    showUserWin: function(btn, e, eOpts, record) {
+        var win = Ext.getCmp('userwin');
+        if (!win) {
+            win = Ext.widget('userwin');
+        }
+    	win.show(btn, function() {
+            var f = win.child('form').getForm();
+            if (record) {
+                f.loadRecord(record);
+            } else {
+                f.reset();
+            }
+        });
     },
 
-    matainUserAccount: function(btn) {
-        var tabpanel = Ext.ComponentQuery.query('tabpanel').pop(),
-            tab = tabpanel.getActiveTab();
-
-        tab.removeAll();
+    maintainUserAccount: function(btn) {
+    	this.getController('UserController2').init();
+        var tabs = Ext.ComponentQuery.query('tabpanel').pop();
+        tabs.setActiveTab(tabs.add({
+            xtype: 'usertab2',
+            closable: true
+        }));
     },
 
     saveUser: function(btn) {

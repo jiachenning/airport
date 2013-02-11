@@ -2,11 +2,13 @@ Ext.define('security.view.user.UserWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.userwin',
     
+    id: 'userwin',
     title: '维护用户通信录',
     modal: true,
     constrainHeader: true,
     plain: true,
     bodyPadding: 1,
+    closeAction: 'hide',
     width: 300,
     layout: 'fit',
     

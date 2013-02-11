@@ -1,19 +1,17 @@
-Ext.define('security.view.user.UserGrid', {
+Ext.define('security.view.user.UserGrid2', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.usergrid',
-    requires: [
-        'Ext.ux.form.SearchField',
-        'security.view.user.UserWin'
-    ],
+    alias: 'widget.usergrid2',
+    requires: ['Ext.ux.form.SearchField'],
 
     title: '用户通信录',
 
     initComponent: function(arguments) {
         
-        var me = this;
+        var me = this,
+        	store = Ext.create('security.store.UserStore');
 
         Ext.applyIf(me, {
-            store: 'UserStore',
+            store: store,
             columnLines: true,
             columns: [{
                 xtype: 'rownumberer'
@@ -32,18 +30,6 @@ Ext.define('security.view.user.UserGrid', {
                 text: '用户类型',
                 dataIndex: 'userType',
                 flex: 1
-            },{
-                xtype: 'actioncolumn',
-                text: '操作',
-                align: 'center',
-                width: 50,
-                items: [{
-                    icon: 'images/cog_edit.png',
-                    tooltip: '编辑'
-                },{
-                    icon: 'images/delete.gif',
-                    tooltip: '删除'
-                }]
             }],
             dockedItems: [{
                 xtype: 'toolbar',
@@ -51,17 +37,11 @@ Ext.define('security.view.user.UserGrid', {
                     xtype: 'searchfield',
                     paramName: 'search_username_like',
                     width: 200,
-                    store: Ext.StoreMgr.lookup('UserStore')
-                },'-',{
-                    text: '添加',
-                    tooltip: '添加'
-                },'-',{
-                    text: '维护用户账号',
-                    tooltip: '维护用户账号'
+                    store: store
                 }]
             },{
                 xtype: 'pagingtoolbar',
-                store: 'UserStore',
+                store: store,
                 displayInfo: true,
                 dock: 'bottom'
             }]
