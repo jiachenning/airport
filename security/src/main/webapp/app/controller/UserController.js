@@ -1,7 +1,7 @@
 Ext.define('security.controller.UserController', {
     extend: 'Ext.app.Controller',
     
-    stores: ['UserStore', 'AccountStore'],
+    stores: ['User', 'Account'],
 
     views: ['user.UserTab'],
     
@@ -19,7 +19,7 @@ Ext.define('security.controller.UserController', {
     init: function() {
         this.control({
             'usergrid': {
-                itemclick: this.onUserGridItemClick
+                selectionchange: this.onUserGridSelectionChange
             },
             'usergrid actioncolumn': {
                 click: this.doAction
@@ -36,19 +36,23 @@ Ext.define('security.controller.UserController', {
         });
     },
     
-    onUserGridItemClick: function(grid, record, item, index, e, eOpts) {
+    onUserGridSelectionChange: function(model, selected, eOpts) {
 
-        var userId = record.get('id'),
-            accountStore = this.getStore('AccountStore');
+        if (selected && selected.length) {
+        	
+            var record = selected[0],
+                userId = record.get('id'),
+                accountStore = this.getAccountStore();
 
-        accountStore.getProxy().setExtraParam('userId', userId);
-
-        accountStore.load();
+            accountStore.getProxy().setExtraParam('userId', userId);
+            accountStore.load();
+        }
     },
     
     doAction: function(grid, cell, row, col, e, eOpts) {
-        var rec = grid.getStore().getAt(row);
-        var action = e.target.getAttribute('class');
+        var rec = grid.getStore().getAt(row),
+        	action = e.target.getAttribute('class');
+        
         if (action.indexOf("x-action-col-0") != -1) { // edit user
             this.showUserWin(e.target, e, eOpts,rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete user
@@ -59,12 +63,12 @@ Ext.define('security.controller.UserController', {
     deleteUser: function(id) {
         Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
-                var userGrid = this.getUserGrid();
+                var userStore = this.getUserStore();
                 Ext.create('security.model.User', {
                     id: id
                 }).destroy({
                     success: function() {
-                        userGrid.getStore().loadPage(1);
+                    	userStore.loadPage(1);
                     }
                 });
             }
@@ -101,12 +105,12 @@ Ext.define('security.controller.UserController', {
         
         if (f.isValid()) {
             var user = Ext.create('security.model.User', f.getValues())
-                userGrid = this.getUserGrid();
+                userStore = this.getUserStore();
             
             user.save({
                 success: function() {
-                    win.close();
-                    userGrid.getStore().loadPage(1);
+                    win.hide();
+                    userStore.loadPage(1);
                 }
             });
         }

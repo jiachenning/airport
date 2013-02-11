@@ -46,8 +46,16 @@ Ext.define('security.view.user.UserWin', {
                     format: 'Y-m-d',
                     value: new Date()
                 },{
+                    xtype: 'combobox',
                     fieldLabel: '用户类型',
                     name: 'userType',
+                    queryMode: 'local',
+                    forceSelection: true,
+                    store: [
+                        ['NORMAL', 'NORMAL'],
+                        ['ADVINCED', 'ADVINCED'],
+                        ['ADMINISTRATOR', 'ADMINISTRATOR']
+                    ],
                     value: 'NORMAL'
                 }]
             }],

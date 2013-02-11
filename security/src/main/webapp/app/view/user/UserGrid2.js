@@ -8,7 +8,7 @@ Ext.define('security.view.user.UserGrid2', {
     initComponent: function(arguments) {
         
         var me = this,
-        	store = Ext.create('security.store.UserStore');
+        	store = Ext.create('security.store.User');
 
         Ext.applyIf(me, {
             store: store,

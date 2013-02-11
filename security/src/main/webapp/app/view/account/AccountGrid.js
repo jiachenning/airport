@@ -9,7 +9,7 @@ Ext.define('security.view.account.AccountGrid', {
         var me = this;
 
         Ext.applyIf(me, {
-            store: 'AccountStore',
+            store: 'Account',
             columnLines: true,
             columns: [{
                 xtype: 'rownumberer'

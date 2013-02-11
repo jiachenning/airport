@@ -13,7 +13,7 @@ Ext.define('security.view.user.UserGrid', {
         var me = this;
 
         Ext.applyIf(me, {
-            store: 'UserStore',
+            store: 'User',
             columnLines: true,
             columns: [{
                 xtype: 'rownumberer'
@@ -51,7 +51,7 @@ Ext.define('security.view.user.UserGrid', {
                     xtype: 'searchfield',
                     paramName: 'search_username_like',
                     width: 200,
-                    store: Ext.StoreMgr.lookup('UserStore')
+                    store: Ext.StoreMgr.lookup('User')
                 },'-',{
                     text: '添加',
                     tooltip: '添加'
@@ -61,7 +61,7 @@ Ext.define('security.view.user.UserGrid', {
                 }]
             },{
                 xtype: 'pagingtoolbar',
-                store: 'UserStore',
+                store: 'User',
                 displayInfo: true,
                 dock: 'bottom'
             }]

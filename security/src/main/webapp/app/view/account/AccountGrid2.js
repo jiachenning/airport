@@ -7,7 +7,7 @@ Ext.define('security.view.account.AccountGrid2', {
     initComponent: function(arguments) {
         
         var me = this,
-        	store = Ext.create('security.store.AccountStore');
+        	store = Ext.create('security.store.Account');
 
         Ext.applyIf(me, {
             store: store,
@@ -25,6 +25,18 @@ Ext.define('security.view.account.AccountGrid2', {
                 falseText: '否',
                 dataIndex: 'enabled',
                 flex: 1
+            },{
+                xtype: 'actioncolumn',
+                text: '操作',
+                align: 'center',
+                width: 50,
+                items: [{
+                    icon: 'images/cog_edit.png',
+                    tooltip: '编辑'
+                },{
+                    icon: 'images/delete.gif',
+                    tooltip: '删除'
+                }]
             }],
             dockedItems: [{
                 xtype: 'toolbar',
