@@ -1,4 +1,4 @@
-Ext.example = function() {
+Ext.example = function(){
     var msgCt;
 
     function createBox(t, s){
@@ -12,7 +12,7 @@ Ext.example = function() {
             var s = Ext.String.format.apply(String, Array.prototype.slice.call(arguments, 1));
             var m = Ext.DomHelper.append(msgCt, createBox(title, s), true);
             m.hide();
-            m.slideIn('t').ghost("t", { delay: 1500, remove: true});
+            m.slideIn('t').ghost("t", { delay: 2000, remove: true});
         },
 
         init : function(){
@@ -22,6 +22,10 @@ Ext.example = function() {
         }
     };
 }();
+
+Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
+	Ext.example.msg('系统异常', response.responseText);
+});
 
 Ext.Loader.setPath('Ext.ux', 'extjs/ux');
 

@@ -1,14 +1,19 @@
 package com.wonders.framework.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,5 +67,21 @@ public abstract class AbstractCrudController<T, ID extends Serializable> {
 		}
 		return searchParams;
 	}
-
+	
+	@ExceptionHandler
+	protected void handleException(HttpServletResponse response, Exception ex) {
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
+		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.println(String.format("{success: false, errorMsg: '%s'}", ex.getMessage()));
+			writer.flush();
+		} catch (IOException e) {
+			
+		}
+	}
+	
 }
