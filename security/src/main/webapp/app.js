@@ -23,6 +23,8 @@ Ext.example = function(){
     };
 }();
 
+Ext.onReady(Ext.example.init, Ext.example);
+
 Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
 	Ext.example.msg('系统异常', response.responseText);
 });

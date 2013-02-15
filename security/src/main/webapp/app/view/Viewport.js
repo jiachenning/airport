@@ -7,7 +7,7 @@ Ext.define('security.view.Viewport', {
         region: 'north',
         xtype: 'toolbar',
         margin: '0 0 4 0',
-        items: ['->', {
+        items: [{
             text: '注销',
             handler: function() {
                 location.replace('j_spring_security_logout');

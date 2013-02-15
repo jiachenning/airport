@@ -18,7 +18,7 @@
 
 		<form-login login-page="/login.html"
 			always-use-default-target="true"
-			default-target-url="/index.html"
+			default-target-url="/index.html?theme=neptune"
 			authentication-failure-url="/login.html?loginerror" />
 
 		<logout logout-success-url="/login.html" delete-cookies="JSESSIONID" />
