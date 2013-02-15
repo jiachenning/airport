@@ -42,9 +42,16 @@ public abstract class AbstractCrudController<T, ID extends Serializable> {
 		return getRepository().findOne(id);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "{id}", method = RequestMethod.POST)
 	protected @ResponseBody
 	String add(@RequestBody T entity) {
+		getRepository().save(entity);
+		return "{success: true}";
+	}
+	
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	protected @ResponseBody
+	String update(@RequestBody T entity) {
 		getRepository().save(entity);
 		return "{success: true}";
 	}
