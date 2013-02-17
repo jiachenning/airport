@@ -5,6 +5,9 @@ Ext.define('security.model.Account', {
         name: 'id',
         type: 'int'
     },{
+        name: 'version',
+        type: 'int'
+    },{
         name: 'loginName',
         type: 'string'
     },{

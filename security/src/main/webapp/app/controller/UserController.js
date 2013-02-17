@@ -54,7 +54,7 @@ Ext.define('security.controller.UserController', {
         	action = e.target.getAttribute('class');
         
         if (action.indexOf("x-action-col-0") != -1) { // edit user
-            this.showUserWin(e.target, e, eOpts,rec);
+            this.showUserWin(e.target, e, eOpts, rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete user
             this.deleteUser(rec.get('id'));
         }
@@ -75,24 +75,23 @@ Ext.define('security.controller.UserController', {
         }, this);
     },
 
-    showUserWin: function(btn, e, eOpts, record) {
+    showUserWin: function(btn, e, eOpts, rec) {
         var win = Ext.getCmp('userwin');
         if (!win) {
             win = Ext.widget('userwin');
         }
     	win.show(btn, function() {
             var f = win.child('form').getForm();
-            if (record) {
-                f.loadRecord(record);
-            } else {
-                f.reset();
+            if (!rec) {
+                rec = Ext.create('security.model.User');
             }
+            f.loadRecord(rec);
         });
     },
 
     maintainUserAccount: function(btn) {
     	this.getController('UserController2').init();
-        var tabs = Ext.ComponentQuery.query('tabpanel').pop();
+        var tabs = security.getApplication().getTabs();
         tabs.setActiveTab(tabs.add({
             xtype: 'usertab2',
             closable: true
@@ -104,11 +103,12 @@ Ext.define('security.controller.UserController', {
             f = win.child('form').getForm();
         
         if (f.isValid()) {
-            var user = Ext.create('security.model.User', f.getValues())
-                userStore = this.getUserStore();
+            f.updateRecord();
+            var userStore = this.getUserStore(),
+                user = f.getRecord();
             
             user.save({
-                success: function() {
+                success: function(user) {
                     win.hide();
                     userStore.loadPage(1);
                 }

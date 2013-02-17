@@ -43,8 +43,7 @@ Ext.define('security.view.user.UserWin', {
                     xtype: 'datefield',
                     fieldLabel: '出生年月',
                     name: 'birthday',
-                    format: 'Y-m-d',
-                    value: new Date()
+                    format: 'Y-m-d'
                 },{
                     xtype: 'combobox',
                     fieldLabel: '用户类型',
@@ -55,8 +54,7 @@ Ext.define('security.view.user.UserWin', {
                         ['NORMAL', 'NORMAL'],
                         ['ADVINCED', 'ADVINCED'],
                         ['ADMINISTRATOR', 'ADMINISTRATOR']
-                    ],
-                    value: 'NORMAL'
+                    ]
                 }]
             }],
             buttonAlign: 'center',

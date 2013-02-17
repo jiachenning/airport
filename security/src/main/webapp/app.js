@@ -29,12 +29,16 @@ Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
 	Ext.example.msg('系统异常', response.responseText);
 });
 
-Ext.Loader.setPath('Ext.ux', 'extjs/ux');
-
 Ext.application({
+    
+    refs: [{
+        ref: 'tabs',
+        selector: 'tabpanel'
+    }],
 
     controllers: ['UserController'],
     
     name: 'security',
+    paths: {'Ext.ux': 'extjs/ux'},
     autoCreateViewport: true
 });

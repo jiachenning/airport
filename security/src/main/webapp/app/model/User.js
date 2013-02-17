@@ -5,6 +5,9 @@ Ext.define('security.model.User', {
         name: 'id',
         type: 'int'
     },{
+        name: 'version',
+        type: 'int'
+    },{
         name: 'username',
         type: 'string'
     },{
@@ -12,10 +15,12 @@ Ext.define('security.model.User', {
         type: 'int'
     },{
         name: 'birthday',
-        type: 'date'
+        type: 'date',
+        defaultValue: new Date()
     },{
         name: 'userType',
-        type: 'string'
+        type: 'string',
+        defaultValue: 'NORMAL'
     }],
     proxy: {
         type: 'rest',
