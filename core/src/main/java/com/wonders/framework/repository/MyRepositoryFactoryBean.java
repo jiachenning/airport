@@ -39,11 +39,8 @@ public class MyRepositoryFactoryBean<R extends JpaRepository<T, I>, T, I extends
 		}
 
 		protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
-
-			// The RepositoryMetadata can be safely ignored, it is used by the
-			// JpaRepositoryFactory
-			// to check for QueryDslJpaRepository's which is out of scope.
 			return MyRepository.class;
 		}
+		
 	}
 }
