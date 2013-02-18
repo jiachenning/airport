@@ -5,9 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wonders.framework.controller.AbstractCrudController;
@@ -27,9 +27,9 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 		return groupRepository;
 	}
 	
-	@RequestMapping(value = "findByParentId", method = RequestMethod.GET)
+	@RequestMapping(value = "findByParentId/{parentId}", method = RequestMethod.GET)
 	protected @ResponseBody
-	List<Group> findByParentId(@RequestParam("node") long parentId) {
+	List<Group> findByParentId(@PathVariable long parentId) {
 		return groupRepository.findByParentId(parentId);
 	}
 

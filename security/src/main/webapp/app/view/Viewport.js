@@ -15,8 +15,8 @@ Ext.define('security.view.Viewport', {
         }]
     },{
         region: 'west',
+        xtype: 'grouptree',
         width: 270,
-        title: '系统功能导航栏',
         margin: '0 0 0 4',
         split: true,
         collapsible: true
