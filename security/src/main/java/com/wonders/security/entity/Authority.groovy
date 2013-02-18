@@ -8,7 +8,7 @@ import javax.persistence.Table
 import javax.persistence.Transient
 import javax.validation.constraints.NotNull
 
-import org.hibernate.Hibernate;
+import org.hibernate.Hibernate
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
