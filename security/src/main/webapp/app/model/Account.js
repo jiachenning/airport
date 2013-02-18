@@ -16,9 +16,12 @@ Ext.define('security.model.Account', {
     },{
         name: 'enabled',
         type: 'boolean'
+    },{
+        name: 'group.name',
+        type: 'string'
     }],
     proxy: {
         type: 'rest',
-        url: 'accounts/findByUserId',
+        url: 'accounts/findByUserId'
     }
 });

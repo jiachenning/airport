@@ -23,7 +23,6 @@ class Group extends AbstractTreeNode<Group, Long> {
 	
 	boolean enabled
 	
-	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
 	Group getParent() {
@@ -49,7 +48,7 @@ class Group extends AbstractTreeNode<Group, Long> {
 	@Transient
 	boolean isLeaf() {
 		if (!Hibernate.isInitialized(getChildren())) {
-			false
+			return false
 		}
 		super.isLeaf()
 	}

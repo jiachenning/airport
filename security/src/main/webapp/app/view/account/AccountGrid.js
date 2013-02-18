@@ -18,6 +18,10 @@ Ext.define('security.view.account.AccountGrid', {
                 dataIndex: 'loginName',
                 width: 150
             },{
+                text: '所属机构',
+                dataIndex: 'group.name',
+                width: 150
+            },{
                 text: '密码',
                 dataIndex: 'password',
                 width: 200

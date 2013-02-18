@@ -20,6 +20,10 @@ Ext.define('security.view.account.AccountGrid2', {
                 dataIndex: 'loginName',
                 width: 150
             },{
+                text: '所属机构',
+                dataIndex: 'group.name',
+                width: 150
+            },{
                 xtype: 'booleancolumn',
                 text: '是否启用',
                 trueText: '是',
