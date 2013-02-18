@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable
 
 @Entity
 @Table(name = "sec_role")
-public class Role extends AbstractPersistable<Long> {
+class Role extends AbstractPersistable<Long> {
 	
 	@Version
 	int version

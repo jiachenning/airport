@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable
 
 @Entity
 @Table(name = "sec_account")
-public class Account extends AbstractPersistable<Long> {
+class Account extends AbstractPersistable<Long> {
 	
 	@Version
 	int version

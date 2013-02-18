@@ -14,7 +14,7 @@ import com.wonders.framework.entity.AbstractTreeNode
 
 @Entity
 @Table(name = "sec_authority")
-public class Authority extends AbstractTreeNode<Authority, Long> {
+class Authority extends AbstractTreeNode<Authority, Long> {
 	
 	@NotNull
 	String name

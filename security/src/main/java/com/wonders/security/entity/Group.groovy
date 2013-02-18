@@ -16,7 +16,7 @@ import com.wonders.framework.entity.AbstractTreeNode
 
 @Entity
 @Table(name = "sec_group")
-public class Group extends AbstractTreeNode<Group, Long> {
+class Group extends AbstractTreeNode<Group, Long> {
 	
 	@NotNull
 	String name
