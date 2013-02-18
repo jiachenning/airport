@@ -1,7 +1,10 @@
 Ext.define('security.view.user.UserTab', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.usertab',
-    requires: ['security.view.user.UserGrid', 'security.view.account.AccountGrid'],
+    requires: [
+        'security.view.user.UserGrid', 
+        'security.view.account.AccountGrid'
+    ],
     
     title: '用户通信录维护',
     layout: {
@@ -30,4 +33,5 @@ Ext.define('security.view.user.UserTab', {
         
         me.callParent(arguments);
     }
+    
 });

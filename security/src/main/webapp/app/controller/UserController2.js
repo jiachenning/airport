@@ -14,6 +14,9 @@ Ext.define('security.controller.UserController2', {
             'usergrid2': {
                 selectionchange: this.onUserGrid2SelectionChange
             },
+            'accountgrid2 button[text="添加"]': {
+                click: this.showAccountWin
+            },
             'accountgrid2 actioncolumn': {
                 click: this.doAction
             },
@@ -38,12 +41,25 @@ Ext.define('security.controller.UserController2', {
     	var rec = grid.getStore().getAt(row),
         	action = e.target.getAttribute('class');
         
-        if (action.indexOf("x-action-col-0") != -1) { // edit user
-            //this.showUserWin(e.target, e, eOpts,rec);
-        	Ext.example.msg('提示', '此功能还未实现!');
-        } else if (action.indexOf("x-action-col-1") != -1) { // delete user
+        if (action.indexOf("x-action-col-0") != -1) { // edit account
+            this.showAccountWin(e.target, e, eOpts, rec);
+        } else if (action.indexOf("x-action-col-1") != -1) { // delete account
             this.deleteAccount(rec.get('id'));
         }
+    },
+    
+    showAccountWin: function(btn, e, eOpts, rec) {
+        var win = Ext.getCmp('accountwin');
+        if (!win) {
+            win = Ext.widget('accountwin');
+        }
+    	win.show(btn, function() {
+            var f = win.child('form').getForm();
+            if (!rec) {
+                rec = Ext.create('security.model.Account');
+            }
+            f.loadRecord(rec);
+        });
     },
     
     deleteAccount: function(id) {

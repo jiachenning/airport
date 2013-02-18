@@ -1,6 +1,7 @@
 Ext.define('security.view.account.AccountGrid2', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.accountgrid2',
+    requires: ['security.view.account.AccountWin'],
 
     title: '用户账号',
 
