@@ -387,6 +387,7 @@
     <profile>
       <id>oracle</id>
       <activation>
+        <activeByDefault>true</activeByDefault>
         <property>
           <name>database</name>
           <value>oracle</value>
@@ -398,9 +399,9 @@
         <jdbc.driver.version>11.2.0.3</jdbc.driver.version>
 
         <jdbc.db.driver>oracle.jdbc.driver.OracleDriver</jdbc.db.driver>
-        <jdbc.db.url>jdbc:oracle:thin:@localhost:1521:${project.artifactId}:XE</jdbc.db.url>
-        <jdbc.db.username>oracle</jdbc.db.username>
-        <jdbc.db.password>oracle</jdbc.db.password>
+        <jdbc.db.url>jdbc:oracle:thin:@10.1.43.201:1521:orcl</jdbc.db.url>
+        <jdbc.db.username>orcl</jdbc.db.username>
+        <jdbc.db.password>wonders</jdbc.db.password>
       </properties>
     </profile>
 
