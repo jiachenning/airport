@@ -179,7 +179,6 @@
       <artifactId>spring-test-dbunit</artifactId>
     </dependency>
     <!-- test end -->
-
   </dependencies>
   
   <build>
