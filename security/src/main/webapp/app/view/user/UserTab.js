@@ -20,6 +20,9 @@ Ext.define('security.view.user.UserTab', {
         Ext.applyIf(me, {
             items: [{
                 xtype: 'usergrid',
+                operable: true,
+                pagable: true,
+                hasToolbar: true,
                 flex: 2
             },{
                 xtype: 'splitter',

@@ -1,11 +1,9 @@
 Ext.define('security.controller.UserController2', {
     extend: 'Ext.app.Controller',
-    
-    views: ['user.UserTab2'],
 
     refs: [{
-        ref: 'accountGrid2',
-        selector: 'accountgrid2'
+        ref: 'accountGrid',
+        selector: 'accountgrid'
     }],
     
     init: function() {
@@ -14,10 +12,10 @@ Ext.define('security.controller.UserController2', {
             'usergrid2': {
                 selectionchange: this.onUserGrid2SelectionChange
             },
-            'accountgrid2 button[text="添加"]': {
+            'accountgrid button[text="添加"]': {
                 click: this.showAccountWin
             },
-            'accountgrid2 actioncolumn': {
+            'accountgrid actioncolumn': {
                 click: this.doAction
             },
         });
@@ -29,7 +27,7 @@ Ext.define('security.controller.UserController2', {
         	
             var record = selected[0],
                 userId = record.get('id'),
-                store = this.getAccountGrid2().getStore();
+                store = this.getAccountGrid().getStore();
             
             store.getProxy().setExtraParam('userId', userId);
             store.load();
@@ -51,7 +49,7 @@ Ext.define('security.controller.UserController2', {
     showAccountWin: function(btn, e, eOpts, rec) {
         var win = Ext.getCmp('accountwin');
         if (!win) {
-            win = Ext.widget('accountwin');
+            win = Ext.create('security.view.account.AccountWin');
         }
     	win.show(btn, function() {
             var f = win.child('form').getForm();
@@ -65,7 +63,7 @@ Ext.define('security.controller.UserController2', {
     deleteAccount: function(id) {
         Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
-                var accountStore = this.getAccountGrid2().getStore();
+                var accountStore = this.getAccountGrid().getStore();
                 var account = Ext.create('security.model.Account', {
                     id: id
                 });

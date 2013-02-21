@@ -93,8 +93,31 @@ Ext.define('security.controller.UserController', {
     	this.getController('UserController2').init();
         var tabs = security.getApplication().getTabs();
         tabs.setActiveTab(tabs.add({
-            xtype: 'usertab2',
-            closable: true
+            title: '用户通信录维护',
+            closable: true,
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            bodyPadding: 1,
+            items: [{
+                xtype: 'usergrid',
+                flex: 2
+            },{
+                xtype: 'splitter',
+                defaultSplitMin: 100
+            },{
+                xtype: 'accountgrid',
+                operable: true,
+                dockedItems: [{
+                    xtype: 'toolbar',
+                    items: {
+                        text: '添加',
+                        tooltip: '添加'
+                    }
+                }],
+                flex: 3
+            }]
         }));
     },
 
