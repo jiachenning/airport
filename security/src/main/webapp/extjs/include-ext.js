@@ -38,7 +38,7 @@
     suffix = (suffix.length) ? ('-' + suffix.join('-')) : '';
 
     document.write('<link rel="stylesheet" type="text/css" href="' + path + '/resources/css/ext-all' + suffix + '.css"/>');
-    document.write('<script type="text/javascript" src="' + path + '/ext-all' + (rtl ? '-rtl' : '') + '.js"></script>');
+    document.write('<script type="text/javascript" src="' + path + '/ext-all-dev' + (rtl ? '-rtl' : '') + '.js"></script>');
     if (neptune) {
         // since document.write('<script>') does not block execution in IE, defer is required
         // to prevent ext-neptune.js from executing before ext-all.js

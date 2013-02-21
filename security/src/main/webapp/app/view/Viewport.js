@@ -15,7 +15,21 @@ Ext.define('security.view.Viewport', {
         }]
     },{
         region: 'west',
-        xtype: 'grouptree',
+        layout: {
+            type: 'accordion',
+            titleCollapse: true,
+            animate: true
+        },
+        items: [{
+            title: 'Panle1',
+            html: 'Panel content!'
+        },{
+            title: 'Panle2',
+            html: 'Panel content!'
+        },{
+            title: 'Panle3',
+            html: 'Panel content!'
+        }],
         width: 270,
         margin: '0 0 0 4',
         split: true,
@@ -24,10 +38,13 @@ Ext.define('security.view.Viewport', {
         region: 'center',
         xtype: 'tabpanel',
         plain: true,
-        items: {
+        items: [{
             xtype: 'usertab',
             closable: true
-        },
+        },{
+            xtype: 'rolegrid',
+            closable: true
+        }],
         plugins: [{
             ptype: 'tabclosemenu',
             closeTabText: '关闭标签',
