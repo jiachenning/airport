@@ -9,7 +9,14 @@ Ext.define('security.model.Role', {
         type: 'string'
     },{
         name: 'enabled',
-        type: 'boolean'
+        type: 'boolean',
+        defaultValue: true
+    },{
+        name: 'code',
+        type: 'string'
+    },{
+        name: 'description',
+        type: 'string'
     },{
         name: 'version',
         type: 'int'

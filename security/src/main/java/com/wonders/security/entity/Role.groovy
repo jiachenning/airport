@@ -1,5 +1,6 @@
 package com.wonders.security.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
@@ -20,6 +21,11 @@ class Role extends AbstractPersistable<Long> {
 
 	@NotNull
 	String name
+	
+	@Column(unique = false)
+	String code
+	
+	String description
 
 	boolean enabled
 
@@ -34,4 +40,5 @@ class Role extends AbstractPersistable<Long> {
 	boolean getEnabled() {
 		this.enabled
 	}
+	
 }
