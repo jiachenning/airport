@@ -1,18 +1,17 @@
 Ext.define('security.view.user.UserGrid', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.usergrid',
-    requires: [
-        'Ext.ux.form.SearchField',
-        'security.view.user.UserWin'
-    ],
+    requires: ['Ext.ux.form.SearchField'],
+    uses: ['security.store.User'],
 
     title: '用户通信录',
-    store: 'User',
     columnLines: true,
 
     initComponent: function(arguments) {
         
         var me = this;
+            
+        me.store = Ext.create('security.store.User');
 
         me.columns = me.getGridColumns();
         me.dockedItems = me.getGridDockedItems();
@@ -71,7 +70,7 @@ Ext.define('security.view.user.UserGrid', {
                     xtype: 'searchfield',
                     paramName: 'search_username_like',
                     width: 200,
-                    store: Ext.StoreMgr.lookup('User')
+                    store: this.store
                 },'-',{
                     text: '添加',
                     tooltip: '添加'
@@ -85,7 +84,7 @@ Ext.define('security.view.user.UserGrid', {
         if (this.pagable) {
             dockedItems.push({
                 xtype: 'pagingtoolbar',
-                store: 'User',
+                store: this.store,
                 displayInfo: true,
                 dock: 'bottom'
             });

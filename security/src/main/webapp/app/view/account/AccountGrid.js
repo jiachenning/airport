@@ -1,15 +1,16 @@
 Ext.define('security.view.account.AccountGrid', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.accountgrid',
+    uses: ['security.store.Account'],
 
     title: '用户账号',
-    store: 'Account',
     columnLines: true,
 
     initComponent: function(arguments) {
         
         var me = this;
 
+        me.store = Ext.create('security.store.Account');
         me.columns = this.getGridColumns();
 
         me.callParent(arguments);
