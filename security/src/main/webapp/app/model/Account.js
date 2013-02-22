@@ -22,6 +22,6 @@ Ext.define('security.model.Account', {
     }],
     proxy: {
         type: 'rest',
-        url: 'accounts/findByUserId'
+        url: 'accounts'
     }
 });

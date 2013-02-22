@@ -195,14 +195,12 @@ Ext.define('security.controller.UserAccountManager', {
     deleteAccount: function(id) {
         Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
-                var accountStore = this.getAccountGrid().getStore();
+                var accountStore = this.getAccountGrid2().getStore();
                 var account = Ext.create('security.model.Account', {
                     id: id
                 });
-                account.getProxy().url = 'accounts';
                 account.destroy({
                     success: function() {
-                    	account.getProxy().url = 'accounts/findByUserId';
                     	accountStore.loadPage(1);
                     }
                 });
