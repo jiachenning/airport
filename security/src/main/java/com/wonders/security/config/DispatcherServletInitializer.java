@@ -10,7 +10,7 @@ public class DispatcherServletInitializer /*extends AbstractDispatcherServletIni
 	protected WebApplicationContext createRootApplicationContext() {
 
 		XmlWebApplicationContext rootAppCtx = new XmlWebApplicationContext();
-		rootAppCtx.setConfigLocation("classpath:applicationContext.xml");
+		rootAppCtx.setConfigLocation("classpath:applicationContext*.xml");
 
 		return rootAppCtx;
 	}
