@@ -5,8 +5,11 @@ Ext.define('security.controller.UserAccountManager', {
     views: ['user.UserGrid', 'account.AccountGrid'],
     
     refs: [{
-        ref: 'userGrid',
-        selector: 'usergrid'
+        ref: 'userGrid1',
+        selector: 'panel[title="用户通信录维护"] > usergrid'
+    },{
+        ref: 'userGrid2',
+        selector: 'panel[title="用户账号维护"] > usergrid'
     },{
         ref: 'accountGrid1',
         selector: 'panel[title="用户通信录维护"] > accountgrid'
@@ -101,7 +104,7 @@ Ext.define('security.controller.UserAccountManager', {
     deleteUser: function(id) {
         Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
-                var userStore = this.getUserStore();
+                var userStore = this.getUserGrid1().getStore();
                 Ext.create('security.model.User', {
                     id: id
                 }).destroy({
@@ -150,7 +153,7 @@ Ext.define('security.controller.UserAccountManager', {
         
         if (f.isValid()) {
             f.updateRecord();
-            var userStore = this.getUserStore(),
+            var userStore = this.getUserGrid1().getStore(),
                 user = f.getRecord();
             
             user.save({
