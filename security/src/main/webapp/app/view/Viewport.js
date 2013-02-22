@@ -39,8 +39,27 @@ Ext.define('security.view.Viewport', {
         xtype: 'tabpanel',
         plain: true,
         items: [{
-            xtype: 'usertab',
-            closable: true
+            title: '用户通信录维护',
+            closable: true,
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
+            bodyPadding: 1,
+            items: [{
+                xtype: 'usergrid',
+                operable: true,
+                pagable: true,
+                hasToolbar: true,
+                flex: 2
+            },{
+                xtype: 'splitter',
+                defaultSplitMin: 100,
+                collapsible: true
+            },{
+                xtype: 'accountgrid',
+                flex: 1
+            }]
         },{
             xtype: 'rolegrid',
             closable: true

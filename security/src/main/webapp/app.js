@@ -35,7 +35,7 @@ Ext.application({
     }],
 
     controllers: [
-        'UserController',
+        'UserAccountManager',
         'RoleController'
     ],
     
