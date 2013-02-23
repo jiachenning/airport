@@ -6,6 +6,19 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>airport</name>
+  
+  <distributionManagement>
+    <repository>
+      <id>nexus-releases</id>
+      <name>Nexus Releases</name>
+      <url>http://10.1.43.201:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <name>Nexus Snapshots</name>
+      <url>http://10.1.43.201:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <modules>
     <module>parent</module>
