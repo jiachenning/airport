@@ -20,6 +20,20 @@ Ext.define('security.view.MaintainAccRolePanel', {
         Ext.applyIf(me, {
             items: [{
                 xtype: 'accountgrid',
+                storeConfig: {
+                    autoLoad: true,
+                    proxy: {
+                        type: 'rest',
+                        url: 'accounts',
+                        extraParams: {'search_group_fetch': ''},
+                        reader: {
+                            type: 'json',
+                            root: 'content'
+                        }
+                    }
+                },
+                searchable: true,
+                pagable: true,
                 flex: 2
             },{
                 xtype: 'splitter',
@@ -27,6 +41,17 @@ Ext.define('security.view.MaintainAccRolePanel', {
                 collapsible: true
             },{
                 xtype: 'rolegrid',
+                storeConfig: {
+                    autoLoad: false
+                },
+                dockedItems: {
+                    xtype: 'toolbar',
+                    items: [{
+                        text: '添加'
+                    }, '-', {
+                        text: '删除'
+                    }]
+                },
                 flex: 3
             }]
         });

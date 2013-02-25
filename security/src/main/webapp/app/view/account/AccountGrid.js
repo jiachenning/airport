@@ -1,6 +1,7 @@
 Ext.define('security.view.account.AccountGrid', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.accountgrid',
+    requires: ['Ext.ux.form.SearchField'],
     uses: ['security.store.Account'],
 
     title: '用户账号',
@@ -9,9 +10,16 @@ Ext.define('security.view.account.AccountGrid', {
     initComponent: function(arguments) {
         
         var me = this;
+            store = me.store,
+            storeConfig = me.storeConfig || {};
 
-        me.store = Ext.create('security.store.Account');
+        if (!store) {
+            store = Ext.create('security.store.Account', storeConfig);
+            me.store = store;
+        }
+
         me.columns = this.getGridColumns();
+        me.dockedItems = this.getGridDockedItems();
 
         me.callParent(arguments);
     },
@@ -22,16 +30,14 @@ Ext.define('security.view.account.AccountGrid', {
             xtype: 'rownumberer'
         },{
             text: '登录名',
-            dataIndex: 'loginName',
-            width: 150
+            dataIndex: 'loginName'
         },{
             text: '所属机构',
-            dataIndex: 'group.name',
-            width: 150
+            dataIndex: 'group.name'
         },{
             text: '密码',
             dataIndex: 'password',
-            width: 200
+            width: 150
         },{
             xtype: 'booleancolumn',
             text: '是否启用',
@@ -58,7 +64,36 @@ Ext.define('security.view.account.AccountGrid', {
         }
 
         return columns;
+    },
+
+    getGridDockedItems: function() {
+        
+        var dockedItems = [];
+
+        if (this.searchable) {
+            dockedItems.push({
+                xtype: 'toolbar',
+                items: {
+                    xtype: 'searchfield',
+                    width: 200,
+                    paramName: 'search_loginName_like',
+                    store: this.store
+                }
+            });
+        }
+
+        if (this.pagable) {
+            dockedItems.push({
+                xtype: 'pagingtoolbar',
+                displayInfo: true,
+                store: this.store,
+                dock: 'bottom'
+            });
+        }
+
+        return dockedItems;
     }
+    
 
 });
             

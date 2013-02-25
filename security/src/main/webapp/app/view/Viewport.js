@@ -62,6 +62,9 @@ Ext.define('security.view.Viewport', {
             }]
         },{
             xtype: 'rolegrid',
+            searchable: true,
+            operable: true,
+            pagable: true,
             closable: true
         }],
         plugins: [{

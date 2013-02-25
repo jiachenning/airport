@@ -1,14 +1,15 @@
 Ext.define('security.controller.RoleController', {
     extend: 'Ext.app.Controller',
 
-    stores: ['Role'],
-
     views: [
         'role.RoleGrid',
         'role.RoleWin'
     ],
 
     refs: [{
+        ref: 'roleGrid',
+        selector: 'rolegrid'
+    },{
         ref: 'roleWin',
         selector: 'rolewin'
     }],
@@ -68,7 +69,7 @@ Ext.define('security.controller.RoleController', {
     deleteRole: function(id) {
         Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
-                var roleStore = this.getRoleStore();
+                var roleStore = this.getRoleGrid().getStore();
                 Ext.create('security.model.Role', {
                     id: id
                 }).destroy({
@@ -86,7 +87,7 @@ Ext.define('security.controller.RoleController', {
         
         if (f.isValid()) {
             f.updateRecord();
-            var roleStore = this.getRoleStore(),
+            var roleStore = this.getRoleGrid().getStore(),
                 role = f.getRecord();
             
             role.save({
