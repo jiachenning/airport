@@ -24,8 +24,7 @@ Ext.define('security.view.menu.MenuTree', {
 	onButtonClick: function(button, e, options) {
 	    var tabs = security.getApplication().getTabs();
 	    tabs.setActiveTab(tabs.add({
-	    	//id: 'resourcetree',
-	        xtype: 'resourcetree',
+	        xtype: 'resourcemgrpanel',
 	        closable: true
 	    }));
 	}
