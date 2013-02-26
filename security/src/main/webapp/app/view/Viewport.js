@@ -1,6 +1,6 @@
 Ext.define('security.view.Viewport', {
     extend: 'Ext.container.Viewport',
-    requires: ['Ext.ux.TabCloseMenu'],
+    requires: ['Ext.ux.TabCloseMenu', 'security.view.menu.MenuTree'],
 
     layout: 'border',
     items: [{
@@ -21,8 +21,7 @@ Ext.define('security.view.Viewport', {
             animate: true
         },
         items: [{
-            title: 'Panle1',
-            html: 'Panel content!'
+			xtype: 'menutree'
         },{
             title: 'Panle2',
             html: 'Panel content!'
