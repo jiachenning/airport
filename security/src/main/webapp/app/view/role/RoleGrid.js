@@ -79,6 +79,7 @@ Ext.define('security.view.role.RoleGrid', {
             var toolItems = [{
                 xtype: 'searchfield',
                 paramName: 'search_code_like',
+                emptyText: '请输入一个角色名称！',
                 width: 200,
                 store: this.store
             }];

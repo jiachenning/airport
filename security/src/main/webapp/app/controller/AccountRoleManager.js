@@ -1,7 +1,7 @@
 Ext.define('security.controller.AccountRoleManager', {
     extend: 'Ext.app.Controller',
 
-    views: ['account.AccountGrid', 'role.RoleGrid'],
+    views: ['maintain.AccountRoleMaintainPanel'],
     
     refs: [{
         ref: 'accountGrid',
@@ -13,7 +13,7 @@ Ext.define('security.controller.AccountRoleManager', {
     
     init: function() {
         this.control({
-            'panel[title="维护帐号角色] > accountgrid': {
+            'account-role-maintain > accountgrid': {
                 selectionchange: this.onAccountGridSelectionChange
             }
         });
@@ -21,7 +21,7 @@ Ext.define('security.controller.AccountRoleManager', {
 
     onAccountGridSelectionChange: function(model, selected, eOpts) {
     	
-        if (selected && selected.length) {
+    	if (selected.length) {
 
             var accountId = selected[0].get('id'),
                 store = this.getRoleGrid().getStore();

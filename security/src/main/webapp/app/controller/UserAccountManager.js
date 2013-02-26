@@ -52,10 +52,9 @@ Ext.define('security.controller.UserAccountManager', {
     
     onUserGridSelectionChange1: function(model, selected, eOpts) {
 
-        if (selected && selected.length) {
+        if (selected.length) {
         	
-            var record = selected[0],
-                userId = record.get('id'),
+            var userId = selected[0].get('id'),
                 accountStore = this.getAccountGrid1().getStore();
             
             accountStore.getProxy().setExtraParam('userId', userId);

@@ -2,7 +2,7 @@ Ext.define('security.view.group.GroupTree', {
     extend: 'Ext.tree.Panel',
     alias: 'widget.grouptree',
 
-    title: '系统功能导航栏',
+    title: '组织机构',
     bodyPadding: 4,
     useArrows: true,
 

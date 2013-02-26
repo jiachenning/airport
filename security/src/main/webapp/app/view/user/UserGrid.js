@@ -69,6 +69,7 @@ Ext.define('security.view.user.UserGrid', {
                 items: [{
                     xtype: 'searchfield',
                     paramName: 'search_username_like',
+                    emptyText: '请输入一个用户名！',
                     width: 200,
                     store: this.store
                 },'-',{

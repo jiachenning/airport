@@ -46,7 +46,7 @@ Ext.define('security.view.account.AccountGrid', {
             dataIndex: 'enabled',
             flex: 1
         }];
-
+        
         if (this.operable) {
             columns.push({
                 xtype: 'actioncolumn',
@@ -75,8 +75,9 @@ Ext.define('security.view.account.AccountGrid', {
                 xtype: 'toolbar',
                 items: {
                     xtype: 'searchfield',
-                    width: 200,
                     paramName: 'search_loginName_like',
+                    emptyText: '请输入一个登录名！',
+                    width: 200,
                     store: this.store
                 }
             });

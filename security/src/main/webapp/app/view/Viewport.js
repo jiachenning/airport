@@ -66,6 +66,9 @@ Ext.define('security.view.Viewport', {
             operable: true,
             pagable: true,
             closable: true
+        },{
+            xtype: 'groupmgrpanel',
+            closable: true
         }],
         plugins: [{
             ptype: 'tabclosemenu',

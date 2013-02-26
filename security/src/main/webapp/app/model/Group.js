@@ -1,11 +1,11 @@
 Ext.define('security.model.Group', {
-    extend: 'Ext.data.TreeModel',
+    extend: 'Ext.data.Model',
 
     fields: [{
         name: 'id',
         type: 'int'
     },{
-        name: 'name',
+        name: 'text',
         type: 'string'
     }],
     proxy: {
