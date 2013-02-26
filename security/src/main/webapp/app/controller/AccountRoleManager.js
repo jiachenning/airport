@@ -25,8 +25,6 @@ Ext.define('security.controller.AccountRoleManager', {
 
             var accountId = selected[0].get('id'),
                 store = this.getRoleGrid().getStore();
-            
-            alert(store);
 
             store.getProxy().setExtraParam('accountId', accountId);
             store.loadPage(1);

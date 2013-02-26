@@ -8,7 +8,7 @@ Ext.define('security.controller.RoleController', {
 
     refs: [{
         ref: 'roleGrid',
-        selector: 'rolegrid'
+        selector: 'rolegrid[closable]'
     },{
         ref: 'roleWin',
         selector: 'rolewin'
@@ -16,13 +16,13 @@ Ext.define('security.controller.RoleController', {
 
     init: function() {
         this.control({
-            'rolegrid button[text="添加"]': {
+            'rolegrid[closable] button[text="添加"]': {
                 click: this.showRoleWin
             },
-            'rolegrid button[text="维护帐号角色"]': {
+            'rolegrid[closable] button[text="维护帐号角色"]': {
                 click: this.maintainAccRole
             },
-            'rolegrid actioncolumn': {
+            'rolegrid[closable] actioncolumn': {
                 click: this.doAction
             },
             'rolewin button[text="保存"]': {
@@ -46,7 +46,7 @@ Ext.define('security.controller.RoleController', {
     },
 
     maintainAccRole: function(btn) {
-        this.getController('AccountRoleManager').init();
+        this.getController('AccountRoleManager');
         var tabs = security.getApplication().getTabs();
         tabs.setActiveTab(tabs.add({
             title: '维护帐号角色',
