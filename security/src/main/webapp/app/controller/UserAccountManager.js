@@ -128,6 +128,7 @@ Ext.define('security.controller.UserAccountManager', {
             bodyPadding: 1,
             items: [{
                 xtype: 'usergrid',
+                searchable: true,
                 pagable: true,
                 flex: 2
             },{

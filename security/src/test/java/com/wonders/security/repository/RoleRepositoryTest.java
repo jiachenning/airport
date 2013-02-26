@@ -13,7 +13,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.wonders.security.entity.Role;
 import com.wonders.security.test.AbstractSpringTests;
 
-@DatabaseSetup("RoleRepositoryTest-DatabaseSetup.xml")
+@DatabaseSetup("RepositoryTest-DatabaseSetup.xml")
 public class RoleRepositoryTest extends AbstractSpringTests {
 	
 	@Inject

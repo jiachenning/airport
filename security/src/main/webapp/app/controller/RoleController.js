@@ -15,7 +15,6 @@ Ext.define('security.controller.RoleController', {
     }],
 
     init: function() {
-
         this.control({
             'rolegrid button[text="添加"]': {
                 click: this.showRoleWin
@@ -47,11 +46,59 @@ Ext.define('security.controller.RoleController', {
     },
 
     maintainAccRole: function(btn) {
-        this.getController('MaintainAccRoleController').init();
+        this.getController('AccountRoleManager').init();
         var tabs = security.getApplication().getTabs();
         tabs.setActiveTab(tabs.add({
-            xtype: 'maintain-acc-role',
-            closable: true
+            title: '维护帐号角色',
+            closable: true,
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            bodyPadding: 1,
+            items: [{
+                xtype: 'accountgrid',
+                storeConfig: {
+                    autoLoad: true,
+                    proxy: {
+                        type: 'rest',
+                        url: 'accounts',
+                        extraParams: {'search_group_fetch': ''},
+                        reader: {
+                            type: 'json',
+                            root: 'content'
+                        }
+                    }
+                },
+                searchable: true,
+                pagable: true,
+                flex: 2
+            },{
+                xtype: 'splitter',
+                defaultSplitMin: 100,
+                collapsible: true
+            },{
+                xtype: 'rolegrid',
+                storeConfig: {
+                    autoLoad: false,
+                    proxy: {
+                        type: 'rest',
+                        url: 'roles/findByAccountId',
+                        reader: {
+                            type: 'json'
+                        }
+                    }
+                },
+                dockedItems: {
+                    xtype: 'toolbar',
+                    items: [{
+                        text: '添加'
+                    }, '-', {
+                        text: '删除'
+                    }]
+                },
+                flex: 3
+            }]
         }));
     },
 

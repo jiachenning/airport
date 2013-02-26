@@ -28,7 +28,7 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	}
 
 	@RequestMapping(value = "findByUserId", method = RequestMethod.GET)
-	@ResponseBody
+	protected @ResponseBody
 	List<Account> findByUserId(@RequestParam long userId) {
 		return accountRepository.findByUserId(userId);
 	}
