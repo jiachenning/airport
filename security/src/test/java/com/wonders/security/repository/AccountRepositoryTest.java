@@ -22,10 +22,11 @@ public class AccountRepositoryTest extends AbstractSpringTests {
 	@Test
 	public void testFindByLoginName() {
 		
-		Account account = accountRepository.findByLoginName("wangqiang1");
+		Account account = accountRepository.findByLoginName("wangqiang2");
 		
 		assertNotNull(account);
-		assertEquals("wangqiang1", account.getLoginName());
+		assertEquals(2, (long) account.getId());
+		assertEquals("wangqiang2", account.getLoginName());
 	}
 
 	@Test
