@@ -3,6 +3,7 @@ Ext.define('security.view.group.GroupTree', {
     alias: 'widget.grouptree',
 
     title: '组织机构',
+    padding: 1,
     bodyPadding: 4,
     useArrows: true,
 

@@ -23,6 +23,8 @@ class Group extends AbstractTreeNode<Group, Long> {
 	
 	boolean enabled
 	
+	long parentId
+	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
 	Group getParent() {
@@ -43,6 +45,9 @@ class Group extends AbstractTreeNode<Group, Long> {
 		this.name
 	}
 	
+	void setText(String text) {
+	}
+	
 	@Override
 	@JsonProperty
 	@Transient
@@ -53,8 +58,20 @@ class Group extends AbstractTreeNode<Group, Long> {
 		super.isLeaf()
 	}
 	
+	void setLeaf(boolean leaf) {
+	}
+	
 	boolean getEnabled() {
 		this.enabled
+	}
+	
+	@Transient
+	long getParentId() {
+		this.parentId
+	}
+	
+	void setParentId(long parentId) {
+		this.parentId = parentId
 	}
 	
 }
