@@ -1,6 +1,6 @@
-Ext.define('security.view.resource.ResourceForm', {
+Ext.define('security.view.resource.AuthorityForm', {
     extend: 'Ext.form.Panel',
-    alias: 'widget.resourceform',
+    alias: 'widget.authorityform',
 
     title: '资源详细',
 	initComponent : function() {

@@ -24,7 +24,7 @@ Ext.define('security.view.menu.MenuTree', {
 	onButtonClick: function(button, e, options) {
 	    var tabs = security.getApplication().getTabs();
 	    tabs.setActiveTab(tabs.add({
-	        xtype: 'resourcemgrpanel',
+	        xtype: 'authoritymgrpanel',
 	        closable: true
 	    }));
 	}

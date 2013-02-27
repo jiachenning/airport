@@ -1,6 +1,6 @@
-Ext.define('security.view.resource.ResourceTree', {
+Ext.define('security.view.authority.AuthorityTree', {
     extend: 'Ext.tree.Panel',
-    alias: 'widget.resourcetree',
+    alias: 'widget.authoritytree',
 
     title: '资源树',
     useArrows: true,
@@ -8,7 +8,7 @@ Ext.define('security.view.resource.ResourceTree', {
 		var me = this;
 
 		Ext.applyIf(me, {
-			store: 'Resource'
+			store: 'Authority'
 		});
 
 		me.callParent(arguments);

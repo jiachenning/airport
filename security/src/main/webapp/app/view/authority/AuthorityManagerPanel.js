@@ -1,9 +1,9 @@
-Ext.define('security.view.resource.ResourceManagerPanel', {
+Ext.define('security.view.authority.AuthorityManagerPanel', {
 	extend: 'Ext.panel.Panel',
-	alias: 'widget.resourcemgrpanel',
+	alias: 'widget.authoritymgrpanel',
 	requires: [
-        'security.view.resource.ResourceTree',
-        'security.view.resource.ResourceForm'
+        'security.view.authority.AuthorityTree',
+        'security.view.authority.AuthorityForm'
     ],
 	title: '维护资源树',
     layout: {
@@ -16,14 +16,14 @@ Ext.define('security.view.resource.ResourceManagerPanel', {
 
 		Ext.applyIf(me, {
 			items : [ {
-				xtype : 'resourcetree',
+				xtype : 'authoritytree',
 				flex : 2
 			}, {
     	        xtype: 'splitter',
     	        defaultSplitMin: 100,
     	        collapsible: true
     	    }, {
-				xtype : 'resourceform',
+				xtype : 'authorityform',
 				flex : 1
 			} ]
 		});

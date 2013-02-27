@@ -38,7 +38,7 @@ Ext.application({
         'UserAccountManager',
         'RoleController',
         'GroupController',
-        'ResourceController'
+        'AuthorityController'
     ],
     
     name: 'security',

@@ -1,11 +1,11 @@
-Ext.define('security.controller.ResourceController', {
+Ext.define('security.controller.AuthorityController', {
     extend: 'Ext.app.Controller',
-    stores: ['Resource'],
-    views: ['resource.ResourceManagerPanel'],
+    stores: ['Authority'],
+    views: ['authority.AuthorityManagerPanel'],
     
     init: function() {
     	this.control({
-    		'resourcemgrpanel > resourcetree': {
+    		'authoritymgrpanel > authoritytree': {
     			itemcontextmenu: this.onGroupTreeItemcontextmenu
     		}
     	});

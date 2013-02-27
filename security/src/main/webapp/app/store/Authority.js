@@ -1,4 +1,4 @@
-Ext.define('security.store.Resource', {
+Ext.define('security.store.Authority', {
     extend: 'Ext.data.TreeStore',
 
     model: 'security.model.Group',
