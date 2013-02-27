@@ -1,4 +1,4 @@
-Ext.define('security.view.resource.AuthorityForm', {
+Ext.define('security.view.authority.AuthorityForm', {
     extend: 'Ext.form.Panel',
     alias: 'widget.authorityform',
 
