@@ -6,4 +6,6 @@ public interface AccountService {
 	
 	Account addRolesToAccount(long accountId, long... roleIds);
 
+	Account removeRolesFromAccount(long accountId, long... roleIds);
+
 }

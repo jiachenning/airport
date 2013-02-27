@@ -37,10 +37,10 @@ Ext.define('security.view.maintain.AccountRoleMaintainPanel', {
     	        flex: 4
     	    },{
     	        xtype: 'splitter',
-    	        defaultSplitMin: 100,
-    	        collapsible: true
+    	        defaultSplitMin: 100
     	    },{
     	        xtype: 'rolegrid',
+                selectable: true,
     	        storeConfig: {
     	            autoLoad: false,
     	            proxy: {

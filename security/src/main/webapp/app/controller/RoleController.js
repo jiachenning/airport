@@ -1,5 +1,6 @@
 Ext.define('security.controller.RoleController', {
     extend: 'Ext.app.Controller',
+    uses: ['security.controller.AccountRoleManager'],
 
     views: [
         'role.RoleGrid',

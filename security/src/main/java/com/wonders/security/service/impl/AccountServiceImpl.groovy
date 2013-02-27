@@ -34,5 +34,21 @@ class AccountServiceImpl implements AccountService {
 		
 		account
 	}
+	
+	@Override
+	@Transactional
+	Account removeRolesFromAccount(long accountId, long... roleIds) {
+		
+		def account = accountRepository.findOne(accountId)
+		
+		if (account) {
+			
+			def roles = roleRepository.findAll(roleIds as List)
+			
+			account.roles.removeAll(roles)
+		}
+		
+		account
+	}
 
 }

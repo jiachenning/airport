@@ -10,6 +10,7 @@ Ext.define('security.view.role.RoleGrid', {
     initComponent: function(arguments) {
 
         var me = this,
+            selectable = me.selectable,
             store = me.store,
             storeConfig = me.storeConfig || {};
 
@@ -17,6 +18,11 @@ Ext.define('security.view.role.RoleGrid', {
         if (!store) {
             store = Ext.create('security.store.Role', storeConfig);
             me.store = store;
+        }
+
+        if (selectable) {
+            me.selType = 'checkboxmodel';
+            me.selModel = {mode: 'MULTI'};
         }
 
         me.columns = me.getGridColumns();
@@ -27,28 +33,28 @@ Ext.define('security.view.role.RoleGrid', {
 
     getGridColumns: function() {
 
-        var columns = [{
-            xtype: 'rownumberer'
-        },{
+        var columns = [];
+        if (!this.selectable) {
+            columns.push({xtype: 'rownumberer'});
+        }
+
+        columns.push({
             text: '代码',
-            dataIndex: 'code',
-            width: 150
+            dataIndex: 'code'
         },{
             text: '名称',
-            dataIndex: 'name',
-            width: 150
+            dataIndex: 'name'
         },{
             xtype: 'booleancolumn',
             text: '是否启用',
             trueText: '是',
             falseText: '否',
-            width: 150,
             dataIndex: 'enabled'
         },{
             text: '描述',
             dataIndex: 'description',
             flex: 1
-        }];
+        });
 
         if (this.operable) {
             columns.push({
