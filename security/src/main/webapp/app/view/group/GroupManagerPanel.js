@@ -1,7 +1,7 @@
 Ext.define('security.view.group.GroupManagerPanel', {
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.groupmgrpanel',
-	requires: ['security.view.group.GroupTree'],
+	requires: ['security.view.group.GroupTree', 'security.view.account.AccountGrid'],
 	
 	title: '组织机构管理',
 	closable: true,
@@ -17,15 +17,15 @@ Ext.define('security.view.group.GroupManagerPanel', {
 		Ext.applyIf(me, {
 			items: [{
 				xtype: 'grouptree',
-				flex: 1
+				flex: 3
 			},{
                 xtype: 'splitter',
                 defaultSplitMin: 100
             },{
-				title: 'aaaaaaaaa',
-				html: 'aaaaaaaaaa',
+				xtype: 'accountgrid',
 				border: 1,
-				flex: 1
+				padding: 1,
+				flex: 7
 			}]
 		});
 		

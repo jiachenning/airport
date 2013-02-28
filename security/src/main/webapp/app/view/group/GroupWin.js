@@ -9,7 +9,7 @@ Ext.define('security.view.group.GroupWin', {
     plain: true,
     bodyPadding: 1,
     closeAction: 'hide',
-    width: 300,
+    width: 350,
     layout: 'fit',
     
     initComponent: function(arguments) {
@@ -22,7 +22,7 @@ Ext.define('security.view.group.GroupWin', {
                 bodyPadding: 5,
                 frame: true,
                 fieldDefaults: {
-                    labelWidth: 65,
+                    labelWidth: 100,
                 },
                 defaults: {
                     xtype: 'textfield',
@@ -30,6 +30,10 @@ Ext.define('security.view.group.GroupWin', {
                     anchor: '100%'
                 },
                 items: [{
+                    fieldLabel: '上级部门名称',
+                    name: 'parentText',
+        			allowBlank: true
+                },{
                     fieldLabel: '部门名称',
                     name: 'name'
                 },{

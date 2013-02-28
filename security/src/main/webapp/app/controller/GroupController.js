@@ -3,6 +3,8 @@ Ext.define('security.controller.GroupController', {
     requires: ['security.view.group.GroupWin'],
 
     stores: ['Group'],
+    
+    models: ['Group'],
 
     views: [
         'group.GroupManagerPanel',
@@ -35,14 +37,14 @@ Ext.define('security.controller.GroupController', {
 					iconCls: 'silk-group_add',
 					scope: this,
 					handler: function(menuItem) {
-						this.showGroupWin(menuItem);
+						this.showAddGroupWin(menuItem);
 					}
 		        },'-',{
 		        	text: '编辑部门',
 		        	iconCls: 'silk-group_edit',
 		        	scope: this,
 					handler: function(menuItem) {
-						this.showGroupWin(menuItem);
+						this.showEditGroupWin(menuItem);
 					}
 		        }]
 		    });
@@ -51,7 +53,7 @@ Ext.define('security.controller.GroupController', {
 		this.ctmenu.showAt(e.getXY());
 	},
 	
-	showGroupWin: function(menuItem) {
+	showAddGroupWin: function(menuItem) {
 		
 		var node = this.getGroupTree().getSelectionModel().getLastSelected();
 		
@@ -62,30 +64,66 @@ Ext.define('security.controller.GroupController', {
 		if(!win) {
 			win = Ext.widget('groupwin');
 		}
-		
+    	
 		var f = win.child('form').getForm();
 		var record = Ext.create('security.model.Group', {
-			'parent': {id: node.get('id')}
+			'parent': {
+				id: node.get('id')
+			 }
 		});
 		
 		f.loadRecord(record);
+		
+		var parentText = node.get('text');
+        f.findField('parentText').setValue(parentText);
 		win.show(menuItem);
+	},
+	
+	showEditGroupWin: function(menuItem) {
+		
+		var node = this.getGroupTree().getSelectionModel().getLastSelected();
+		
+		alert(node.get('text'));
+		alert("zhuhaijian");
+		alert(node.parentNode.get('id'));
+		
+		node.set('parent', {
+			id: node.parentNode.get('id')
+		 })
+				
+		if (!node.isExpanded()) {
+			node.expand();
+		}
+		
+		var win = Ext.getCmp('groupwin');
+		if(!win) {
+			win = Ext.widget('groupwin');
+		}
+    	
+		win.show(menuItem, function() {
+            var f = win.child('form').getForm();
+            f.loadRecord(node);
+            
+            var parentText = node.parentNode.get('text');
+            f.findField('parentText').setValue(parentText);
+        });
+		
 	},
 	
     saveGroup: function(btn) {          
         
         var win = Ext.getCmp('groupwin'),
-			f = win.child('form').getForm();
+			f = win.child('form').getForm(),
+			groupStore = this.getGroupStore();
         
         if (f.isValid()) {
             f.updateRecord();
             var group = f.getRecord();
-            alert(group.get('text'))
             
             group.save({
                 success: function(group) {
                     win.hide();
-                    //roleStore.loadPage(1);
+                    groupStore.load();
                 }
             });
         }

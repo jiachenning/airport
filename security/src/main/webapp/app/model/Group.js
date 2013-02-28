@@ -15,6 +15,9 @@ Ext.define('security.model.Group', {
     },{
         name: 'enabled',
         type: 'boolean'
+    },{
+        name: 'version',
+        type: 'int'
     }],
     proxy: {
         type: 'rest',
