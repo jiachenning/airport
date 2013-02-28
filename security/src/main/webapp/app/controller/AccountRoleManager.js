@@ -59,7 +59,7 @@ Ext.define('security.controller.AccountRoleManager', {
                         success: function(response, options) {
                             var store = this.getRoleGrid().getStore();
                             store.reload();
-                        }
+                        },
                         scope: this
                     });
                 }
