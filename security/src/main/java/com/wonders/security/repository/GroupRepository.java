@@ -9,7 +9,7 @@ import com.wonders.security.entity.Group;
 
 public interface GroupRepository extends MyRepository<Group, Long> {
 	
-	@Query("from Group g left join fetch g.children where g.parent.id = ?1")
+	@Query("select distinct(g) from Group g left join fetch g.children where g.parent.id = ?1")
 	List<Group> findByParentId(long parentId);
 
 }
