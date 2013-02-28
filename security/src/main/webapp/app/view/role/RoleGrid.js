@@ -4,7 +4,7 @@ Ext.define('security.view.role.RoleGrid', {
     requires: ['Ext.ux.form.SearchField'],
     uses: ['security.store.Role'],
 
-    title: '用户角色',
+    title: '系统角色',
     columnLines: true,
 
     initComponent: function(arguments) {
