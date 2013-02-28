@@ -1,11 +1,13 @@
 package com.wonders.security.entity;
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.persistence.Transient
+import javax.persistence.Version
 import javax.validation.constraints.NotNull
 
 import org.hibernate.Hibernate
@@ -22,6 +24,15 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 	String name
 	
 	boolean enabled
+	
+	@Column(unique = false)
+	String code
+	
+	String description
+	
+	long parentId;
+	
+	String parentName;
 	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -43,6 +54,8 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 		this.name
 	}
 	
+	void setText(String text){}
+	
 	@Override
 	@JsonProperty
 	@Transient
@@ -53,8 +66,28 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 		super.isLeaf()
 	}
 	
+	void setLeaf(boolean leaf){}
+	
 	boolean getEnabled() {
 		this.enabled
 	}
-
+	
+	@Transient
+	long getParentId() {
+		this.parentId
+	}
+	
+	void setParentId(long parentId) {
+		this.parentId = parentId
+	}
+	
+	@Transient
+	String getParentName() {
+		this.parentName
+	}
+	
+	void setParentName(String parentName) {
+		this.parentName = parentName
+	}
+	
 }
