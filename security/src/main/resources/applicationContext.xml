@@ -40,6 +40,6 @@
       p:entityManagerFactory-ref="entityManagerFactory"
     />
 
-    <tx:annotation-driven />
+    <tx:annotation-driven proxy-target-class="true" />
 
 </beans>

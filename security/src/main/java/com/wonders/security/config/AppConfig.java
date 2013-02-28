@@ -34,7 +34,7 @@ import com.wonders.framework.repository.MyRepositoryFactoryBean;
 	basePackages = "com.wonders.security.**.repository", 
 	repositoryFactoryBeanClass = MyRepositoryFactoryBean.class
 )
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @ImportResource("classpath:databaseConfig.xml")
 public class AppConfig {
 	
