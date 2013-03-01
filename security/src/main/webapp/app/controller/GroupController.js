@@ -109,9 +109,18 @@ Ext.define('security.controller.GroupController', {
             group.save({
                 success: function(group) {
                     win.hide();
-                    groupStore.load();
                 }
             });
+            
+            if(group.get('id') == ''){
+            	Ext.Msg.alert("提示","新增成功!");
+            	groupStore.load();
+            }else{
+            	var node = this.getGroupTree().getSelectionModel().getLastSelected();
+            	node.set('text', group.get('name'));
+            	node.set('version', group.get('version')+1);
+            	Ext.Msg.alert("提示","更新成功!");
+            }
         }
     },
     
@@ -129,7 +138,7 @@ Ext.define('security.controller.GroupController', {
 		    });
 			
 			accountStore.getProxy().setExtraParam('groupId', groupId);
-			accountStore.load();
+			accountStore.reload();
 //            Ext.Ajax.request({
 //                url: 'accounts/findByGroupId',
 //                params: {
@@ -138,7 +147,6 @@ Ext.define('security.controller.GroupController', {
 //                success: function(response, options) {
 //
 //                	accountStore.reload();
-//                    roleListWin.hide();
 //                },
 //                scope: this
 //            });
