@@ -68,7 +68,7 @@ public class AppConfig {
 	
 	@Bean
 	public PlatformTransactionManager transactionManager() {
-		return new JpaTransactionManager(entityManagerFactory());
+		return new JpaTransactionManager();
 	}
 	
 }
