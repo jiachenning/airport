@@ -10,7 +10,7 @@ Ext.define('security.view.authority.AuthorityManagerPanel', {
         type: 'hbox',
         align: 'stretch'
     },
-	
+	bodyPadding: 1,
     initComponent : function() {
 		var me = this;
 

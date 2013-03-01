@@ -100,18 +100,23 @@ Ext.define('security.controller.AuthorityController', {
             f.updateRecord();
             var authority = f.getRecord();
             
+            var selectedNode = this.getAuthorityTree().getSelectionModel().getLastSelected();
             authority.save({
                 success: function() {
                     win.hide();
                 }
             });
-            
             var id = authority.get('id');
             if(id == ''){
+            	if (selectedNode.isLeaf()) {
+					selectedNode.set('leaf',false);
+				}
             	Ext.Msg.alert("提示","新增成功!");
+            	var store = this.getAuthorityTree().getStore();
+            	store.reload();
             }else{
-            	var selectedNode = this.getAuthorityTree().getSelectionModel().getLastSelected();
                 selectedNode.set('text', authority.get('name'));
+                selectedNode.set('version', authority.get('version')+1);
             	Ext.Msg.alert("提示","更新成功!");
             }
             
@@ -130,9 +135,12 @@ Ext.define('security.controller.AuthorityController', {
 					icon: Ext.Msg.QUESTION,
 					fn: function(btn){
                         if(btn=='yes'){
+                        	if(selectedNode.parentNode.childNodes.length ==1 ){
+                        		selectedNode.parentNode.set('leaf',true);
+                        	}
                         	selectedNode.remove({
-                                success: function() {
-                                	Ext.Msg.alert("提示","删除节点成功!");
+                        		success: function() {
+                        			
                                 }
                             });
 				    	}
