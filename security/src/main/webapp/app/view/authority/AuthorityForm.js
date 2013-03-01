@@ -11,10 +11,12 @@ Ext.define('security.view.authority.AuthorityForm', {
 			items : [ {
 				xtype : 'textfield',
 				anchor : '90%',
+				name: 'text',
 				fieldLabel : '资源名称'
 			}, {
 				xtype : 'textfield',
 				anchor : '90%',
+				name: 'code',
 				fieldLabel : '资源代码'
 			}, {
                 xtype: 'combobox',
