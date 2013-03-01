@@ -13,5 +13,8 @@ public interface AccountRepository extends MyRepository<Account, Long> {
 	
 	@Query("from Account a join fetch a.group where a.user.id = ?1")
 	List<Account> findByUserId(long userId);
+	
+	@Query("from Account a join fetch a.group where a.group.id = ?1")
+	List<Account> findByGroupId(long groupId);
 
 }

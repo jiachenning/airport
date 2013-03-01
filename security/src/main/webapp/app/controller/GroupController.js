@@ -7,13 +7,18 @@ Ext.define('security.controller.GroupController', {
     models: ['Group'],
 
     views: [
-        'group.GroupManagerPanel',
-        'group.GroupWin'
+        'group.GroupTree',
+        'group.GroupWin',
+        'account.AccountGrid',
+        'group.GroupManagerPanel'      
     ],
     
     refs: [{
         ref: 'groupTree',
         selector: 'grouptree'
+    },{
+        ref: 'accountGrid',
+        selector: 'panel[title="组织机构管理"] > accountgrid'
     }],
 
     init: function() {
@@ -24,6 +29,9 @@ Ext.define('security.controller.GroupController', {
     		},
     		'groupwin button[text="保存"]': {
                 click: this.saveGroup
+            },
+            'panel[title="组织机构管理"] > grouptree': {
+                selectionchange: this.onGroupTreeSelectionChange
             }
     	});
     },
@@ -37,14 +45,14 @@ Ext.define('security.controller.GroupController', {
 					iconCls: 'silk-group_add',
 					scope: this,
 					handler: function(menuItem) {
-						this.showAddGroupWin(menuItem);
+						this.showGroupWin(menuItem, 'add');
 					}
 		        },'-',{
 		        	text: '编辑部门',
 		        	iconCls: 'silk-group_edit',
 		        	scope: this,
 					handler: function(menuItem) {
-						this.showEditGroupWin(menuItem);
+						this.showGroupWin(menuItem, 'edit');
 					}
 		        }]
 		    });
@@ -53,8 +61,7 @@ Ext.define('security.controller.GroupController', {
 		this.ctmenu.showAt(e.getXY());
 	},
 	
-	showAddGroupWin: function(menuItem) {
-		
+	showGroupWin: function(menuItem, actionType) {
 		var node = this.getGroupTree().getSelectionModel().getLastSelected();
 		
 		if (!node.isExpanded()) {
@@ -64,50 +71,29 @@ Ext.define('security.controller.GroupController', {
 		if(!win) {
 			win = Ext.widget('groupwin');
 		}
-    	
+		
 		var f = win.child('form').getForm();
-		var record = Ext.create('security.model.Group', {
-			'parent': {
-				id: node.get('id')
-			 }
-		});
 		
-		f.loadRecord(record);
-		
-		var parentText = node.get('text');
-        f.findField('parentText').setValue(parentText);
-		win.show(menuItem);
-	},
-	
-	showEditGroupWin: function(menuItem) {
-		
-		var node = this.getGroupTree().getSelectionModel().getLastSelected();
-		
-		alert(node.get('text'));
-		alert("zhuhaijian");
-		alert(node.parentNode.get('id'));
-		
-		node.set('parent', {
-			id: node.parentNode.get('id')
-		 })
-				
-		if (!node.isExpanded()) {
-			node.expand();
+		if('add' == actionType) {
+
+			var record = Ext.create('security.model.Group', {
+				'parent': {id: node.get('id')}
+			});
+			
+			f.loadRecord(record);			
+			var parentText = node.get('text');
+	        f.findField('parentText').setValue(parentText);
+			win.show(menuItem);
+		} else {
+			
+			node.set('parent', {id: node.parentNode.get('id')});
+			 
+			win.show(menuItem, function() {
+	            f.loadRecord(node);	            
+	            var parentText = node.parentNode.get('text');
+	            f.findField('parentText').setValue(parentText);
+	        });
 		}
-		
-		var win = Ext.getCmp('groupwin');
-		if(!win) {
-			win = Ext.widget('groupwin');
-		}
-    	
-		win.show(menuItem, function() {
-            var f = win.child('form').getForm();
-            f.loadRecord(node);
-            
-            var parentText = node.parentNode.get('text');
-            f.findField('parentText').setValue(parentText);
-        });
-		
 	},
 	
     saveGroup: function(btn) {          
@@ -127,6 +113,36 @@ Ext.define('security.controller.GroupController', {
                 }
             });
         }
+    },
+    
+    onGroupTreeSelectionChange: function(model, selected, eOpts) {
+    	
+		if (selected && selected.length) {
+
+			var record = selected[0], 
+				groupId = record.get('id'), 
+				accountStore = this.getAccountGrid().getStore();
+
+			accountStore.setProxy({
+		        type: 'rest',
+		        url: 'accounts/findByGroupId'
+		    });
+			
+			accountStore.getProxy().setExtraParam('groupId', groupId);
+			accountStore.load();
+//            Ext.Ajax.request({
+//                url: 'accounts/findByGroupId',
+//                params: {
+//                	groupId: groupId
+//                },
+//                success: function(response, options) {
+//
+//                	accountStore.reload();
+//                    roleListWin.hide();
+//                },
+//                scope: this
+//            });
+		}
     }
 
 });

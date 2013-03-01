@@ -54,5 +54,11 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 		accountService.removeRolesFromAccount(accountId, roleIds);
 		return "{success: true}";
 	}
+	
+	@RequestMapping(value = "findByGroupId", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Account> findByGroupId(@RequestParam long groupId) {
+		return accountRepository.findByGroupId(groupId);
+	}
 
 }
