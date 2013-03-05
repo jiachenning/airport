@@ -35,7 +35,7 @@ import com.wonders.framework.repository.MyRepositoryFactoryBean;
 	repositoryFactoryBeanClass = MyRepositoryFactoryBean.class
 )
 @EnableTransactionManagement(proxyTargetClass = true)
-@ImportResource({ "classpath:databaseConfig.xml", "classpath:applicationContext-security-cas.xml" })
+@ImportResource({ "classpath:databaseConfig.xml", "classpath:applicationContext-security.xml" })
 public class AppConfig {
 	
 	@Inject

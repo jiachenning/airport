@@ -2,17 +2,17 @@ Ext.define('security.controller.UserAccountManager', {
     extend: 'Ext.app.Controller',
     uses: ['security.view.user.UserWin'],
 
-    views: ['user.UserGrid', 'account.AccountGrid'],
+    views: ['user.UserGrid', 'account.AccountGrid', 'user.UserManagerPanel'],
     
     refs: [{
         ref: 'userGrid1',
-        selector: 'panel[title="用户通信录维护"] > usergrid'
+        selector: 'panel[title="用户管理"] > usergrid'
     },{
         ref: 'userGrid2',
         selector: 'panel[title="用户账号维护"] > usergrid'
     },{
         ref: 'accountGrid1',
-        selector: 'panel[title="用户通信录维护"] > accountgrid'
+        selector: 'panel[title="用户管理"] > accountgrid'
     },{
         ref: 'accountGrid2',
         selector: 'panel[title="用户账号维护"] > accountgrid'
@@ -23,7 +23,7 @@ Ext.define('security.controller.UserAccountManager', {
     
     init: function() {
         this.control({
-            'panel[title="用户通信录维护"] > usergrid': {
+            'panel[title="用户管理"] > usergrid': {
                 selectionchange: this.onUserGridSelectionChange1
             },
             'panel[title="用户账号维护"] > usergrid': {
@@ -32,16 +32,16 @@ Ext.define('security.controller.UserAccountManager', {
             'usergrid actioncolumn': {
                 click: this.doAction
             },
-            'usergrid button[text="添加"]': {
+            'usergrid button[tooltip="添加"]': {
                 click: this.showUserWin
             },
-            'usergrid button[text="维护用户账号"]': {
+            'usergrid button[tooltip="维护用户账号"]': {
                 click: this.maintainUserAccount
             },
             'userwin button[text="保存"]': {
                 click: this.saveUser
             },
-            'accountgrid button[text="添加"]': {
+            'accountgrid button[tooltip="添加"]': {
                 click: this.showAccountWin
             },
             'accountgrid actioncolumn': {
@@ -135,12 +135,12 @@ Ext.define('security.controller.UserAccountManager', {
                 defaultSplitMin: 100
             },{
                 xtype: 'accountgrid',
-                operable: true,
+                operable: false,
                 dockedItems: [{
                     xtype: 'toolbar',
                     items: {
-                        text: '添加',
-                        tooltip: '添加'
+                        tooltip: '添加',
+                        icon: 'icons/application_add.png'
                     }
                 }],
                 flex: 3

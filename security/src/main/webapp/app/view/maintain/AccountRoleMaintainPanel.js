@@ -54,9 +54,11 @@ Ext.define('security.view.maintain.AccountRoleMaintainPanel', {
     	        dockedItems: {
     	            xtype: 'toolbar',
     	            items: [{
-    	                text: '添加'
+    	                tooltip: '添加',
+    	                icon: 'icons/application_add.png'
     	            }, '-', {
-    	                text: '删除'
+    	            	tooltip: '删除',
+    	                icon: 'icons/application_delete.png'
     	            }]
     	        },
     	        flex: 3

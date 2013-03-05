@@ -27,10 +27,12 @@ Ext.define('security.view.role.RoleListWin', {
             buttonAlign: 'center',
             buttons: [{
                 text: '确定',
-                tooltip: '确定'
+                tooltip: '确定',
+                icon: 'icons/accept.png'
             },{
                 text: '关闭',
                 tooltip: '关闭',
+                icon: 'icons/cancel.png',
                 scope: this,
                 handler: function() {
                     this.hide();

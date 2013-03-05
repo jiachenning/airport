@@ -21,10 +21,10 @@ Ext.define('security.controller.AccountRoleManager', {
             'account-role-maintain > accountgrid': {
                 selectionchange: this.onAccountGridSelectionChange
             },
-            'account-role-maintain > rolegrid button[text="添加"]': {
+            'account-role-maintain > rolegrid button[tooltip="添加"]': {
                 click: this.showRoleListWin
             },
-            'account-role-maintain > rolegrid button[text="删除"]': {
+            'account-role-maintain > rolegrid button[tooltip="删除"]': {
                 click: this.removeRolesFromAccount
             },
             'rolelistwin button[text="确定"]': {
