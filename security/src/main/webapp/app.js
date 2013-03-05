@@ -34,7 +34,6 @@ addTabCmp = function(className, title) {
 			searchable: true,
             operable: true,
             pagable: true,
-            closable: true,
             hasToolbar: true
 		}));
 	}
