@@ -42,14 +42,14 @@ Ext.define('security.controller.GroupController', {
 				width: 80,
 				items:[{
 					text: '添加部门',
-					iconCls: 'silk-group_add',
+					icon: 'icons/group_add.png',
 					scope: this,
 					handler: function(menuItem) {
 						this.showGroupWin(menuItem, 'add');
 					}
 		        },'-',{
 		        	text: '编辑部门',
-		        	iconCls: 'silk-group_edit',
+		        	icon: 'icons/group_edit.png',
 		        	scope: this,
 					handler: function(menuItem) {
 						this.showGroupWin(menuItem, 'edit');

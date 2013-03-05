@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns="http://www.springframework.org/schema/security"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <http entry-point-ref="casEntryPoint" auto-config="false" use-expressions="true">
+
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+            
+        <custom-filter ref="casFilter" position="CAS_FILTER" />
+    </http>
+    
+    <b:bean id="casEntryPoint"
+        class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
+        p:serviceProperties-ref="serviceProperties" 
+        p:loginUrl="https://localhost:8443/cas/login" 
+    />
+     
+    <b:bean id="serviceProperties"
+        class="org.springframework.security.cas.ServiceProperties"
+        p:service="http://localhost:8081/security/j_spring_cas_security_check"
+        p:authenticateAllArtifacts="true" 
+    />
+
+    <b:bean id="casFilter"
+        class="org.springframework.security.cas.web.CasAuthenticationFilter"
+        p:authenticationManager-ref="authManager"
+        p:serviceProperties-ref="serviceProperties" 
+    />
+    
+    <authentication-manager alias="authManager">
+        <authentication-provider ref="casAuthProvider" />
+    </authentication-manager>
+    
+    <b:bean id="casAuthProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
+        p:serviceProperties-ref="serviceProperties"
+        p:key="casAuthProviderKey">
+        <b:property name="authenticationUserDetailsService">
+            <b:bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+                <b:constructor-arg ref="userService" />
+            </b:bean>
+        </b:property>
+        <b:property name="ticketValidator">
+            <b:bean class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator">
+                <b:constructor-arg value="https://localhost:8443/cas" />
+            </b:bean>
+        </b:property>
+    </b:bean>
+
+</b:beans>

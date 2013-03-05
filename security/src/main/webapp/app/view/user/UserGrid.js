@@ -73,11 +73,11 @@ Ext.define('security.view.user.UserGrid', {
                     width: 200,
                     store: this.store
                 },'-',{
-                    text: '添加',
-                    tooltip: '添加'
+                    tooltip: '添加',
+                    icon: 'icons/application_add.png'
                 },'-',{
-                    text: '维护用户账号',
-                    tooltip: '维护用户账号'
+                    tooltip: '维护用户账号',
+                    icon: 'icons/application_edit.png'
                 }]
             });
         }

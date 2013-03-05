@@ -21,10 +21,10 @@ Ext.define('security.controller.RoleController', {
 
     init: function() {
         this.control({
-            'rolegrid[closable] button[text="添加"]': {
+            'rolegrid[closable] button[tooltip="添加"]': {
                 click: this.showRoleWin
             },
-            'rolegrid[closable] button[text="维护帐号角色"]': {
+            'rolegrid[closable] button[tooltip="维护帐号角色"]': {
                 click: this.maintainAccRole
             },
             'rolegrid[closable] actioncolumn': {
