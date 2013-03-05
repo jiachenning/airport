@@ -23,6 +23,25 @@ Ext.example = function(){
     };
 }();
 
+addTabCmp = function(className, title) {
+	
+	var tabs = security.getApplication().getTabs(),
+		tab = tabs.child(Ext.String.format('panel[title="{0}"]', title));
+		
+	if (!tab) {
+		tab = tabs.add(Ext.create(className, {
+			title: title,
+			searchable: true,
+            operable: true,
+            pagable: true,
+            closable: true,
+            hasToolbar: true
+		}));
+	}
+	
+	tabs.setActiveTab(tab);
+};
+
 Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
 	Ext.example.msg('系统异常', response.responseText);
 });

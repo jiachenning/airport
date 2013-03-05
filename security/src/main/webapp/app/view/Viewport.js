@@ -1,20 +1,3 @@
-function addTabCmp(className) {
-	
-	var tabs = security.getApplication().getTabs();
-	
-	var tab = tabs.getComponent(className);
-	if (!tab) {
-		tab = tabs.add(Ext.create(className, {
-			searchable: true,
-            operable: true,
-            pagable: true,
-            closable: true,
-            hasToolbar: true
-		}));
-	}
-	tabs.setActiveTab(tab);
-}
-
 Ext.define('security.view.Viewport', {
     extend: 'Ext.container.Viewport',
     requires: ['Ext.ux.TabCloseMenu', 'security.view.menu.MenuTree'],
