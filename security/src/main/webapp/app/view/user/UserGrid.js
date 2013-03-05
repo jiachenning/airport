@@ -82,17 +82,17 @@ Ext.define('security.view.user.UserGrid', {
             });
         }
 
-        if (this.searchable) {
-            dockedItems.push({
-                xtype: 'toolbar',
-                items: {
-                    xtype: 'searchfield',
-                    paramName: 'search_username_like',
-                    width: 200,
-                    store: this.store
-                }
-            });
-        }
+//        if (this.searchable) {
+//            dockedItems.push({
+//                xtype: 'toolbar',
+//                items: {
+//                    xtype: 'searchfield',
+//                    paramName: 'search_username_like',
+//                    width: 200,
+//                    store: this.store
+//                }
+//            });
+//        }
         
         if (this.pagable) {
             dockedItems.push({

@@ -1,3 +1,20 @@
+function addTabCmp(className) {
+	
+	var tabs = security.getApplication().getTabs();
+	
+	var tab = tabs.getComponent(className);
+	if (!tab) {
+		tab = tabs.add(Ext.create(className, {
+			searchable: true,
+            operable: true,
+            pagable: true,
+            closable: true,
+            hasToolbar: true
+		}));
+	}
+	tabs.setActiveTab(tab);
+}
+
 Ext.define('security.view.Viewport', {
     extend: 'Ext.container.Viewport',
     requires: ['Ext.ux.TabCloseMenu', 'security.view.menu.MenuTree'],
@@ -9,66 +26,28 @@ Ext.define('security.view.Viewport', {
         margin: '0 0 4 0',
         items: [{
             text: '注销',
+            icon: 'icons/logout.png',
+        	tooltip: '退出系统',
             handler: function() {
                 location.replace('j_spring_security_logout');
             }
         }]
     },{
-        region: 'west',
-        layout: {
-            type: 'accordion',
-            titleCollapse: true,
-            animate: true
-        },
-        items: [{
-			xtype: 'menutree'
-        },{
-            title: 'Panle2',
-            html: 'Panel content!'
-        },{
-            title: 'Panle3',
-            html: 'Panel content!'
-        }],
-        width: 270,
-        margin: '0 0 0 4',
+    	region: 'west',
+        title: '功能导航栏',
+        width: 220,
+        collapsible: true,
         split: true,
-        collapsible: true
+        margin: '0 0 0 2',
+        layout: 'fit',
+        loader: {
+        	url: 'security-nav.html',
+        	autoLoad: true
+        }
     },{
         region: 'center',
         xtype: 'tabpanel',
         plain: true,
-        items: [{
-            title: '用户通信录维护',
-            closable: true,
-            layout: {
-                type: 'vbox',
-                align: 'stretch'
-            },
-            bodyPadding: 1,
-            items: [{
-                xtype: 'usergrid',
-                operable: true,
-                pagable: true,
-                hasToolbar: true,
-                flex: 2
-            },{
-                xtype: 'splitter',
-                defaultSplitMin: 100,
-                collapsible: true
-            },{
-                xtype: 'accountgrid',
-                flex: 1
-            }]
-        },{
-            xtype: 'rolegrid',
-            searchable: true,
-            operable: true,
-            pagable: true,
-            closable: true
-        },{
-            xtype: 'groupmgrpanel',
-            closable: true
-        }],
         plugins: [{
             ptype: 'tabclosemenu',
             closeTabText: '关闭标签',
