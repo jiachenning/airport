@@ -20,9 +20,10 @@ Ext.define('security.view.group.GroupWin', {
             items: [{
                 xtype: 'form',
                 bodyPadding: 5,
-                frame: true,
+                frame: true,             
                 fieldDefaults: {
-                    labelWidth: 100,
+                	labelAlign: 'top',
+                    labelWidth: 100
                 },
                 defaults: {
                     xtype: 'textfield',
