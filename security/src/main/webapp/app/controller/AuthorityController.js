@@ -111,13 +111,13 @@ Ext.define('security.controller.AuthorityController', {
             	if (selectedNode.isLeaf()) {
 					selectedNode.set('leaf',false);
 				}
-            	Ext.Msg.alert("提示","新增成功!");
+            	Ext.Msg.alert('提示','新增成功!');
             	var store = this.getAuthorityTree().getStore();
             	store.reload();
             }else{
                 selectedNode.set('text', authority.get('name'));
                 selectedNode.set('version', authority.get('version')+1);
-            	Ext.Msg.alert("提示","更新成功!");
+            	Ext.Msg.alert('提示','更新成功!');
             }
             
         }
@@ -147,10 +147,10 @@ Ext.define('security.controller.AuthorityController', {
 				    }
 				});
 			}else{
-				Ext.Msg.alert("提示","请选择叶子节点删除!");
+				Ext.Msg.alert('提示','请选择叶子节点删除!');
 			}
 		}else{
-			Ext.Msg.alert("提示","请先选择一个节点!");
+			Ext.Msg.alert('提示','请先选择一个节点!');
 		}
     }
 

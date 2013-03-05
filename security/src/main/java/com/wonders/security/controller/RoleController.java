@@ -14,6 +14,7 @@ import com.wonders.framework.controller.AbstractCrudController;
 import com.wonders.framework.repository.MyRepository;
 import com.wonders.security.entity.Role;
 import com.wonders.security.repository.RoleRepository;
+import com.wonders.security.service.RoleService;
 
 @Controller
 @RequestMapping("roles")
@@ -21,6 +22,9 @@ public class RoleController extends AbstractCrudController<Role, Long> {
 
 	@Inject
 	private RoleRepository roleRepository;
+	
+	@Inject
+	private RoleService roleService;
 
 	@Override
 	protected MyRepository<Role, Long> getRepository() {
@@ -31,6 +35,20 @@ public class RoleController extends AbstractCrudController<Role, Long> {
 	protected @ResponseBody
 	List<Role> findByAccountId(@RequestParam long accountId) {
 		return roleRepository.findByAccountId(accountId);
+	}
+	
+	@RequestMapping(value = "addRoleAuthority")
+	protected @ResponseBody
+	String addRoleAuthority(@RequestParam long roleId, 
+			@RequestParam long... authIds) {
+		roleService.addRoleAuthority(roleId, authIds);
+		return "{success: true}";
+	}
+	
+	@RequestMapping(value = "findRoleAuthority", method = RequestMethod.GET)
+	protected @ResponseBody
+	String findRoleAuthority(@RequestParam long roleId){
+		return roleService.findRoleAuthority(roleId);
 	}
 
 }

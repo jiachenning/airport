@@ -1,10 +1,11 @@
 Ext.define('security.controller.RoleController', {
     extend: 'Ext.app.Controller',
     uses: ['security.controller.AccountRoleManager'],
-
+    stores: ['AuthorityChecked'],
     views: [
         'role.RoleGrid',
-        'role.RoleWin'
+        'role.RoleWin',
+        'authority.AuthorityRoleWin'
     ],
 
     refs: [{
@@ -13,6 +14,9 @@ Ext.define('security.controller.RoleController', {
     },{
         ref: 'roleWin',
         selector: 'rolewin'
+    },{
+    	ref: 'authorityRoleWin',
+        selector: 'authority-role-win'
     }],
 
     init: function() {
@@ -28,6 +32,9 @@ Ext.define('security.controller.RoleController', {
             },
             'rolewin button[text="保存"]': {
                 click: this.saveRole
+            },
+            'authority-role-win button[text="授权"]': {
+            	click: this.addRoleAuthority
             }
         });
     },
@@ -63,6 +70,8 @@ Ext.define('security.controller.RoleController', {
             this.showRoleWin(e.target, e, eOpts, rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete user
             this.deleteRole(rec.get('id'));
+        } else if (action.indexOf("x-action-col-2") != -1) {
+            this.authorityRole(e.target, rec);
         }
     },
 
@@ -97,6 +106,68 @@ Ext.define('security.controller.RoleController', {
                 }
             });
         }
-    }
+    },
+    
+    authorityRole: function(btn, rec) {
+    	var win = Ext.getCmp('authorityRolewin');
+    	if (!win) {
+    		win = Ext.widget('authority-role-win');
+        }
+      	win.show(btn, function() {
+      		var authoritytree = win.child('authority-checked-tree');
+      		var root = authoritytree.getRootNode();
+//      		root.cascadeBy(function(node){
+//				node.set('checked', false);
+//			});
+      		Ext.Ajax.request({
+                url: 'roles/findRoleAuthority',
+                method: 'get',
+                params: {
+                    roleId: rec.get('id')
+                },
+                success: function(response, options) {
+                	var responseText = response.responseText.replace(/[\"]/ig,''),
+                		authIds = responseText.split(',');
+                	
+                	if(authIds.length > 0){
+						root.cascadeBy(function(node){
+							node.set('checked', false);
+							for (var i = 0; i < authIds.length; i++) {
+								if(node.get('id') == authIds[i]){
+									node.set('checked', true);
+    								break;
+    							}
+                            }
+						});
+					}
+                }
+            });
+      		
+        });
+    },
+    
+    addRoleAuthority: function(btn) {
+	    var roleId = this.getRoleGrid().getSelectionModel().getLastSelected().get('id'),
+	    	win = this.getAuthorityRoleWin(),
+	    	authoritytree = win.child('authority-checked-tree'),
+	    	records = authoritytree.getView().getChecked(),
+	    	authIds = [];
+	    
+	    Ext.Array.each(records, function(rec){
+	    	authIds.push(rec.get('id'));
+	    });
+	    
+	    Ext.Ajax.request({
+            url: 'roles/addRoleAuthority',
+            params: {
+                roleId: roleId,
+                authIds: authIds
+            },
+            success: function(response, options) {
+            	Ext.Msg.alert('提示','授权成功!');
+                win.close();
+            }
+        });
+	}
 
 });

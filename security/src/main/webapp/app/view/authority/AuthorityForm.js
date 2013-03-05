@@ -3,11 +3,11 @@ Ext.define('security.view.authority.AuthorityForm', {
     alias: 'widget.authorityform',
 
     title: '资源详细',
+    border : true,
 	initComponent : function() {
 		var me = this;
 
 		Ext.applyIf(me, {
-			border : true,
 			items : [ {
 				xtype : 'textfield',
 				anchor : '90%',

@@ -4,13 +4,14 @@ Ext.define('security.view.authority.AuthorityTree', {
 
     title: '资源树',
     useArrows: true,
+    autoScroll: true, 
 	initComponent : function() {
 		var me = this;
 
 		Ext.applyIf(me, {
 			store: 'Authority'
 		});
-
+		
 		me.callParent(arguments);
 	}
 });

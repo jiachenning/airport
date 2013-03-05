@@ -68,6 +68,9 @@ Ext.define('security.view.role.RoleGrid', {
                 },{
                     icon: 'images/delete.gif',
                     tooltip: '删除'
+                },{
+                    icon: 'images/cog.png',
+                    tooltip: '授权'
                 }]
             });
         }
@@ -92,10 +95,13 @@ Ext.define('security.view.role.RoleGrid', {
 
             if (this.operable) {
                 toolItems.push(
-                    '-', 
-                    {text: '添加', tooltip: '添加'}, 
-                    '-', 
-                    {text: '维护帐号角色', tooltip: '维护帐号角色'}
+                    '-', {
+                     tooltip: '添加',
+                     icon: 'icons/application_add.png'
+                    }, '-', {
+                     tooltip: '维护帐号角色',
+                     icon: 'icons/application_edit.png'
+                    }
                 );
             }
 
