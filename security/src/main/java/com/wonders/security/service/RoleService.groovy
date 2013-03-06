@@ -24,14 +24,9 @@ class RoleService {
 		def role = roleRepository.findOne(roleId)
 		
 		if (role) {
-			if(authIds.size() > 0 ){
-				def auths = authorityRepository.findAll(authIds as List)
-				role.authorities = auths
-			}else{
-				role.authorities = null
-			}
+			def auths = authorityRepository.findAll(authIds as List)
+			role.authorities = auths
 		}
-		
 		role
 	}
 	

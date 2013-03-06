@@ -31,6 +31,7 @@ addTabCmp = function(className, title) {
 	if (!tab) {
 		tab = tabs.add(Ext.create(className, {
 			title: title,
+			closable: true,
 			searchable: true,
             operable: true,
             pagable: true,

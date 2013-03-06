@@ -60,5 +60,19 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	List<Account> findByGroupId(@RequestParam long groupId) {
 		return accountRepository.findByGroupId(groupId);
 	}
+	
+	@RequestMapping(value = "addAccountAuthority")
+	protected @ResponseBody
+	String addAccountAuthority(@RequestParam long accountId, 
+			@RequestParam(required = false) long... authIds) {
+		accountService.addAccountAuthority(accountId, authIds);
+		return "{success: true}";
+	}
+	
+	@RequestMapping(value = "findAccountAuthority", method = RequestMethod.GET)
+	protected @ResponseBody
+	String findAccountAuthority(@RequestParam long accountId){
+		return accountService.findAccountAuthority(accountId);
+	}
 
 }

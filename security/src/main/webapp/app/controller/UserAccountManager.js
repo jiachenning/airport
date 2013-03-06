@@ -46,6 +46,9 @@ Ext.define('security.controller.UserAccountManager', {
             },
             'accountgrid actioncolumn': {
                 click: this.doAction2
+            },
+            'authority-role-win button[tooltip="授权"]': {
+            	click: this.addAccountAuthority
             }
         });
     },
@@ -175,6 +178,8 @@ Ext.define('security.controller.UserAccountManager', {
             this.showAccountWin(e.target, e, eOpts, rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete account
             this.deleteAccount(rec.get('id'));
+        } else if (action.indexOf("x-action-col-2") != -1) { // add authority
+        	this.authorityAccount(e.target, rec);
         }
     },
     
@@ -206,5 +211,68 @@ Ext.define('security.controller.UserAccountManager', {
                 });
             }
         }, this);
-    }
+    },
+    
+    authorityAccount: function(btn, rec) {
+    	var win = Ext.getCmp('authorityRolewin');
+    	if (!win) {
+    		win = Ext.widget('authority-role-win');
+    		win.setTitle('账号授权');
+    		win.record = rec;
+        }
+      	win.show(btn, function() {
+      		var authoritytree = win.child('authority-checked-tree');
+      		var root = authoritytree.getRootNode();
+      		Ext.Ajax.request({
+                url: 'accounts/findAccountAuthority',
+                method: 'get',
+                params: {
+                    accountId: rec.get('id')
+                },
+                success: function(response, options) {
+                	var responseText = response.responseText.replace(/[\"]/ig,''),
+                		authIds = responseText.split(',');
+                	
+                	if(authIds.length > 0){
+						root.cascadeBy(function(node){
+							node.set('checked', false);
+							for (var i = 0; i < authIds.length; i++) {
+								if(node.get('id') == authIds[i]){
+									node.set('checked', true);
+    								break;
+    							}
+                            }
+						});
+					}
+                }
+            });
+      		
+        });
+    },
+    
+    addAccountAuthority: function(btn) {
+    	
+	    var	win = this.getAuthorityRoleWin(),
+	    	accountId = win.record.get('id'),
+	    	authoritytree = win.child('authority-checked-tree'),
+	    	records = authoritytree.getView().getChecked(),
+	    	authIds = [];
+	    alert(accountId);
+	    
+	    Ext.Array.each(records, function(rec){
+	    	authIds.push(rec.get('id'));
+	    });
+	    
+	    Ext.Ajax.request({
+            url: 'accounts/addAccountAuthority',
+            params: {
+                accountId: accountId,
+                authIds: authIds
+            },
+            success: function(response, options) {
+            	Ext.Msg.alert('提示','授权成功!');
+                win.close();
+            }
+        });
+	}
 });

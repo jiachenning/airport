@@ -40,7 +40,7 @@ public class RoleController extends AbstractCrudController<Role, Long> {
 	@RequestMapping(value = "addRoleAuthority")
 	protected @ResponseBody
 	String addRoleAuthority(@RequestParam long roleId, 
-			@RequestParam long... authIds) {
+			@RequestParam(required = false) long... authIds) {
 		roleService.addRoleAuthority(roleId, authIds);
 		return "{success: true}";
 	}

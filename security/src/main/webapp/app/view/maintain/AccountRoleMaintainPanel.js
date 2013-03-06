@@ -34,6 +34,7 @@ Ext.define('security.view.maintain.AccountRoleMaintainPanel', {
     	        },
     	        searchable: true,
     	        pagable: true,
+    	        operable: true,
     	        flex: 4
     	    },{
     	        xtype: 'splitter',

@@ -112,13 +112,12 @@ Ext.define('security.controller.RoleController', {
     	var win = Ext.getCmp('authorityRolewin');
     	if (!win) {
     		win = Ext.widget('authority-role-win');
+    		win.setTitle('角色授权');
+    		win.record = rec;
         }
       	win.show(btn, function() {
       		var authoritytree = win.child('authority-checked-tree');
       		var root = authoritytree.getRootNode();
-//      		root.cascadeBy(function(node){
-//				node.set('checked', false);
-//			});
       		Ext.Ajax.request({
                 url: 'roles/findRoleAuthority',
                 method: 'get',
@@ -147,8 +146,8 @@ Ext.define('security.controller.RoleController', {
     },
     
     addRoleAuthority: function(btn) {
-	    var roleId = this.getRoleGrid().getSelectionModel().getLastSelected().get('id'),
-	    	win = this.getAuthorityRoleWin(),
+	    var	win = this.getAuthorityRoleWin(),
+	    	roleId = win.record.get('id'),
 	    	authoritytree = win.child('authority-checked-tree'),
 	    	records = authoritytree.getView().getChecked(),
 	    	authIds = [];

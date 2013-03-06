@@ -61,7 +61,7 @@ Ext.define('security.view.role.RoleGrid', {
                 xtype: 'actioncolumn',
                 text: '操作',
                 align: 'center',
-                width: 50,
+                width: 80,
                 items: [{
                     icon: 'images/cog_edit.png',
                     tooltip: '编辑'
@@ -69,7 +69,7 @@ Ext.define('security.view.role.RoleGrid', {
                     icon: 'images/delete.gif',
                     tooltip: '删除'
                 },{
-                    icon: 'images/cog.png',
+                    icon: 'icons/application_edit.png',
                     tooltip: '授权'
                 }]
             });

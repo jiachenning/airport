@@ -51,13 +51,16 @@ Ext.define('security.view.account.AccountGrid', {
                 xtype: 'actioncolumn',
                 text: '操作',
                 align: 'center',
-                width: 50,
+                width: 80,
                 items: [{
                     icon: 'images/cog_edit.png',
                     tooltip: '编辑'
                 },{
                     icon: 'images/delete.gif',
                     tooltip: '删除'
+                },{
+                    icon: 'icons/application_edit.png',
+                    tooltip: '授权'
                 }]
             });
         }

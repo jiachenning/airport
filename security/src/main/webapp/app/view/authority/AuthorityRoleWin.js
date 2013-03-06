@@ -2,7 +2,7 @@ Ext.define('security.view.authority.AuthorityRoleWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.authority-role-win',
     requires: ['security.view.authority.AuthorityCheckedTree'],
-    title: '角色授权',
+    title: '授权',
     modal: true,
     constrainHeader: true,
     plain: true,
@@ -14,7 +14,8 @@ Ext.define('security.view.authority.AuthorityRoleWin', {
     
     initComponent: function() {
         
-        var me = this;
+        var me = this,
+        	record = me.record; 
         
         Ext.applyIf(me, {
             items: [{
@@ -27,6 +28,10 @@ Ext.define('security.view.authority.AuthorityRoleWin', {
             },{
                 text: '重置',
                 handler: function() {
+                	var root = me.child('authority-checked-tree').getRootNode();
+	          		root.cascadeBy(function(node){
+	    				node.set('checked', false);
+	    			});
                 }
             }]
         });
