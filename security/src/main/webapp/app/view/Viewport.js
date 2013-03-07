@@ -1,6 +1,6 @@
 Ext.define('security.view.Viewport', {
     extend: 'Ext.container.Viewport',
-    requires: ['Ext.ux.TabCloseMenu', 'security.view.menu.MenuTree'],
+    requires: ['Ext.ux.TabCloseMenu'],
 
     layout: 'border',
     items: [{

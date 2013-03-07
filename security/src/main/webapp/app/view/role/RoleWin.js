@@ -55,13 +55,16 @@ Ext.define('security.view.role.RoleWin', {
             }],
             buttonAlign: 'center',
             buttons: [{
-                text: '保存',
-                tooltip: '保存'
+            	text: '保存',
+                tooltip: '保存',
+                icon: 'icons/accept.png'
             },{
-                text: '重置',
-                handler: function() {
-                    this.up('window').child('form').getForm().reset();
-                }
+            	text: '关闭',
+                icon: 'icons/cancel.png',
+				scope: this,
+				handler: function() {
+					this.hide();
+				}
             }]
         });
         
