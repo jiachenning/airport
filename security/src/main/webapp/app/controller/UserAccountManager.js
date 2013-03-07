@@ -191,8 +191,10 @@ Ext.define('security.controller.UserAccountManager', {
     
     showAccountWin: function(btn, e, eOpts, rec) {
     	
-    	if(this.getUserGrid2().getSelectionModel().getLastSelected() != undefined) {
-	        var win = Ext.getCmp('accountwin');
+    	if(this.getUserGrid2().getSelectionModel().getLastSelected() != null) {
+	        var win = Ext.getCmp('accountwin'),
+	        	userName = this.getUserGrid2().getSelectionModel().getLastSelected().get('username');
+	        
 	        if (!win) {
 	            win = Ext.create('security.view.account.AccountWin');
 	        }
@@ -202,6 +204,7 @@ Ext.define('security.controller.UserAccountManager', {
 	                rec = Ext.create('security.model.Account');
 	            }
 	            f.loadRecord(rec);
+	            f.findField('username').setValue(userName);
 	        });
     	} else {
 			Ext.Msg.alert("提示","请选择一个用户进行帐号新增!");

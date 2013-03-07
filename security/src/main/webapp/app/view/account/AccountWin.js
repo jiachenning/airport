@@ -32,6 +32,11 @@ Ext.define('security.view.account.AccountWin', {
                     anchor: '100%'
                 },
                 items: [{
+                    fieldLabel: '用户名',
+                    name: 'username',
+                    allowBlank: true,
+                    readonly: true
+                },{
                     fieldLabel: '登录名',
                     name: 'loginName'
                 },{
