@@ -32,7 +32,7 @@ Ext.define('security.view.account.AccountGrid', {
             dataIndex: 'loginName'
         },{
             text: '所属机构',
-            dataIndex: 'group.name'
+            dataIndex: 'groupName'
         },{
             text: '密码',
             dataIndex: 'password',

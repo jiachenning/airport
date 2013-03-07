@@ -2,7 +2,7 @@ Ext.define('security.controller.UserAccountManager', {
     extend: 'Ext.app.Controller',
     uses: ['security.view.user.UserWin'],
 
-    views: ['user.UserGrid', 'account.AccountGrid', 'user.UserManagerPanel'],
+    views: ['user.UserGrid', 'account.AccountGrid', 'user.UserManagerPanel', 'account.AccountWin'],
     
     refs: [{
         ref: 'userGrid1',
@@ -19,6 +19,9 @@ Ext.define('security.controller.UserAccountManager', {
     },{
        ref: 'userWin',
        selector: 'userwin'
+    },{
+    	ref: 'accountWin',
+    	selector: 'accountwin'
     }],
     
     init: function() {
@@ -49,6 +52,9 @@ Ext.define('security.controller.UserAccountManager', {
             },
             'authority-role-win button[tooltip="授权"]': {
             	click: this.addAccountAuthority
+            },
+            'accountwin button[text="保存"]': {
+            	click: this.saveAccount
             }
         });
     },
@@ -184,17 +190,22 @@ Ext.define('security.controller.UserAccountManager', {
     },
     
     showAccountWin: function(btn, e, eOpts, rec) {
-        var win = Ext.getCmp('accountwin');
-        if (!win) {
-            win = Ext.create('security.view.account.AccountWin');
-        }
-    	win.show(btn, function() {
-            var f = win.child('form').getForm();
-            if (!rec) {
-                rec = Ext.create('security.model.Account');
-            }
-            f.loadRecord(rec);
-        });
+    	
+    	if(this.getUserGrid2().getSelectionModel().getLastSelected() != undefined) {
+	        var win = Ext.getCmp('accountwin');
+	        if (!win) {
+	            win = Ext.create('security.view.account.AccountWin');
+	        }
+	    	win.show(btn, function() {
+	            var f = win.child('form').getForm();
+	            if (!rec) {
+	                rec = Ext.create('security.model.Account');
+	            }
+	            f.loadRecord(rec);
+	        });
+    	} else {
+			Ext.Msg.alert("提示","请选择一个用户进行帐号新增!");
+		}
     },
     
     deleteAccount: function(id) {
@@ -274,5 +285,31 @@ Ext.define('security.controller.UserAccountManager', {
                 win.close();
             }
         });
+	},
+	
+	saveAccount: function(btn) {
+		
+		var win = this.getAccountWin(), 
+			f = win.child('form').getForm(),
+			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id');
+		
+		if (f.isValid()) {
+			
+			f.updateRecord();
+			
+			var account = f.getRecord(),
+				accountStore = this.getAccountGrid2().getStore();
+			
+			account.set('user', {id: userId});
+			account.set('group', {id: f.findField('group.id').value});
+				
+			account.save({
+				success : function(user) {
+					win.hide();
+					accountStore.getProxy().setExtraParam('userId', userId);
+					accountStore.load();
+				}
+			});
+		}
 	}
 });

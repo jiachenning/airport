@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OrderBy
 import javax.persistence.Table
+import javax.persistence.Transient;
 import javax.persistence.Version
 import javax.validation.constraints.NotNull
 
@@ -29,6 +30,8 @@ class Account extends AbstractPersistable<Long> {
 	String password
 	
 	boolean enabled
+	
+	String groupName;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	User user
@@ -56,4 +59,12 @@ class Account extends AbstractPersistable<Long> {
 		this.enabled
 	}
 	
+	@Transient
+	String getGroupName() {
+		this.group.getName();
+	}
+	
+	void setGroupName(String groupName) {
+		this.groupName = groupName
+	}
 }

@@ -18,7 +18,7 @@ Ext.define('security.controller.GroupController', {
         selector: 'grouptree'
     },{
         ref: 'accountGrid',
-        selector: 'panel[title="组织机构管理"] > accountgrid'
+        selector: 'panel[title="机构管理"] > accountgrid'
     }],
 
     init: function() {
@@ -30,7 +30,7 @@ Ext.define('security.controller.GroupController', {
     		'groupwin button[text="保存"]': {
                 click: this.saveGroup
             },
-            'panel[title="组织机构管理"] > grouptree': {
+            'panel[title="机构管理"] > grouptree': {
                 selectionchange: this.onGroupTreeSelectionChange
             }
     	});
@@ -131,7 +131,7 @@ Ext.define('security.controller.GroupController', {
 			var record = selected[0], 
 				groupId = record.get('id'), 
 				accountStore = this.getAccountGrid().getStore();
-
+			
 			accountStore.setProxy({
 		        type: 'rest',
 		        url: 'accounts/findByGroupId'

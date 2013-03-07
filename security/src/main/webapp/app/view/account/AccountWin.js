@@ -20,7 +20,7 @@ Ext.define('security.view.account.AccountWin', {
         Ext.applyIf(me, {
             items: [{
                 xtype: 'form',
-                url: 'users',
+                //url: 'users',
                 bodyPadding: 5,
                 frame: true,
                 fieldDefaults: {
@@ -37,6 +37,16 @@ Ext.define('security.view.account.AccountWin', {
                 },{
                     fieldLabel: '密码',
                     name: 'password'
+                },{
+                    xtype: 'combobox',
+                    fieldLabel: '是否启用',
+                    name: 'enabled',
+                    queryMode: 'local',
+                    forceSelection: true,
+                    store: [
+                        [true, '是'],
+                        [false, '否']
+                    ]
                 },{
                     xtype: 'treepicker',
                     fieldLabel: '组织机构',
