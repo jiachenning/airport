@@ -191,7 +191,9 @@ Ext.define('security.controller.UserAccountManager', {
     
     showAccountWin: function(btn, e, eOpts, rec) {
     	
-    	if(this.getUserGrid2().getSelectionModel().getLastSelected() != null) {
+    	var record = this.getUserGrid2().getSelectionModel().getLastSelected();
+    	
+    	if(record != null) {
 	        var win = Ext.getCmp('accountwin'),
 	        	userName = this.getUserGrid2().getSelectionModel().getLastSelected().get('username');
 	        
