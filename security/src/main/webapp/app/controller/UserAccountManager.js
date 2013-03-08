@@ -297,15 +297,17 @@ Ext.define('security.controller.UserAccountManager', {
 		var win = this.getAccountWin(), 
 			f = win.child('form').getForm(),
 			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id');
-		
+					
 		if (f.isValid()) {
 			
 			f.updateRecord();
 			
 			var account = f.getRecord(),
+				password = hex_md5(f.findField('password').getValue()),
 				accountStore = this.getAccountGrid2().getStore();
 			
 			account.set('user', {id: userId});
+			account.set('password', password);
 			account.set('group', {id: f.findField('group.id').value});
 				
 			account.save({
