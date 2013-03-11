@@ -21,17 +21,43 @@ class User extends AbstractPersistable<Long> {
 
 	@NotNull
 	String username
+	
+	@NotNull
+	@Column(name = "login_name", unique = true)
+	String loginName
+	
+	@NotNull
+	String password
+	
+	boolean enabled
 
 	int age
-
+	
+	String telephone
+	
+	String address
+	
 	@Temporal(DATE)
 	Date birthday
 
 	@Enumerated
+	@Column(nullable = false)
+	Gender gender
+	
+	@Enumerated
 	@Column(name = "user_type", nullable = false)
 	UserType userType
+	
+	enum Gender {
+		MALE, FEMALE
+	}
 	
 	enum UserType {
 		NORMAL, ADVINCED, ADMINISTRATOR
 	}
+	
+	boolean getEnabled() {
+		this.enabled
+	}
+	
 }

@@ -22,7 +22,7 @@ class Role extends AbstractPersistable<Long> {
 	@NotNull
 	String name
 	
-	@Column(unique = false)
+	@Column(unique = true)
 	String code
 	
 	String description
@@ -35,7 +35,7 @@ class Role extends AbstractPersistable<Long> {
 		inverseJoinColumns = @JoinColumn(name = "auth_id")
 	)
 	@OrderBy
-	Set<Authority> authorities = new HashSet<>(0)
+	Set<Authority> authorities = []
 	
 	boolean getEnabled() {
 		this.enabled
