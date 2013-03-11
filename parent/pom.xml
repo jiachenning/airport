@@ -24,8 +24,8 @@
   <properties>
     <spring.version>3.2.1.RELEASE</spring.version>
     <springsecurity.version>3.1.3.RELEASE</springsecurity.version>
-    <jackson.version>2.1.3</jackson.version>
-    <hibernate.version>4.2.0.CR1</hibernate.version>
+    <jackson.version>2.1.4</jackson.version>
+    <hibernate.version>4.2.0.CR2</hibernate.version>
     <groovy.version>2.1.1</groovy.version>
     <slf4j.version>1.7.2</slf4j.version>
     <logback.version>1.0.9</logback.version>
@@ -380,7 +380,7 @@
         <jdbc.db.driver>com.mysql.jdbc.Driver</jdbc.db.driver>
         <jdbc.db.url>jdbc:mysql:///${project.artifactId}?createDatabaseIfNotExist=true</jdbc.db.url>
         <jdbc.db.username>root</jdbc.db.username>
-        <jdbc.db.password>041129</jdbc.db.password>
+        <jdbc.db.password></jdbc.db.password>
       </properties>
     </profile>
 
