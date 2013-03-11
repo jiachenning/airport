@@ -1,7 +1,6 @@
 package com.wonders.security.repository;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -18,16 +17,6 @@ public class AccountRepositoryTest extends AbstractSpringTests {
 	
 	@Inject
 	private AccountRepository accountRepository;
-
-	@Test
-	public void testFindByLoginName() {
-		
-		Account account = accountRepository.findByLoginName("wangqiang2");
-		
-		assertNotNull(account);
-		assertEquals(2, (long) account.getId());
-		assertEquals("wangqiang2", account.getLoginName());
-	}
 
 	@Test
 	public void testFindByUserId() {

@@ -55,6 +55,12 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 		return "{success: true}";
 	}
 	
+	@RequestMapping(value = "findByLoginName", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Account> findByLoginName(@RequestParam String loginName) {
+		return accountRepository.findByLoginName(loginName);
+	}
+	
 	@RequestMapping(value = "findByGroupId", method = RequestMethod.GET)
 	protected @ResponseBody
 	List<Account> findByGroupId(@RequestParam long groupId) {

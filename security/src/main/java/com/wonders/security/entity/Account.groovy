@@ -21,17 +21,8 @@ class Account extends AbstractPersistable<Long> {
 	
 	@Version
 	int version
-
-	@NotNull
-	@Column(name = "login_name", unique = true)
-	String loginName
 	
-	@NotNull
-	String password
-	
-	boolean enabled
-	
-	String groupName;
+	String name
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	User user
@@ -45,7 +36,7 @@ class Account extends AbstractPersistable<Long> {
 		inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	@OrderBy
-	Set<Role> roles = new HashSet<>(0)
+	Set<Role> roles = []
 	
 	@ManyToMany
 	@JoinTable(name = "sec_acc_auth",
@@ -53,18 +44,6 @@ class Account extends AbstractPersistable<Long> {
 		inverseJoinColumns = @JoinColumn(name = "auth_id")
 	)
 	@OrderBy
-	Set<Authority> authorities = new HashSet<>(0)
+	Set<Authority> authorities = []
 	
-	boolean getEnabled() {
-		this.enabled
-	}
-	
-	@Transient
-	String getGroupName() {
-		this.group.getName();
-	}
-	
-	void setGroupName(String groupName) {
-		this.groupName = groupName
-	}
 }
