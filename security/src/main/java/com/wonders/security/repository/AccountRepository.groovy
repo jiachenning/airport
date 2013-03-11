@@ -6,6 +6,9 @@ import com.wonders.framework.repository.MyRepository
 import com.wonders.security.entity.Account
 
 interface AccountRepository extends MyRepository<Account, Long> {
+	
+	@Query("from Account a where a.user.loginName = ?1")
+	List<Account> findByLoginName(loginName)
 
 	@Query("from Account a join fetch a.group where a.user.id = ?1")
 	List<Account> findByUserId(userId)

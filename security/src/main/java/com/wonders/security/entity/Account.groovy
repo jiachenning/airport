@@ -22,6 +22,8 @@ class Account extends AbstractPersistable<Long> {
 	@Version
 	int version
 	
+	String name
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	User user
 	
