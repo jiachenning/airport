@@ -10,29 +10,24 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 import com.wonders.security.repository.AccountRepository
+import com.wonders.security.repository.UserRepository;
 
 @Service
 class UserService implements UserDetailsService {
 	
 	@Inject
-	private AccountRepository accountRepository
+	private UserRepository userRepository
 	
 	@Override
 	@Transactional(readOnly = true)
 	UserDetails loadUserByUsername(String username) {
 		
-		def account = accountRepository.findByLoginName(username)
-		if (!account) {
+		def user = userRepository.findByLoginName(username)
+		if (!user) {
 			throw new UsernameNotFoundException("user not found with username: [$username]!");
 		}
-		
-		println 'load account.roles'
-		println account.roles
-		
-		println 'load account.authorities'
-		println account.authorities
-		
-		new User(account.loginName, account.password, Collections.EMPTY_LIST)
+
+		new User(user.loginName, user.password, [])
 	}
 	
 }
