@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -76,7 +77,7 @@ public abstract class AbstractCrudController<T, ID extends Serializable> {
 	}
 	
 	@ExceptionHandler
-	protected ResponseEntity<?> handleException(Exception e) {
+	protected HttpEntity<String> handleException(Exception e) {
 		return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
