@@ -14,17 +14,18 @@ MYSQL_DIALECT  = 'org.hibernate.dialect.MySQL5InnoDBDialect'
 ORACLE_DIALECT = 'org.hibernate.dialect.Oracle10gDialect'
 
 def props = new Properties()
-props.put("hibernate.dialect", MYSQL_DIALECT)
+props.put("hibernate.dialect", ORACLE_DIALECT)
 
 def configuration = new Configuration()
 		.addProperties(props)
 		.addAnnotatedClass(Group.class)
-		.addAnnotatedClass(User.class)
 		.addAnnotatedClass(Account.class)
 		.addAnnotatedClass(Role.class)
 		.addAnnotatedClass(Authority.class)
+		.addAnnotatedClass(User.class)
 
 new SE(configuration)
+		.setDelimiter(";")
 		.setFormat(true)
-		.setOutputFile("scripts/schema/schema-mysql.sql")
+		.setOutputFile("scripts/schema/schema-oracle.sql")
 		.create(true, false)
