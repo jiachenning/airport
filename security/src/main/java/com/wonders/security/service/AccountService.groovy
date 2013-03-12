@@ -32,7 +32,7 @@ class AccountService {
 			
 			def roles = roleRepository.findAll(roleIds as List)
 			
-			account.roles += roles
+			account.roles.addAll(roles)
 		}
 		
 		account
@@ -47,7 +47,7 @@ class AccountService {
 			
 			def roles = roleRepository.findAll(roleIds as List)
 			
-			account.roles -= roles
+			account.roles.removeAll(roles)
 		}
 		
 		account
@@ -60,12 +60,19 @@ class AccountService {
 		
 		if (account) {
 			def auths = authorityRepository.findAll(authIds as List)
-			account.authorities = auths
+			
+			account.authorities.each {
+				if (!auths.contains(it)) {
+					account.authorities.remove(it)
+				}
+			}
+			
+			account.authorities.addAll(auths)
 		}
+		
 		account
 	}
 	
-	@Transactional
 	String findAccountAuthority(long accountId) {
 		
 		def account = accountRepository.findOne(accountId)

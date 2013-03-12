@@ -1,4 +1,4 @@
-package com.wonders.security.entity;
+package com.wonders.security.entity
 
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -7,7 +7,6 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.persistence.Transient
-import javax.persistence.Version
 import javax.validation.constraints.NotNull
 
 import org.hibernate.Hibernate
@@ -25,14 +24,14 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 	
 	boolean enabled
 	
-	@Column(unique = false)
+	@Column(unique = true)
 	String code
 	
 	String description
 	
-	long parentId;
+	long parentId
 	
-	String parentName;
+	String parentName
 	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -54,7 +53,9 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 		this.name
 	}
 	
-	void setText(String text){}
+	void setText(String text) {
+		
+	}
 	
 	@Override
 	@JsonProperty
@@ -66,7 +67,9 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 		super.isLeaf()
 	}
 	
-	void setLeaf(boolean leaf){}
+	void setLeaf(boolean leaf) {
+		
+	}
 	
 	boolean getEnabled() {
 		this.enabled
@@ -77,17 +80,9 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 		this.parentId
 	}
 	
-	void setParentId(long parentId) {
-		this.parentId = parentId
-	}
-	
 	@Transient
 	String getParentName() {
 		this.parentName
-	}
-	
-	void setParentName(String parentName) {
-		this.parentName = parentName
 	}
 	
 }
