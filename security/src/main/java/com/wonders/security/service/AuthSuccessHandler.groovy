@@ -15,6 +15,6 @@ class AuthSuccessHandler implements AuthenticationSuccessHandler {
 			HttpServletResponse response, Authentication authentication) {
 			
 		response.setContentType("text/json; charset=UTF-8")
-		response.writer.print("{success: true, loginName: '${authentication.name}'}")
+		response.writer.print("{success: true}")
 	}
 }

@@ -4,26 +4,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<debug />
-
 	<global-method-security pre-post-annotations="enabled" />
 
 	<http pattern="/login.html" security="none" />
-    <http pattern="/extjs/**"   security="none" />
-    <http pattern="/images/**"  security="none" />
+	<http pattern="/extjs/**"   security="none" />
+	<http pattern="/app/**"     security="none" />
+	<http pattern="/images/**"  security="none" />
+	<http pattern="/icons/**"   security="none" />
 
 	<http use-expressions="true">
 
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 
-		<!-- <form-login login-page="/login.html"
-			always-use-default-target="true"
-			default-target-url="/index.html?theme=neptune"
-			authentication-failure-url="/login.html?loginerror" /> -->
-			
 		<form-login login-page="/login.html"
-		  authentication-success-handler-ref="authSuccessHandler" 
-		  authentication-failure-handler-ref="authFailureHandler" />
+			authentication-success-handler-ref="authSuccessHandler"
+			authentication-failure-handler-ref="authFailureHandler" />
 
 		<logout logout-success-url="/login.html" delete-cookies="JSESSIONID" />
 

@@ -49,7 +49,7 @@ Ext.onReady(function() {
                     fields: ['name'],
                     proxy: {
                         type: 'rest',
-                        url: 'accounts/findByLoginName'
+                        url: 'accounts/findByUserLoginName'
                     }
                 }),
                 disabled: true
@@ -61,18 +61,29 @@ Ext.onReady(function() {
             handler: function() {
                 var f = this.up('window').child('form').getForm();
                 if (f.isValid()) {
-                    f.submit({
-                        success: function(form, action) {
-                            var loginName = action.result.loginName,
-                                account = f.findField('account');
-
-                            account.enable();
-                            account.getStore().getProxy().setExtraParam('loginName', loginName);
-                        },
-                        failure: function(form, action) {
-                            f.markInvalid({j_username: '用户姓或密码错误, 请重新登陆!'});
-                        }
-                    });
+                    if (!window.authenticated) {
+                        f.submit({
+                            success: function(form, action) {
+                                var account = form.findField('account'),
+                                    loginName = form.findField('j_username'),
+                                    password = form.findField('j_password');
+                                
+                                account.enable();
+                                loginName.disable();
+                                password.disable();
+                                
+                                account.getStore()
+                                    .getProxy().setExtraParam('loginName', loginName.getValue());
+                                
+                                window.authenticated = true;
+                            },
+                            failure: function(form, action) {
+                                form.markInvalid({j_username: '用户姓或密码错误, 请重新登陆!'});
+                            }
+                        });
+                    } else {
+                        window.location.replace('index.html?theme=neptune');
+                    }
                 }
             }
         }, {
