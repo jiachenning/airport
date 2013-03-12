@@ -21,7 +21,7 @@ public class AccountRepositoryTest extends AbstractSpringTests {
 	@Test
 	public void testFindByUserId() {
 		
-		List<Account> accounts = accountRepository.findByUserId(1);
+		List<Account> accounts = accountRepository.findByUserId(1L);
 		
 		assertEquals(2, accounts.size());
 	}
