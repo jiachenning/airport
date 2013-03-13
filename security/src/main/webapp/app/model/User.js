@@ -18,7 +18,8 @@ Ext.define('security.model.User', {
         type: 'string'
     },{
         name: 'enabled',
-        type: 'boolean'
+        type: 'boolean',
+        defaultValue: true
     },{
         name: 'age',
         type: 'int'
@@ -38,7 +39,8 @@ Ext.define('security.model.User', {
         defaultValue: 'NORMAL'
     },{
         name: 'gender',
-        type: 'string'
+        type: 'string',
+        defaultValue: 'MALE'
     }],
     proxy: {
         type: 'rest',
