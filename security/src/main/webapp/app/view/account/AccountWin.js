@@ -31,10 +31,6 @@ Ext.define('security.view.account.AccountWin', {
                     anchor: '100%'
                 },
                 items: [{
-                    fieldLabel: '用户名',
-                    name: 'username',
-                    readonly: true
-                },{
                     fieldLabel: '名称',
                     name: 'name'
                 },{
@@ -42,7 +38,7 @@ Ext.define('security.view.account.AccountWin', {
                     fieldLabel: '组织机构',
                     displayField: 'text',
                     store: Ext.create('security.store.Group'),
-                    name: 'group.id'
+                    name: 'groupId'
                 }]
             }],
             buttonAlign: 'center',

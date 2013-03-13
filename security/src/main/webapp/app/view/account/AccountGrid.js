@@ -34,7 +34,7 @@ Ext.define('security.view.account.AccountGrid', {
             width: 150
         },{
             text: '所属机构',
-            dataIndex: 'group.name',
+            dataIndex: 'group',
             flex: 1
         }];
         
@@ -92,7 +92,6 @@ Ext.define('security.view.account.AccountGrid', {
         
         return dockedItems;
     }
-    
 
 });
             
