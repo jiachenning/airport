@@ -11,7 +11,7 @@ Ext.define('security.model.Account', {
         name: 'name',
         type: 'string'
     },{
-        name: 'group',
+        name: 'group'
     },{
         name: 'groupName',
         mapping: 'group.name',
