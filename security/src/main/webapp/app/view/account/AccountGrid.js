@@ -34,7 +34,7 @@ Ext.define('security.view.account.AccountGrid', {
             width: 150
         },{
             text: '所属机构',
-            dataIndex: 'group',
+            dataIndex: 'groupName',
             flex: 1
         }];
         
