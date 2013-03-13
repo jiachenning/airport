@@ -11,8 +11,23 @@ Ext.define('security.model.User', {
         name: 'username',
         type: 'string'
     },{
+        name: 'loginName',
+        type: 'string'
+    },{
+        name: 'password',
+        type: 'string'
+    },{
+        name: 'enabled',
+        type: 'boolean'
+    },{
         name: 'age',
         type: 'int'
+    },{
+        name: 'telephone',
+        type: 'string'
+    },{
+        name: 'address',
+        type: 'string'
     },{
         name: 'birthday',
         type: 'date',
@@ -21,6 +36,9 @@ Ext.define('security.model.User', {
         name: 'userType',
         type: 'string',
         defaultValue: 'NORMAL'
+    },{
+        name: 'gender',
+        type: 'string'
     }],
     proxy: {
         type: 'rest',

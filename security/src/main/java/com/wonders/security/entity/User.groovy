@@ -1,10 +1,12 @@
-package com.wonders.security.entity;
+package com.wonders.security.entity
 
 import static javax.persistence.TemporalType.DATE
 
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Enumerated
+import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.persistence.Temporal
 import javax.persistence.Version
@@ -48,16 +50,19 @@ class User extends AbstractPersistable<Long> {
 	@Column(name = "user_type", nullable = false)
 	UserType userType
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	Set<Account> accounts = []
+	
+	boolean getEnabled() {
+		this.enabled
+	}
+	
 	enum Gender {
 		MALE, FEMALE
 	}
 	
 	enum UserType {
 		NORMAL, ADVINCED, ADMINISTRATOR
-	}
-	
-	boolean getEnabled() {
-		this.enabled
 	}
 	
 }

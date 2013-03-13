@@ -27,8 +27,20 @@ Ext.define('security.view.user.UserGrid', {
             text: '用户名',
             dataIndex: 'username'
         },{
+            text: '登录名',
+            dataIndex: 'loginName'
+        },{
+            text: '性别',
+            dataIndex: 'gender'
+        },{
             text: '年龄',
             dataIndex: 'age'
+        },{
+            text: '电话',
+            dataIndex: 'telephone'
+        },{
+            text: '地址',
+            dataIndex: 'address'
         },{
             xtype: 'datecolumn',
             text: '出生年月',

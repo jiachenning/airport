@@ -1,4 +1,4 @@
-package com.wonders.security.entity;
+package com.wonders.security.entity
 
 import javax.persistence.Entity
 import javax.persistence.FetchType

@@ -138,7 +138,7 @@ Ext.define('security.controller.UserAccountManager', {
                 xtype: 'usergrid',
                 searchable: true,
                 pagable: true,
-                flex: 2
+                flex: 5
             },{
                 xtype: 'splitter',
                 defaultSplitMin: 100
@@ -152,7 +152,7 @@ Ext.define('security.controller.UserAccountManager', {
                         icon: 'icons/application_add.png'
                     }
                 }],
-                flex: 3
+                flex: 2
             }]
         }));
     },
