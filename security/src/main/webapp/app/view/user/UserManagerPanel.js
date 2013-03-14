@@ -8,6 +8,7 @@ Ext.define('security.view.user.UserManagerPanel', {
 		type: 'vbox',
 		align: 'stretch'
 	},
+	bodyPadding: 1,
 	
 	initComponent: function(arguments) {
 		
@@ -22,7 +23,8 @@ Ext.define('security.view.user.UserManagerPanel', {
 				flex: 7
 			},{
                 xtype: 'splitter',
-                defaultSplitMin: 100
+                defaultSplitMin: 100,
+                collapsible: true
             },{
 				xtype: 'accountgrid',
 				border: 1,
