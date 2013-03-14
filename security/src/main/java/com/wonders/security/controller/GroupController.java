@@ -32,5 +32,5 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 	List<Group> findByParentId(@PathVariable long parentId) {
 		return groupRepository.findByParentId(parentId);
 	}
-
+	
 }

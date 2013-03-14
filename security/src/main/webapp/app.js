@@ -27,7 +27,7 @@ addTabCmp = function(className, title) {
 	
 	var tabs = security.getApplication().getTabs(),
 		tab = tabs.child(Ext.String.format('panel[title="{0}"]', title));
-		
+
 	if (!tab) {
 		tab = tabs.add(Ext.create(className, {
 			title: title,
@@ -38,7 +38,6 @@ addTabCmp = function(className, title) {
             hasToolbar: true
 		}));
 	}
-	
 	tabs.setActiveTab(tab);
 };
 

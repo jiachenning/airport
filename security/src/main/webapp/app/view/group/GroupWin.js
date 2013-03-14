@@ -48,6 +48,16 @@ Ext.define('security.view.group.GroupWin', {
                         [false, '否']
                     ]
                 },{
+                    xtype: 'combobox',
+                    fieldLabel: '类别',
+                    name: 'nodetype',
+                    queryMode: 'local',
+                    forceSelection: true,
+                    store: [
+                        ['D', '单位'],
+                        ['B', '部门']
+                    ]
+                },{
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',

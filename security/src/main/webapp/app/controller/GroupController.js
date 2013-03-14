@@ -1,16 +1,18 @@
 Ext.define('security.controller.GroupController', {
     extend: 'Ext.app.Controller',
-    requires: ['security.view.group.GroupWin'],
+    requires: ['security.view.group.GroupWin', 'security.view.group.RootGroupWin'],
 
-    stores: ['Group'],
+    stores: ['Group', 'RootGroup'],
     
-    models: ['Group'],
+    models: ['Group', 'RootGroup'],
 
     views: [
         'group.GroupTree',
         'group.GroupWin',
         'account.AccountGrid',
-        'group.GroupManagerPanel'      
+        'group.RootGroupGrid',
+        'group.RootGroupWin',
+        'group.GroupManagePanel'
     ],
     
     refs: [{
@@ -18,22 +20,127 @@ Ext.define('security.controller.GroupController', {
         selector: 'grouptree'
     },{
         ref: 'accountGrid',
-        selector: 'panel[title="机构管理"] > accountgrid'
+        selector: 'panel[title="部门管理"] > accountgrid'
+    },{
+        ref: 'rootGroupWin',
+        selector: 'rootgroupwin'
+    },{
+        ref: 'rootGroupGrid',
+        selector: 'rootgroupgrid'
+    },{
+    	ref: 'groupTree',
+        selector: 'grouptree'
     }],
 
     init: function() {
     	
     	this.control({
-    		'groupmgrpanel > grouptree': {
+    		'rootgroupgrid button[tooltip="添加"]': {
+    			click: this.showRootGroupWin
+    		},
+    		'rootgroupwin button[text="保存"]': {
+    			click: this.saveRootGroup
+    		},
+    		'rootgroupgrid actioncolumn': {
+    			click: this.doAction
+    		},
+    		'panel[title="部门管理"] > rootgroupgrid': {
+    			selectionchange: this.onRootGroupGridSelectionChange
+    		},
+    		'groupmanagepanel > grouptree': {
     			itemcontextmenu: this.onGroupTreeItemcontextmenu
     		},
     		'groupwin button[text="保存"]': {
                 click: this.saveGroup
             },
-            'panel[title="机构管理"] > grouptree': {
+            'panel[title="部门管理"] > grouptree': {
                 selectionchange: this.onGroupTreeSelectionChange
             }
     	});
+    },
+    
+    showRootGroupWin: function(btn, e, eOpts, rec) {
+        var win = Ext.getCmp('deptwin');
+        if (!win) {
+            win = Ext.create('security.view.group.RootGroupWin');
+        }
+    	win.show(btn, function() {
+            var f = win.child('form').getForm();
+            if (!rec) {
+                rec = Ext.create('security.model.RootGroup');
+            }
+            f.loadRecord(rec);
+        });
+    },
+    
+    saveRootGroup: function() {
+    	var win = this.getRootGroupWin(),
+        f = win.child('form').getForm();
+    
+	    if (f.isValid()) {
+	        f.updateRecord();
+	        var rootGroupStore = this.getRootGroupGrid().getStore(),
+	            rootGroup = f.getRecord();
+	        
+	        rootGroup.set('parent', null);
+	        rootGroup.set('nodetype', 'root');
+	        
+	        rootGroup.save({
+	            success: function(rootGroup) {
+	                win.hide();
+	                rootGroupStore.loadPage(1);
+	            }
+	        });
+	    }
+    },
+    
+    doAction: function(grid, cell, row, col, e, eOpts) {
+        var rec = grid.getStore().getAt(row),
+        	action = e.target.getAttribute('class');
+        
+        if (action.indexOf("x-action-col-0") != -1) { // edit user
+            this.showRootGroupWin(e.target, e, eOpts, rec);
+        } else if (action.indexOf("x-action-col-1") != -1) { // delete user
+            this.deleteRootGroup(rec.get('id'));
+        }
+    },
+
+    deleteRootGroup: function(id) {
+        Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+            if (btn == 'yes') {
+                var rootGroupStore = this.getRootGroupGrid().getStore();
+                Ext.create('security.model.RootGroup', {
+                    id: id
+                }).destroy({
+                    success: function() {
+                    	rootGroupStore.loadPage(1);
+                    }
+                });
+            }
+        }, this);
+    },
+    
+    onRootGroupGridSelectionChange: function(model, selected, eOpts) {
+
+    	var treeStore = this.getGroupTree().getStore(),
+	    accountGridStore = this.getAccountGrid().getStore();
+    	
+    	if(selected.length != 0) {
+	
+	    	treeStore.setRootNode({
+	            text: selected[0].get('name'),
+	            id: selected[0].get('id'),
+	            expanded: true
+	        });
+	    	accountGridStore.removeAll();
+    	} else {
+
+    		treeStore.setRootNode({
+	            text: '',
+	            id: '',
+	            hide: true
+	        });
+    	}
     },
     
     onGroupTreeItemcontextmenu: function(view, record, item, index, e, eOpts ) {
@@ -63,6 +170,12 @@ Ext.define('security.controller.GroupController', {
 	
 	showGroupWin: function(menuItem, actionType) {
 		var node = this.getGroupTree().getSelectionModel().getLastSelected();
+		alert(node.parentNode.get('nodetype'));
+		if(node.parentNode.get('nodetype') == 'B') {
+			
+			Ext.Msg.alert("提示","所选为部门，不能对其新增部门!");
+			return;
+		}
 		
 		if (!node.isExpanded()) {
 			node.expand();
@@ -139,17 +252,6 @@ Ext.define('security.controller.GroupController', {
 			
 			accountStore.getProxy().setExtraParam('groupId', groupId);
 			accountStore.reload();
-//            Ext.Ajax.request({
-//                url: 'accounts/findByGroupId',
-//                params: {
-//                	groupId: groupId
-//                },
-//                success: function(response, options) {
-//
-//                	accountStore.reload();
-//                },
-//                scope: this
-//            });
 		}
     }
 

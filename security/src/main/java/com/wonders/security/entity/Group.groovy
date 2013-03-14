@@ -25,6 +25,17 @@ class Group extends AbstractTreeNode<Group, Long> {
 	
 	long parentId
 	
+	String description
+	
+	String nodetype	
+	
+	Department department	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	Department getDepartment() {
+		this.department
+	}
+	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
 	Group getParent() {

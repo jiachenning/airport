@@ -138,7 +138,7 @@ Ext.define('security.controller.UserAccountManager', {
                 xtype: 'usergrid',
                 searchable: true,
                 pagable: true,
-                flex: 2
+                flex: 5
             },{
                 xtype: 'splitter',
                 defaultSplitMin: 100
@@ -152,7 +152,7 @@ Ext.define('security.controller.UserAccountManager', {
                         icon: 'icons/application_add.png'
                     }
                 }],
-                flex: 3
+                flex: 2
             }]
         }));
     },
@@ -193,9 +193,8 @@ Ext.define('security.controller.UserAccountManager', {
     	
     	var record = this.getUserGrid2().getSelectionModel().getLastSelected();
     	
-    	if(record != null) {
-	        var win = Ext.getCmp('accountwin'),
-	        	userName = this.getUserGrid2().getSelectionModel().getLastSelected().get('username');
+    	if (record) {
+	        var win = Ext.getCmp('accountwin');
 	        
 	        if (!win) {
 	            win = Ext.create('security.view.account.AccountWin');
@@ -206,7 +205,6 @@ Ext.define('security.controller.UserAccountManager', {
 	                rec = Ext.create('security.model.Account');
 	            }
 	            f.loadRecord(rec);
-	            f.findField('username').setValue(userName);
 	        });
     	} else {
 			Ext.Msg.alert("提示","请选择一个用户进行帐号新增!");
@@ -297,18 +295,16 @@ Ext.define('security.controller.UserAccountManager', {
 		var win = this.getAccountWin(), 
 			f = win.child('form').getForm(),
 			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id');
-					
+		
 		if (f.isValid()) {
 			
 			f.updateRecord();
 			
 			var account = f.getRecord(),
-				password = hex_md5(f.findField('password').getValue()),
 				accountStore = this.getAccountGrid2().getStore();
 			
-			account.set('user', {id: userId});
-			account.set('password', password);
-			account.set('group', {id: f.findField('group.id').value});
+			account.set('user',  {id: userId});
+			account.set('group', {id: f.findField('groupId').value});
 				
 			account.save({
 				success : function(user) {

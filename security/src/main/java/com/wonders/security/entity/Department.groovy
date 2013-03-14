@@ -1,6 +1,8 @@
 package com.wonders.security.entity
 
 import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.ManyToOne
 import javax.persistence.Table
 import javax.persistence.Version
 import javax.validation.constraints.NotNull
@@ -17,4 +19,5 @@ class Department extends AbstractPersistable<Long> {
 	String deptname
 
 	String deptdesc
+	
 }

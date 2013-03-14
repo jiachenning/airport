@@ -1,5 +1,5 @@
-Ext.define('security.model.Group', {
-    extend: 'Ext.data.TreeModel',
+Ext.define('security.model.RootGroup', {
+    extend: 'Ext.data.Model',
 
     fields: [{
         name: 'id',
@@ -19,14 +19,24 @@ Ext.define('security.model.Group', {
         name: 'version',
         type: 'int'
     },{
-    	name: 'description',
+    	name: 'nodetype',
     	type: 'string'
     },{
-    	name: 'nodetype',
+    	name: 'description',
     	type: 'string'
     }],
     proxy: {
         type: 'rest',
-        url: 'groups'
+        url: 'groups',
+        startParam: undefined,
+        pageParam: 'page.page',
+        limitParam: 'page.size',
+        extraParams: {
+        	'search_nodetype_eq': 'root'
+        },
+        reader: {
+           root: 'content',
+           totalProperty: 'totalElements'
+        }
     }
 });
