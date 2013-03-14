@@ -13,8 +13,8 @@
     }
 
     var scriptTags = document.getElementsByTagName('script'),
-        defaultTheme = 'classic',
-        defaultDirection = 'ltr',
+        defaultTheme = 'neptune',
+        defaultRtl = false,
         i = scriptTags.length,
         requires = [
             'Ext.toolbar.Toolbar',
@@ -23,7 +23,7 @@
             'Ext.form.field.Radio'
 
         ],
-        defaultQueryString, src, theme, direction;
+        defaultQueryString, src, theme, rtl;
 
     while (i--) {
         src = scriptTags[i].src;
@@ -31,16 +31,17 @@
             defaultQueryString = src.split('?')[1];
             if (defaultQueryString) {
                 defaultTheme = getQueryParam('theme', defaultQueryString) || defaultTheme;
-                defaultDirection = getQueryParam('direction', defaultQueryString) || defaultDirection;
+                defaultRtl = getQueryParam('rtl', defaultQueryString) || defaultRtl;
             }
             break;
         }
     }
 
     Ext.themeName = theme = getQueryParam('theme') || defaultTheme;
-    direction = getQueryParam('direction') || defaultDirection;
+    
+    rtl = getQueryParam('rtl') || defaultRtl;
 
-    if (direction === 'rtl') {
+    if (rtl.toString() === 'true') {
         requires.push('Ext.rtl.*');
         Ext.define('Ext.GlobalRtlComponent', {
             override: 'Ext.AbstractComponent',
@@ -51,6 +52,17 @@
     Ext.require(requires);
 
     Ext.onReady(function() {
+        Ext.getBody().addCls(Ext.baseCSSPrefix + 'theme-' + Ext.themeName);
+
+        if (Ext.isIE6 && theme === 'neptune') {
+            Ext.Msg.show({
+                title: 'Browser Not Supported',
+                msg: 'The Neptune theme is not supported in IE6.',
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.WARNING
+            });
+        }
+        
         if (hasOption('nocss3')) {
             Ext.supports.CSS3BorderRadius = false;
             Ext.getBody().addCls('x-nbr x-nlg');
@@ -71,101 +83,90 @@
         }
         
         function align() {
-            toolbar.alignTo(document.body, 'tr-tr', [-(Ext.getScrollbarSize().width + 4), 0]);
+            toolbar.alignTo(
+                document.body,
+                'tr-tr',
+                [
+                    (Ext.getScrollbarSize().width + 4) * (Ext.rootHierarchyState.rtl ? 1 : -1),
+                    -(document.body.scrollTop || document.documentElement.scrollTop)
+                ]
+            );
         }
 
-        var toolbar = Ext.widget({
-            xtype: 'toolbar',
-            border: true,
-            rtl: false,
-            id: 'options-toolbar',
-            floating: true,
-            preventFocusOnActivate: true,
-            draggable: {
-                constrain: true
-            },
-            items: [{
-                xtype: 'combo',
+        var toolbar;
+            
+        setTimeout(function() {
+            toolbar = Ext.widget({
+                xtype: 'toolbar',
+                border: true,
                 rtl: false,
-                width: 170,
-                labelWidth: 50,
-                fieldLabel: 'Theme',
-                displayField: 'name',
-                valueField: 'value',
-                labelStyle: 'cursor:move;',
-                margin: '0 10 0 0',
-                store: Ext.create('Ext.data.Store', {
-                    fields: ['value', 'name'],
-                    data : [
-                        { value: 'access', name: 'Accessibility' },
-                        { value: 'classic', name: '经典主题' },
-                        { value: 'gray', name: '银灰主题' },
-                        { value: 'neptune', name: '海王星主题' }
-                    ]
-                }),
-                value: theme,
-                listeners: {
-                    select: function(combo) {
-                        var theme = combo.getValue();
-                        if (theme !== defaultTheme) {
-                            setParam({ theme: theme });
-                        } else {
-                            removeParam('theme');
-                        }
-                    }
-                }
-            }, {
-                hidden: true,
-                xtype: 'fieldcontainer',
-                rtl: false,
-                fieldDefaults: {
-                    margin: '0 5 0 0'
+                id: 'options-toolbar',
+                floating: true,
+                fixed: true,
+                preventFocusOnActivate: true,
+                draggable: {
+                    constrain: true
                 },
-                defaultType: 'radio',
-                layout: 'hbox',
                 items: [{
+                    xtype: 'combo',
                     rtl: false,
-                    boxLabel: 'LTR',
-                    name: 'direction',
-                    inputValue: 'ltr',
-                    checked: direction === 'ltr',
-                    handler: function(radio, checked) {
-                        if (checked) {
-                            if (defaultDirection === 'ltr') {
-                                removeParam('direction');
+                    width: 170,
+                    labelWidth: 45,
+                    fieldLabel: 'Theme',
+                    displayField: 'name',
+                    valueField: 'value',
+                    labelStyle: 'cursor:move;',
+                    margin: '0 5 0 0',
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['value', 'name'],
+                        data : [
+                            { value: 'access', name: 'Accessibility' },
+                            { value: 'classic', name: 'Classic' },
+                            { value: 'gray', name: 'Gray' },
+                            { value: 'neptune', name: 'Neptune' }
+                        ]
+                    }),
+                    value: theme,
+                    listeners: {
+                        select: function(combo) {
+                            var theme = combo.getValue();
+                            if (theme !== defaultTheme) {
+                                setParam({ theme: theme });
                             } else {
-                                setParam({ direction: 'ltr' });
+                                removeParam('theme');
                             }
                         }
                     }
                 }, {
+                    xtype: 'button',
                     rtl: false,
-                    boxLabel: 'RTL',
-                    name: 'direction',
-                    inputValue: 'rtl',
-                    checked: direction === 'rtl',
-                    handler: function(radio, checked) {
-                        if (checked) {
-                            if (defaultDirection === 'rtl') {
-                                removeParam('direction');
+                    hidden: !(Ext.repoDevMode || location.href.indexOf('qa.sencha.com') !== -1),
+                    enableToggle: true,
+                    pressed: rtl,
+                    text: 'RTL',
+                    margin: '0 5 0 0',
+                    listeners: {
+                        toggle: function(btn, pressed) {
+                            if (pressed) {
+                                setParam({ rtl: true });
                             } else {
-                                setParam({ direction: 'rtl' });
+                                removeParam('rtl');
                             }
                         }
                     }
+                }, {
+                    xtype: 'tool',
+                    type: 'close',
+                    rtl: false,
+                    handler: function() {
+                        toolbar.destroy();
+                    }
                 }]
-            }, {
-                xtype: 'tool',
-                type: 'close',
-                rtl: false,
-                handler: function() {
-                    toolbar.destroy();
-                }
-            }]
-        });
-        toolbar.show();
-        align();
-        Ext.EventManager.onWindowResize(align);
+            });
+            toolbar.show();
+            align();
+            Ext.EventManager.onWindowResize(align);
+        }, 100);
 
     });
 })();

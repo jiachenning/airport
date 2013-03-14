@@ -9,7 +9,7 @@ Ext.define('security.view.user.UserWin', {
     plain: true,
     bodyPadding: 1,
     closeAction: 'hide',
-    width: 300,
+    width: 320,
     layout: 'fit',
     
     initComponent: function(arguments) {
@@ -34,11 +34,43 @@ Ext.define('security.view.user.UserWin', {
                     fieldLabel: '用户名',
                     name: 'username'
                 },{
+                    fieldLabel: '登录名',
+                    name: 'loginName'
+                },{
+                    fieldLabel: '密码',
+                    name: 'password'
+                },{
+                    xtype: 'combobox',
+                    fieldLabel: '是否启用',
+                    name: 'enabled',
+                    queryMode: 'local',
+                    forceSelection: true,
+                    store: [
+                        [true, '是'],
+                        [false, '否']
+                    ]
+                },{
+                    xtype: 'combobox',
+                    fieldLabel: '性别',
+                    name: 'gender',
+                    queryMode: 'local',
+                    forceSelection: true,
+                    store: [
+                        ['MALE', '男'],
+                        ['FEMALE', '女']
+                    ]
+                },{
                     xtype: 'numberfield',
                     fieldLabel: '年龄',
                     name: 'age',
                     minValue: 0,
                     maxValue: 100
+                },{
+                    fieldLabel: '电话',
+                    name: 'telephone'
+                },{
+                    fieldLabel: '地址',
+                    name: 'address'
                 },{
                     xtype: 'datefield',
                     fieldLabel: '出生年月',

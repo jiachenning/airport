@@ -29,7 +29,7 @@ public class RoleRepositoryTest extends AbstractSpringTests {
 	@Test
 	public void testFindByAccountId() {
 		
-		List<Role> roles = roleRepository.findByAccountId(1);
+		List<Role> roles = roleRepository.findByAccountId(1L);
 		Iterator<Role> iter = roles.iterator();
 		
 		assertEquals(2, roles.size());

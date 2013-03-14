@@ -12,6 +12,7 @@ Ext.define('security.view.account.AccountGrid', {
         var me = this;
             store = me.store,
             storeConfig = me.storeConfig || {};
+
         if (!store) {
             store = Ext.create('security.store.Account', storeConfig);
             me.store = store;
@@ -28,21 +29,12 @@ Ext.define('security.view.account.AccountGrid', {
         var columns = [{
             xtype: 'rownumberer'
         },{
-            text: '登录名',
-            dataIndex: 'loginName'
-        },{
-            text: '所属机构',
-            dataIndex: 'groupName'
-        },{
-            text: '密码',
-            dataIndex: 'password',
+            text: '名称',
+            dataIndex: 'name',
             width: 150
         },{
-            xtype: 'booleancolumn',
-            text: '是否启用',
-            trueText: '是',
-            falseText: '否',
-            dataIndex: 'enabled',
+            text: '所属机构',
+            dataIndex: 'groupName',
             flex: 1
         }];
         
@@ -100,7 +92,6 @@ Ext.define('security.view.account.AccountGrid', {
         
         return dockedItems;
     }
-    
 
 });
             

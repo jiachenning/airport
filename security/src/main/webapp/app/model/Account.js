@@ -8,19 +8,14 @@ Ext.define('security.model.Account', {
         name: 'version',
         type: 'int'
     },{
-        name: 'loginName',
-        type: 'string'
-    },{
-        name: 'password',
-        type: 'string'
-    },{
-        name: 'enabled',
-        type: 'boolean'
-    },{
-        name: 'groupName',
+        name: 'name',
         type: 'string'
     },{
         name: 'group'
+    },{
+        name: 'groupName',
+        mapping: 'group.name',
+        persist: false
     },{
         name: 'user'
     }],

@@ -27,8 +27,33 @@ Ext.define('security.view.user.UserGrid', {
             text: '用户名',
             dataIndex: 'username'
         },{
+            text: '登录名',
+            dataIndex: 'loginName'
+        },{
+            xtype: 'booleancolumn',
+            text: '是否启用',
+            dataIndex: 'enabled',
+            trueText: '是',
+            falseText: '否'
+        },{
+            text: '性别',
+            dataIndex: 'gender',
+            renderer: function(v) {
+                if (v == 'MALE') {
+                    return '男'
+                } else {
+                    return '女'
+                }
+            }
+        },{
             text: '年龄',
             dataIndex: 'age'
+        },{
+            text: '电话',
+            dataIndex: 'telephone'
+        },{
+            text: '地址',
+            dataIndex: 'address'
         },{
             xtype: 'datecolumn',
             text: '出生年月',
