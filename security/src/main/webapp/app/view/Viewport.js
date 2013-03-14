@@ -40,7 +40,7 @@ Ext.define('security.view.Viewport', {
     },{
         region: 'south',
         xtype: 'toolbar',
-        items: '万达信息股份有限公司版权所有v1.0',
+        items: '',
         margin: '4 0 0 0'
     }]
 });
