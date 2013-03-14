@@ -4,6 +4,7 @@ Ext.define('security.view.group.GroupTree', {
 
     title: '组织部门树',
     padding: 1,
+//    rootVisible: false,
     bodyPadding: 4,
     useArrows: true,
 

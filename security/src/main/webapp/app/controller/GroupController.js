@@ -136,9 +136,9 @@ Ext.define('security.controller.GroupController', {
     	} else {
 
     		treeStore.setRootNode({
-	            text: '',
-	            id: '',
-	            hide: true
+	            text: '系统组织机构',
+	            id: '1',
+	            expanded: true
 	        });
     	}
     },
@@ -169,13 +169,17 @@ Ext.define('security.controller.GroupController', {
 	},
 	
 	showGroupWin: function(menuItem, actionType) {
+		
 		var node = this.getGroupTree().getSelectionModel().getLastSelected();
-		alert(node.parentNode.get('nodetype'));
-		if(node.parentNode.get('nodetype') == 'B') {
+
+		if(node.get('text') == '系统组织机构') { return; }
+		
+		if(node.get('nodetype') == 'B') {
 			
 			Ext.Msg.alert("提示","所选为部门，不能对其新增部门!");
 			return;
 		}
+		
 		
 		if (!node.isExpanded()) {
 			node.expand();
