@@ -30,7 +30,15 @@ Ext.define('security.view.account.AccountWin', {
                     allowBlank: false,
                     anchor: '100%'
                 },
-                items: [{
+                items: [/*{
+                	xtype: 'combobox',
+                    fieldLabel: '现有账号',
+                    name: 'accountId',
+                    valueField: 'id',
+                    displayField: 'name',
+                    editable: false,
+                    store: dictionaryStore
+                },*/{
                     fieldLabel: '名称',
                     name: 'name'
                 },{

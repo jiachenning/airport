@@ -15,6 +15,9 @@ Ext.define('security.model.Authority', {
         type: 'boolean',
         defaultValue: true
     },{
+        name: 'type',
+        type: 'string'
+    },{
         name: 'code',
         type: 'string'
     },{

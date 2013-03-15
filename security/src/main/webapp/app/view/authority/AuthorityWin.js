@@ -47,6 +47,15 @@ Ext.define('security.view.authority.AuthorityWin', {
                         [false, '否']
                     ]
                 },{
+                    xtype: 'combobox',
+                    fieldLabel: '资源类型',
+                    name: 'type',
+                    queryMode: 'local',
+                    store: [
+                        ['0', '菜单'],
+                        ['1', '功能']
+                    ]
+                },{
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',

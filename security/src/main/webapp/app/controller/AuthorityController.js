@@ -140,12 +140,11 @@ Ext.define('security.controller.AuthorityController', {
 					icon: Ext.Msg.QUESTION,
 					fn: function(btn){
                         if(btn=='yes'){
-                        	if(selectedNode.parentNode.childNodes.length ==1 ){
-                        		selectedNode.parentNode.set('leaf',true);
-                        	}
-                        	selectedNode.remove({
+                        	selectedNode.destroy({
                         		success: function() {
-                        			
+                        			if(selectedNode.parentNode.childNodes.length ==1 ){
+                                		selectedNode.parentNode.set('leaf',true);
+                                	}
                                 }
                             });
 				    	}
