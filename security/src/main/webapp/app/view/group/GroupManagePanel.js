@@ -1,9 +1,11 @@
 Ext.define('security.view.group.GroupManagePanel', {
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.groupmanagepanel',
-	requires: ['security.view.group.GroupTree', 
-	           'security.view.account.AccountGrid',
-	           'security.view.group.RootGroupGrid'],
+	requires: [
+	    'security.view.group.GroupTree', 
+	    'security.view.account.AccountGrid',
+	    'security.view.group.RootGroupGrid'
+	],
 	
 	title: '部门管理',
 	closable: true,
@@ -11,6 +13,7 @@ Ext.define('security.view.group.GroupManagePanel', {
 		type: 'hbox',
 		align: 'stretch'
 	},
+	bodyPadding: 1,
 	
 	initComponent: function(arguments) {
 		
@@ -22,23 +25,13 @@ Ext.define('security.view.group.GroupManagePanel', {
 				hasToolbar: this.hasToolbar,
 			    operable: this.operable,
 			    pagable: this.pagable,
-				flex: 32
+				width: 350
 			},{
-                xtype: 'splitter',
-                defaultSplitMin: 100
-            },{
 				xtype: 'grouptree',
-				border: 1,
-				padding: 1,
-				flex: 25
+				flex: 1
 			},{
-                xtype: 'splitter',
-                defaultSplitMin: 100
-            },{
 				xtype: 'accountgrid',
-				border: 1,
-				padding: 1,
-				flex: 43
+				flex: 1
 			}]
 		});
 		

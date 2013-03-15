@@ -23,13 +23,18 @@ Ext.example = function(){
     };
 }();
 
-addTabCmp = function(className, title) {
+addTabCmp = function(args) {
 	
-	var tabs = security.getApplication().getTabs(),
+	var title = args.title,
+		controller = args.controller,
+		viewXtype = args.viewXtype,
+		app = security.getApplication(),
+		tabs = app.getTabs(),
 		tab = tabs.child(Ext.String.format('panel[title="{0}"]', title));
 
 	if (!tab) {
-		tab = tabs.add(Ext.create(className, {
+		app.getController(controller);
+		tab = tabs.add(Ext.widget(viewXtype, {
 			title: title,
 			closable: true,
 			searchable: true,
@@ -52,13 +57,13 @@ Ext.application({
         selector: 'tabpanel'
     }],
 
-    controllers: [
+    /*controllers: [
         'UserAccountManager',
         'RoleController',
         'GroupController',
         'AuthorityController',
         'DictionaryController'
-    ],
+    ],*/
     
     name: 'security',
     paths: {'Ext.ux': 'extjs/ux'},

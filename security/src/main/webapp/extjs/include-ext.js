@@ -80,9 +80,9 @@
         // To work around this we use the _beforereadyhandler hook to load the neptune
         // overrides dynamically after Ext has been defined.
         neptunePath = (repoDevMode ? path + '/..' : path) +
-            '/packages/ext-theme-neptune/build/ext-theme-neptune' +
+            '/ext-theme-neptune' +
             (repoDevMode ? '-dev' : '') + '.js';
-
+        
         if (repoDevMode &&  window.ActiveXObject) {
             Ext = {
                 _beforereadyhandler: function() {

@@ -135,6 +135,7 @@ Ext.define('security.controller.GroupController', {
     	
     	if(selected.length != 0) {
 	
+    		this.getGroupTree().rootVisible = true;
 	    	treeStore.setRootNode({
 	            text: selected[0].get('name'),
 	            id: selected[0].get('id'),
@@ -219,8 +220,7 @@ Ext.define('security.controller.GroupController', {
 			Ext.Msg.alert("提示","所选为部门，不能对其新增部门!");
 			return;
 		}
-		
-		
+			
 		if (!node.isExpanded()) {
 			node.expand();
 		}
