@@ -87,16 +87,18 @@ Ext.define('security.controller.GroupController', {
     
 	    if (f.isValid()) {
 	        f.updateRecord();
-	        var rootGroupStore = this.getRootGroupGrid().getStore(),
+	        var groupTreeStore = this.getGroupTree().getStore(),
+	        	rootGroupStore = this.getRootGroupGrid().getStore(),
 	            rootGroup = f.getRecord();
 	        
-	        rootGroup.set('parent', null);
+	        rootGroup.set('parent', {id: 1});
 	        rootGroup.set('nodetype', 'root');
 	        
 	        rootGroup.save({
 	            success: function(rootGroup) {
 	                win.hide();
 	                rootGroupStore.loadPage(1);
+	                groupTreeStore.load();
 	            }
 	        });
 	    }
@@ -109,11 +111,18 @@ Ext.define('security.controller.GroupController', {
         if (action.indexOf("x-action-col-0") != -1) { // edit user
             this.showRootGroupWin(e.target, e, eOpts, rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete user
-            this.deleteRootGroup(rec.get('id'));
+            this.deleteRootGroup(rec);
         }
     },
 
-    deleteRootGroup: function(id) {
+    deleteRootGroup: function(rec) {
+    	
+    	if(!rec.get('leaf')) {
+    		Ext.Msg.alert("提示","所选组织部门下面存在单位或部门，不能删除!");
+			return;
+    	}
+    	
+    	var id = rec.get('id');
         Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
                 var rootGroupStore = this.getRootGroupGrid().getStore();

@@ -23,6 +23,8 @@ class Group extends AbstractTreeNode<Group, Long> {
 	
 	boolean enabled
 	
+	boolean leaf
+	
 	@NotNull
 	int ordernum
 	
@@ -46,7 +48,7 @@ class Group extends AbstractTreeNode<Group, Long> {
 	}
 	
 	@Override
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
 	@JsonIgnore
 	Set<Group> getChildren() {
 		super.getChildren()

@@ -24,6 +24,10 @@ Ext.define('security.model.RootGroup', {
     },{
     	name: 'description',
     	type: 'string'
+    },{
+    	name: 'leaf',
+    	type: 'boolean',
+    	persist: false
     }],
     proxy: {
         type: 'rest',
