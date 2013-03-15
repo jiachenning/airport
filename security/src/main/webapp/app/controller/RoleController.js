@@ -112,7 +112,6 @@ Ext.define('security.controller.RoleController', {
     	var win = Ext.getCmp('authorityRolewin');
     	if (!win) {
     		win = Ext.widget('authority-role-win');
-    		win.setTitle('角色授权');
     		win.record = rec;
         }
       	win.show(btn, function() {
@@ -151,7 +150,6 @@ Ext.define('security.controller.RoleController', {
 	    	authoritytree = win.child('authority-checked-tree'),
 	    	records = authoritytree.getView().getChecked(),
 	    	authIds = [];
-	    
 	    Ext.Array.each(records, function(rec){
 	    	authIds.push(rec.get('id'));
 	    });

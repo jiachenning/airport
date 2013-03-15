@@ -37,18 +37,21 @@ Ext.define('security.controller.AuthorityController', {
 				items:[{
 					text: '添加资源',
 					scope: this,
+					icon: 'icons/book_add.png',
 					handler: function(menuItem) {
 						this.showAuthorityWin(menuItem, 'add');
 					}
 		        },'-',{
 		        	text: '编辑资源',
 		        	scope: this,
+		        	icon: 'icons/book_edit.png',
 					handler: function(menuItem) {
 						this.showAuthorityWin(menuItem, 'update');
 					}
 		        },'-',{
 		        	text: '删除资源',
 		        	scope: this,
+		        	icon: 'icons/book_delete.png',
 					handler: function(menuItem) {
 						this.deleteAuthority(menuItem);
 					}
@@ -112,8 +115,10 @@ Ext.define('security.controller.AuthorityController', {
 					selectedNode.set('leaf',false);
 				}
             	Ext.Msg.alert('提示','新增成功!');
-            	var store = this.getAuthorityTree().getStore();
-            	store.reload();
+            	var store = this.getAuthorityStore();
+            	store.load({
+            		node: selectedNode
+            	});
             }else{
                 selectedNode.set('text', authority.get('name'));
                 selectedNode.set('version', authority.get('version')+1);

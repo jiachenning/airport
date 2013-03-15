@@ -69,10 +69,10 @@ class AccountService {
 			
 			account.authorities.addAll(auths)
 		}
-		
 		account
 	}
 	
+	@Transactional(readOnly = true)
 	String findAccountAuthority(long accountId) {
 		
 		def account = accountRepository.findOne(accountId)

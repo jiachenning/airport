@@ -2,7 +2,8 @@ Ext.define('security.controller.UserAccountManager', {
     extend: 'Ext.app.Controller',
     uses: ['security.view.user.UserWin'],
 
-    views: ['user.UserGrid', 'account.AccountGrid', 'user.UserManagerPanel', 'account.AccountWin'],
+    views: ['user.UserGrid', 'account.AccountGrid', 'user.UserManagerPanel', 
+            'account.AccountWin', 'authority.AuthorityAccountWin'],
     
     refs: [{
         ref: 'userGrid1',
@@ -22,6 +23,9 @@ Ext.define('security.controller.UserAccountManager', {
     },{
     	ref: 'accountWin',
     	selector: 'accountwin'
+    },{
+    	ref: 'authorityAccountWin',
+        selector: 'authority-account-win'
     }],
     
     init: function() {
@@ -50,7 +54,7 @@ Ext.define('security.controller.UserAccountManager', {
             'accountgrid actioncolumn': {
                 click: this.doAction2
             },
-            'authority-role-win button[tooltip="授权"]': {
+            'authority-account-win button[tooltip="授权"]': {
             	click: this.addAccountAuthority
             },
             'accountwin button[text="保存"]': {
@@ -228,10 +232,9 @@ Ext.define('security.controller.UserAccountManager', {
     },
     
     authorityAccount: function(btn, rec) {
-    	var win = Ext.getCmp('authorityRolewin');
+    	var win = Ext.getCmp('authorityAccountwin');
     	if (!win) {
-    		win = Ext.widget('authority-role-win');
-    		win.setTitle('账号授权');
+    		win = Ext.widget('authority-account-win');
     		win.record = rec;
         }
       	win.show(btn, function() {
@@ -266,13 +269,11 @@ Ext.define('security.controller.UserAccountManager', {
     
     addAccountAuthority: function(btn) {
     	
-	    var	win = this.getAuthorityRoleWin(),
+	    var	win = this.getAuthorityAccountWin(),
 	    	accountId = win.record.get('id'),
 	    	authoritytree = win.child('authority-checked-tree'),
 	    	records = authoritytree.getView().getChecked(),
 	    	authIds = [];
-	    alert(accountId);
-	    
 	    Ext.Array.each(records, function(rec){
 	    	authIds.push(rec.get('id'));
 	    });

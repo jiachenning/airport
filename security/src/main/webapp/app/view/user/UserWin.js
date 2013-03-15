@@ -31,7 +31,7 @@ Ext.define('security.view.user.UserWin', {
                     anchor: '100%'
                 },
                 items: [{
-                    fieldLabel: '用户名',
+                    fieldLabel: '姓名',
                     name: 'username'
                 },{
                     fieldLabel: '登录名',

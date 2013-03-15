@@ -24,7 +24,7 @@ Ext.define('security.view.user.UserGrid', {
         var columns = [{
             xtype: 'rownumberer'
         },{
-            text: '用户名',
+            text: '姓名',
             dataIndex: 'username'
         },{
             text: '登录名',

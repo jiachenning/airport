@@ -56,7 +56,8 @@ Ext.application({
         'UserAccountManager',
         'RoleController',
         'GroupController',
-        'AuthorityController'
+        'AuthorityController',
+        'DictionaryController'
     ],
     
     name: 'security',

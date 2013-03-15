@@ -31,8 +31,6 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 	
 	long parentId
 	
-	String parentName
-	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
 	Authority getParent() {
@@ -78,11 +76,6 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 	@Transient
 	long getParentId() {
 		this.parentId
-	}
-	
-	@Transient
-	String getParentName() {
-		this.parentName
 	}
 	
 }

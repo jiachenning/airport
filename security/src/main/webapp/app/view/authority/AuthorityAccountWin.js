@@ -1,8 +1,8 @@
-Ext.define('security.view.authority.AuthorityRoleWin', {
+Ext.define('security.view.authority.AuthorityAccountWin', {
     extend: 'Ext.window.Window',
-    alias: 'widget.authority-role-win',
+    alias: 'widget.authority-account-win',
     requires: ['security.view.authority.AuthorityCheckedTree'],
-    title: '角色授权',
+    title: '账号授权',
     modal: true,
     constrainHeader: true,
     plain: true,
