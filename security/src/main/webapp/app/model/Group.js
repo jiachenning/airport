@@ -22,11 +22,11 @@ Ext.define('security.model.Group', {
         name: 'version',
         type: 'int'
     },{
-    	name: 'description',
-    	type: 'string'
+        name: 'description',
+        type: 'string'
     },{
-    	name: 'nodetype',
-    	type: 'string'
+        name: 'nodetype',
+        type: 'string'
     }],
     proxy: {
         type: 'rest',

@@ -65,29 +65,29 @@ Ext.define('security.view.account.AccountGrid', {
         var dockedItems = this.dockedItems || [];
         
         if (!dockedItems) {
-        	
-	        if (this.searchable) {
-	            dockedItems.push({
-	                xtype: 'toolbar',
-	                items: {
-	                    xtype: 'searchfield',
-	                    paramName: 'search_loginName_like',
-	                    emptyText: '请输入一个登录名！',
-	                    width: 200,
-	                    store: this.store
-	                }
-	            });
-	        }
-	
-	        if (this.pagable) {
-	            dockedItems.push({
-	                xtype: 'pagingtoolbar',
-	                displayInfo: true,
-	                store: this.store,
-	                dock: 'bottom'
-	            });
-	        }
-	        
+            
+            if (this.searchable) {
+                dockedItems.push({
+                    xtype: 'toolbar',
+                    items: {
+                        xtype: 'searchfield',
+                        paramName: 'search_loginName_like',
+                        emptyText: '请输入一个登录名！',
+                        width: 200,
+                        store: this.store
+                    }
+                });
+            }
+    
+            if (this.pagable) {
+                dockedItems.push({
+                    xtype: 'pagingtoolbar',
+                    displayInfo: true,
+                    store: this.store,
+                    dock: 'bottom'
+                });
+            }
+            
         }
         
         return dockedItems;
