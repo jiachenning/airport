@@ -59,7 +59,7 @@ Ext.define('security.view.group.RootGroupGrid', {
                 xtype: 'toolbar',
                 items: [{
                     xtype: 'searchfield',
-                    paramName: 'search_deptname_like',
+                    paramName: 'search_name_like',
                     emptyText: '请输入一个组织部门名！',
                     width: 200,
                     store: this.store

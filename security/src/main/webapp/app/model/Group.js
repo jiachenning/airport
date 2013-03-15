@@ -16,6 +16,9 @@ Ext.define('security.model.Group', {
         name: 'enabled',
         type: 'boolean'
     },{
+        name: 'ordernum',
+        type: 'int'
+    },{
         name: 'version',
         type: 'int'
     },{

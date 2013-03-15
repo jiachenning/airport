@@ -1,18 +1,23 @@
 Ext.define('security.controller.GroupController', {
     extend: 'Ext.app.Controller',
-    requires: ['security.view.group.GroupWin', 'security.view.group.RootGroupWin'],
+    requires: [
+	    'security.view.group.GroupWin', 
+	    'security.view.group.RootGroupWin',
+	    'security.view.account.AccountListWin'
+    ],
 
     stores: ['Group', 'RootGroup'],
     
     models: ['Group', 'RootGroup'],
 
     views: [
-        'group.GroupTree',
         'group.GroupWin',
-        'account.AccountGrid',
-        'group.RootGroupGrid',
+        'group.GroupTree',
         'group.RootGroupWin',
-        'group.GroupManagePanel'
+        'group.RootGroupGrid',
+        'group.GroupManagePanel',
+        'account.AccountGrid',
+        'account.AccountListWin'
     ],
     
     refs: [{
@@ -30,6 +35,9 @@ Ext.define('security.controller.GroupController', {
     },{
     	ref: 'groupTree',
         selector: 'grouptree'
+    },{
+    	ref: 'accountGrid1',
+        selector: 'accountlistwin > accountgrid'
     }],
 
     init: function() {
@@ -161,6 +169,13 @@ Ext.define('security.controller.GroupController', {
 					handler: function(menuItem) {
 						this.showGroupWin(menuItem, 'edit');
 					}
+		        },'-',{
+		        	text: '查看帐户',
+		        	icon: 'icons/application_view_list.png',
+		        	scope: this,
+					handler: function(menuItem) {
+						this.showAccountListWin(menuItem);
+					}
 		        }]
 		    });
 		}
@@ -168,11 +183,36 @@ Ext.define('security.controller.GroupController', {
 		this.ctmenu.showAt(e.getXY());
 	},
 	
+	showAccountListWin: function(menuItem) {
+				
+		var node = this.getGroupTree().getSelectionModel().getLastSelected();
+
+		if(node.get('nodetype') == 'D' || node.isRoot()) {
+			Ext.Msg.alert("提示","所选不是部门，没有帐户可查看!");
+			return;
+		}
+		
+		var win = Ext.getCmp('accountlistwin');
+		if(!win) {
+			win = Ext.widget('accountlistwin');
+		}
+		
+		accountGridStore = this.getAccountGrid1().getStore();
+		accountGridStore.setProxy({
+	        type: 'rest',
+	        url: 'accounts/findByGroupId'
+	    });
+		accountGridStore.getProxy().setExtraParam('groupId', node.get('id'));
+		
+		win.show(menuItem);
+		accountGridStore.load();
+	},
+	
 	showGroupWin: function(menuItem, actionType) {
 		
 		var node = this.getGroupTree().getSelectionModel().getLastSelected();
 
-		if(node.get('text') == '系统组织机构') { return; }
+		if(node.isRoot()) { return; }
 		
 		if(node.get('nodetype') == 'B') {
 			
@@ -184,6 +224,7 @@ Ext.define('security.controller.GroupController', {
 		if (!node.isExpanded()) {
 			node.expand();
 		}
+		
 		var win = Ext.getCmp('groupwin');
 		if(!win) {
 			win = Ext.widget('groupwin');

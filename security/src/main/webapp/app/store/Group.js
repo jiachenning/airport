@@ -7,6 +7,7 @@ Ext.define('security.store.Group', {
         id: '1',
         expanded: true
     },
+    sorters: ['ordernum'],
     proxy: {
         type: 'rest',
         url: 'groups/findByParentId'

@@ -23,6 +23,9 @@ class Group extends AbstractTreeNode<Group, Long> {
 	
 	boolean enabled
 	
+	@NotNull
+	int ordernum
+	
 	long parentId
 	
 	String description

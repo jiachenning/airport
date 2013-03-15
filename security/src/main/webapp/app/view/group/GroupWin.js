@@ -48,6 +48,12 @@ Ext.define('security.view.group.GroupWin', {
                         [false, '否']
                     ]
                 },{
+                    xtype: 'numberfield',
+                    fieldLabel: '排序',
+                    name: 'ordernum',
+                    minValue: 0,
+                    maxValue: 500
+                },{
                     xtype: 'combobox',
                     fieldLabel: '类别',
                     name: 'nodetype',
