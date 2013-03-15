@@ -380,7 +380,7 @@
         <jdbc.db.driver>com.mysql.jdbc.Driver</jdbc.db.driver>
         <jdbc.db.url>jdbc:mysql:///${project.artifactId}?createDatabaseIfNotExist=true</jdbc.db.url>
         <jdbc.db.username>root</jdbc.db.username>
-        <jdbc.db.password>041129</jdbc.db.password>
+        <jdbc.db.password></jdbc.db.password>
       </properties>
     </profile>
 
