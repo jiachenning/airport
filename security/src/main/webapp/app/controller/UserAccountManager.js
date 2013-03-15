@@ -170,6 +170,8 @@ Ext.define('security.controller.UserAccountManager', {
             var userStore = this.getUserGrid1().getStore(),
                 user = f.getRecord();
             
+            user.set('password', hex_md5(f.findField('password').value));
+            
             user.save({
                 success: function(user) {
                     win.hide();
