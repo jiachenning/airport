@@ -15,6 +15,9 @@ Ext.define('security.model.Authority', {
         type: 'boolean',
         defaultValue: true
     },{
+        name: 'type',
+        type: 'string'
+    },{
         name: 'code',
         type: 'string'
     },{
@@ -23,9 +26,9 @@ Ext.define('security.model.Authority', {
     },{
         name: 'parent'
     },{
-    	name: 'parentName',
-    	type: 'string',
-    	persist : false
+        name: 'parentName',
+        type: 'string',
+        persist : false
     },{
         name: 'version',
         type: 'int'

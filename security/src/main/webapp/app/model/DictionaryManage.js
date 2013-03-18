@@ -14,12 +14,12 @@ Ext.define('security.model.DictionaryManage', {
         name: 'description',
         type: 'string'
     },{
-    	name: 'dictionary'
+        name: 'dictionary'
     },{
-    	name: 'dictionaryId',
-    	type: 'int',
-    	mapping: 'dictionary.id',
-    	persist : false
+        name: 'dictionaryId',
+        type: 'int',
+        mapping: 'dictionary.id',
+        persist : false
     }],
     proxy: {
         type: 'rest',

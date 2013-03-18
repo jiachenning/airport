@@ -26,13 +26,13 @@ Ext.define('security.model.Dictionary', {
         name: 'version',
         type: 'int'
     },{
-    	name: 'parentName',
-    	type: 'string',
-    	persist : false
+        name: 'parentName',
+        type: 'string',
+        persist : false
     },{
-    	name: 'parentId',
-    	type: 'int',
-    	persist : false
+        name: 'parentId',
+        type: 'int',
+        persist : false
     }],
     proxy: {
         type: 'rest',

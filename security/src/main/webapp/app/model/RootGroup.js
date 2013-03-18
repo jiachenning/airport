@@ -19,15 +19,15 @@ Ext.define('security.model.RootGroup', {
         name: 'version',
         type: 'int'
     },{
-    	name: 'nodetype',
-    	type: 'string'
+        name: 'nodetype',
+        type: 'string'
     },{
-    	name: 'description',
-    	type: 'string'
+        name: 'description',
+        type: 'string'
     },{
-    	name: 'leaf',
-    	type: 'boolean',
-    	persist: false
+        name: 'leaf',
+        type: 'boolean',
+        persist: false
     }],
     proxy: {
         type: 'rest',
@@ -36,7 +36,7 @@ Ext.define('security.model.RootGroup', {
         pageParam: 'page.page',
         limitParam: 'page.size',
         extraParams: {
-        	'search_nodetype_eq': 'root'
+            'search_nodetype_eq': 'root'
         },
         reader: {
            root: 'content',

@@ -24,30 +24,30 @@ Ext.example = function(){
 }();
 
 addTabCmp = function(args) {
-	
-	var title = args.title,
-		controller = args.controller,
-		viewXtype = args.viewXtype,
-		app = security.getApplication(),
-		tabs = app.getTabs(),
-		tab = tabs.child(Ext.String.format('panel[title="{0}"]', title));
+    
+    var title = args.title,
+        controller = args.controller,
+        viewXtype = args.viewXtype,
+        app = security.getApplication(),
+        tabs = app.getTabs(),
+        tab = tabs.child(Ext.String.format('panel[title="{0}"]', title));
 
-	if (!tab) {
-		app.getController(controller);
-		tab = tabs.add(Ext.widget(viewXtype, {
-			title: title,
-			closable: true,
-			searchable: true,
+    if (!tab) {
+        app.getController(controller);
+        tab = tabs.add(Ext.widget(viewXtype, {
+            title: title,
+            closable: true,
+            searchable: true,
             operable: true,
             pagable: true,
             hasToolbar: true
-		}));
-	}
-	tabs.setActiveTab(tab);
+        }));
+    }
+    tabs.setActiveTab(tab);
 };
 
 Ext.Ajax.on('requestexception', function(conn, response, options, eOpts) {
-	Ext.example.msg('系统异常', response.responseText);
+    Ext.example.msg('系统异常', response.responseText);
 });
 
 Ext.application({

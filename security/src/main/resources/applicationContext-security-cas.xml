@@ -7,11 +7,29 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <http entry-point-ref="casEntryPoint" auto-config="false" use-expressions="true">
-
+    
+        <intercept-url pattern="/cas-logout.jsp" access="permitAll"/>
+        
         <intercept-url pattern="/**" access="isAuthenticated()" />
-            
+        
+        <custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
+        <custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
         <custom-filter ref="casFilter" position="CAS_FILTER" />
+        
+        <logout logout-success-url="/cas-logout.jsp" delete-cookies="JSESSIONID" />
     </http>
+    
+    <!-- This filter handles a Single Logout Request from the CAS Server -->
+    <b:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter" />
+    
+    <!-- This filter redirects to the CAS Server to signal Single Logout should be performed -->
+    <b:bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter"
+        p:filterProcessesUrl="/j_spring_cas_security_logout">
+        <b:constructor-arg value="https://localhost:8443/cas/logout" />
+        <b:constructor-arg>
+            <b:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+        </b:constructor-arg>
+    </b:bean>
     
     <b:bean id="casEntryPoint"
         class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
