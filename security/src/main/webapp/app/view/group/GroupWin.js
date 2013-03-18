@@ -1,7 +1,6 @@
 Ext.define('security.view.group.GroupWin', {
     extend: 'Ext.window.Window',
     alias: 'widget.groupwin',
-    
     id: 'groupwin',
     title: '维护组织部门',
     modal: true,
@@ -11,18 +10,16 @@ Ext.define('security.view.group.GroupWin', {
     closeAction: 'hide',
     width: 350,
     layout: 'fit',
-    
-    initComponent: function(arguments) {
-        
+  
+    initComponent: function (arguments) {
         var me = this;
-        
         Ext.applyIf(me, {
             items: [{
                 xtype: 'form',
                 bodyPadding: 5,
-                frame: true,             
+                frame: true,
                 fieldDefaults: {
-                	labelAlign: 'top',
+                    labelAlign: 'top',
                     labelWidth: 100
                 },
                 defaults: {
@@ -33,11 +30,11 @@ Ext.define('security.view.group.GroupWin', {
                 items: [{
                     fieldLabel: '上级部门名称',
                     name: 'parentText',
-        			allowBlank: true
-                },{
+                    allowBlank: true
+                }, {
                     fieldLabel: '部门名称',
                     name: 'name'
-                },{
+                }, {
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
                     name: 'enabled',
@@ -47,13 +44,13 @@ Ext.define('security.view.group.GroupWin', {
                         [true, '是'],
                         [false, '否']
                     ]
-                },{
+                }, {
                     xtype: 'numberfield',
                     fieldLabel: '排序',
                     name: 'ordernum',
                     minValue: 0,
                     maxValue: 500
-                },{
+                }, {
                     xtype: 'combobox',
                     fieldLabel: '类别',
                     name: 'nodetype',
@@ -63,7 +60,7 @@ Ext.define('security.view.group.GroupWin', {
                         ['D', '单位'],
                         ['B', '部门']
                     ]
-                },{
+                }, {
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',
@@ -75,16 +72,16 @@ Ext.define('security.view.group.GroupWin', {
                 text: '保存',
                 tooltip: '保存',
                 icon: 'icons/accept.png'
-            },{
+            }, {
                 text: '关闭',
                 icon: 'icons/cancel.png',
-				scope: this,
-				handler: function() {
-					this.hide();
-				}
+                scope: this,
+                handler: function () {
+                    this.hide();
+                }
             }]
         });
-        
+      
         me.callParent(arguments);
     }
 });
