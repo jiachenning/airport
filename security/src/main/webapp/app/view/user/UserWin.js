@@ -36,10 +36,10 @@ Ext.define('security.view.user.UserWin', {
                 },{
                     fieldLabel: '登录名',
                     name: 'loginName'
-                },{
+                }/*,{
                     fieldLabel: '密码',
                     name: 'password'
-                },{
+                }*/,{
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
                     name: 'enabled',
@@ -60,17 +60,13 @@ Ext.define('security.view.user.UserWin', {
                         ['FEMALE', '女']
                     ]
                 },{
-                    xtype: 'numberfield',
-                    fieldLabel: '年龄',
-                    name: 'age',
-                    minValue: 0,
-                    maxValue: 100
-                },{
                     fieldLabel: '电话',
-                    name: 'telephone'
+                    name: 'telephone',
+                    allowBlank: true
                 },{
                     fieldLabel: '地址',
-                    name: 'address'
+                    name: 'address',
+                    allowBlank: true
                 },{
                     xtype: 'datefield',
                     fieldLabel: '出生年月',
@@ -83,9 +79,9 @@ Ext.define('security.view.user.UserWin', {
                     queryMode: 'local',
                     forceSelection: true,
                     store: [
-                        ['NORMAL', 'NORMAL'],
-                        ['ADVINCED', 'ADVINCED'],
-                        ['ADMINISTRATOR', 'ADMINISTRATOR']
+                        ['NORMAL', '普通用户'],
+                        ['ADVINCED', '管理员'],
+                        ['ADMINISTRATOR', '超级管理员']
                     ]
                 }]
             }],

@@ -33,8 +33,6 @@ class User extends AbstractPersistable<Long> {
 	
 	boolean enabled
 
-	int age
-	
 	String telephone
 	
 	String address

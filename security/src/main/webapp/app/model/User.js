@@ -21,9 +21,6 @@ Ext.define('security.model.User', {
         type: 'boolean',
         defaultValue: true
     },{
-        name: 'age',
-        type: 'int'
-    },{
         name: 'telephone',
         type: 'string'
     },{

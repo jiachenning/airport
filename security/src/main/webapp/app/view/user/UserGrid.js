@@ -4,7 +4,7 @@ Ext.define('security.view.user.UserGrid', {
     requires: ['Ext.ux.form.SearchField'],
     uses: ['security.store.User'],
 
-    title: '用户通信录',
+    title: '用户通讯录',
     columnLines: true,
 
     initComponent: function(arguments) {
@@ -46,9 +46,6 @@ Ext.define('security.view.user.UserGrid', {
                 }
             }
         },{
-            text: '年龄',
-            dataIndex: 'age'
-        },{
             text: '电话',
             dataIndex: 'telephone'
         },{
@@ -62,6 +59,15 @@ Ext.define('security.view.user.UserGrid', {
         },{
             text: '用户类型',
             dataIndex: 'userType',
+            renderer: function(v){
+            	 if (v == 'NORMAL') {
+                     return '普通用户'
+                 } else if(v == 'ADVINCED') {
+                	 return '管理员'
+                 } else {
+                	 return '超级管理员'
+                 }
+            },
             flex: 1
         }];
 
@@ -94,7 +100,7 @@ Ext.define('security.view.user.UserGrid', {
                 items: [{
                     xtype: 'searchfield',
                     paramName: 'search_username_like',
-                    emptyText: '请输入一个用户名！',
+                    emptyText: '请输入一个姓名！',
                     width: 200,
                     store: this.store
                 },'-',{
