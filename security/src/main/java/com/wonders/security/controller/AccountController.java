@@ -80,5 +80,11 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	String findAccountAuthority(@RequestParam long accountId){
 		return accountService.findAccountAuthority(accountId);
 	}
+	
+	@RequestMapping(value = "findByUserLoginNameNot", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Account> findByUserLoginNameNot(@RequestParam String loginName){
+		return accountRepository.findByUserLoginNameNot(loginName);
+	}
 
 }

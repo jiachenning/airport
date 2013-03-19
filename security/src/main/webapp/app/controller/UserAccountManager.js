@@ -200,15 +200,24 @@ Ext.define('security.controller.UserAccountManager', {
     	var record = this.getUserGrid2().getSelectionModel().getLastSelected();
     	
     	if (record) {
-	        var win = Ext.getCmp('accountwin');
-	        
+	        var win = Ext.getCmp('accountwin'),
+	        	loginName = record.get('loginName');
 	        if (!win) {
-	            win = Ext.create('security.view.account.AccountWin');
+	            win = Ext.create('security.view.account.AccountWin', {
+	            	loginName: loginName
+	            });
 	        }
 	    	win.show(btn, function() {
 	            var f = win.child('form').getForm();
 	            if (!rec) {
 	                rec = Ext.create('security.model.Account');
+	            }
+	            if(win.loginName != loginName){
+	            	f.findField('accountId').getStore().load({
+	            		params:{
+	            			loginName: loginName
+	            		}
+	            	});
 	            }
 	            f.loadRecord(rec);
 	        });
@@ -305,7 +314,7 @@ Ext.define('security.controller.UserAccountManager', {
 			
 			var account = f.getRecord(),
 				accountStore = this.getAccountGrid2().getStore();
-			
+				
 			account.set('user',  {id: userId});
 			account.set('group', {id: f.findField('groupId').value});
 				

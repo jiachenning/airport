@@ -23,7 +23,7 @@ class Account extends AbstractPersistable<Long> {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	User user
-
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	Group group
 

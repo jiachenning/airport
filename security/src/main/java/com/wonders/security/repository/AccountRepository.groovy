@@ -14,4 +14,7 @@ interface AccountRepository extends MyRepository<Account, Long> {
 
 	@Query("from Account a join fetch a.group where a.group.id = ?1")
 	List<Account> findByGroupId(groupId)
+	
+	@Query("from Account a join fetch a.group where a.user.loginName <> ?1")
+	List<Account> findByUserLoginNameNot(loginName)
 }
