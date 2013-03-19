@@ -224,7 +224,7 @@ Ext.define('security.controller.GroupController', {
 
 		if(node.isRoot()) { return; }
 		
-		if(node.get('nodetype') == 'B') {
+		if(node.get('nodetype') == 'B' && 'add' == actionType) {
 			
 			Ext.Msg.alert("提示","所选为部门，不能对其新增部门!");
 			return;
