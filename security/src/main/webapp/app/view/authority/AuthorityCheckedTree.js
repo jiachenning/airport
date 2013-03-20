@@ -9,8 +9,7 @@ Ext.define('security.view.authority.AuthorityCheckedTree', {
 		var me = this;
 
 		Ext.applyIf(me, {
-			store: 'AuthorityChecked',
-			
+			store: Ext.create('security.store.AuthorityChecked')
 		});
 		
 		me.callParent(arguments);

@@ -251,6 +251,7 @@ Ext.define('security.controller.UserAccountManager', {
     	var win = this.getAuthorityAccountWin();
     	if (!win) {
     		win = Ext.widget('authority-account-win');
+    		alert(111);
     		win.record = rec;
         }
       	win.show(btn, function() {

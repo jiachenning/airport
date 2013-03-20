@@ -55,11 +55,15 @@ Ext.define('security.controller.RoleController', {
 
     maintainAccRole: function(btn) {
         this.getController('AccountRoleManager');
-        var tabs = security.getApplication().getTabs();
-        tabs.setActiveTab(tabs.add({
-        	xtype: 'account-role-maintain',
-        	closable: true
-        }));
+        var tabs = security.getApplication().getTabs(),
+        	tab = tabs.child(Ext.String.format('panel[title="维护帐号角色"]'));
+        if(!tab){
+        	tab = tabs.add({
+            	xtype: 'account-role-maintain',
+            	closable: true
+            });
+        }
+        tabs.setActiveTab(tab);
     },
 
     doAction: function(grid, cell, row, col, e, eOpts) {
