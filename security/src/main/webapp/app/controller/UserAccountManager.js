@@ -129,36 +129,41 @@ Ext.define('security.controller.UserAccountManager', {
     },
 
     maintainUserAccount: function(btn) {
-        var tabs = security.getApplication().getTabs();
-        tabs.setActiveTab(tabs.add({
-            title: '用户账号维护',
-            closable: true,
-            layout: {
-                type: 'hbox',
-                align: 'stretch'
-            },
-            bodyPadding: 1,
-            items: [{
-                xtype: 'usergrid',
-                searchable: true,
-                pagable: true,
-                flex: 5
-            },{
-                xtype: 'splitter',
-                defaultSplitMin: 100
-            },{
-                xtype: 'accountgrid',
-                operable: false,
-                dockedItems: [{
-                    xtype: 'toolbar',
-                    items: {
-                        tooltip: '添加',
-                        icon: 'icons/application_add.png'
-                    }
-                }],
-                flex: 2
-            }]
-        }));
+        var tabs = security.getApplication().getTabs(),
+        	tab = tabs.child(Ext.String.format('panel[title="用户账号维护"]'));
+        if (!tab) {
+        	tab = tabs.add({
+                title: '用户账号维护',
+                closable: true,
+                layout: {
+                    type: 'hbox',
+                    align: 'stretch'
+                },
+                bodyPadding: 1,
+                items: [{
+                    xtype: 'usergrid',
+                    searchable: true,
+                    pagable: true,
+                    flex: 5
+                },{
+                    xtype: 'splitter',
+                    defaultSplitMin: 100
+                },{
+                    xtype: 'accountgrid',
+                    operable: true,
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        items: {
+                            tooltip: '添加',
+                            icon: 'icons/application_add.png'
+                        }
+                    }],
+                    flex: 2
+                }]
+            });
+        }
+        tabs.setActiveTab(tab);
+        
     },
 
     saveUser: function(btn) {
@@ -243,7 +248,7 @@ Ext.define('security.controller.UserAccountManager', {
     },
     
     authorityAccount: function(btn, rec) {
-    	var win = Ext.getCmp('authorityAccountwin');
+    	var win = this.getAuthorityAccountWin();
     	if (!win) {
     		win = Ext.widget('authority-account-win');
     		win.record = rec;
