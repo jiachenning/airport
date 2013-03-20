@@ -404,9 +404,6 @@
         <jdbc.db.password>wonders</jdbc.db.password>
       </properties>
     </profile>
-    
-    
-    
 
   </profiles>
 
