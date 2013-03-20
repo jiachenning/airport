@@ -15,7 +15,7 @@ import com.wonders.security.entity.Authority;
 import com.wonders.security.entity.Role;
 import com.wonders.security.test.AbstractSpringTests;
 
-@DatabaseSetup("AccountServiceTest-DatabaseSetup.xml")
+@DatabaseSetup("ServiceTest-DatabaseSetup.xml")
 public class AccountServiceTest extends AbstractSpringTests {
 
 	@Inject

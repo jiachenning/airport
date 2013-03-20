@@ -13,10 +13,11 @@ import com.wonders.security.repository.RoleRepository
 class RoleService {
 	
 	@Inject
-	private AuthorityRepository authorityRepository
+	private RoleRepository roleRepository
 	
 	@Inject
-	private RoleRepository roleRepository
+	private AuthorityRepository authorityRepository
+	
 
 	@Transactional
 	Role addRoleAuthority(long roleId, long... authIds) {
@@ -25,12 +26,19 @@ class RoleService {
 		
 		if (role) {
 			def auths = authorityRepository.findAll(authIds as List)
-			role.authorities = auths
+			
+			role.authorities.each { auth ->
+				if (!auths.contains(auth)) {
+					role.authorities.remove(auth)
+				}
+			}
+			
+			role.authorities.addAll(auths)
 		}
 		role
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	String findRoleAuthority(long roleId) {
 		
 		def role = roleRepository.findOne(roleId)
