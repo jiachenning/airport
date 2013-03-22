@@ -40,17 +40,21 @@ Ext.define('security.controller.RoleController', {
     },
 
     showRoleWin: function(btn, e, eOpts, rec) {
-        var win = Ext.getCmp('rolewin');
-        if (!win) {
-            win = Ext.widget('rolewin');
-        }
-    	win.show(btn, function() {
-            var f = win.child('form').getForm();
-            if (!rec) {
-                rec = Ext.create('security.model.Role');
-            }
-            f.loadRecord(rec);
-        });
+    	if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
+    		Ext.Msg.alert('提示','系统账号,无法修改!');	
+    	}else{
+    		var win = Ext.getCmp('rolewin');
+    		if (!win) {
+    			win = Ext.widget('rolewin');
+    		}
+    		win.show(btn, function() {
+    			var f = win.child('form').getForm();
+    			if (!rec) {
+    				rec = Ext.create('security.model.Role');
+    			}
+    			f.loadRecord(rec);
+    		});
+    	}
     },
 
     maintainAccRole: function(btn) {
@@ -70,28 +74,32 @@ Ext.define('security.controller.RoleController', {
         var rec = grid.getStore().getAt(row),
         	action = e.target.getAttribute('class');
         
-        if (action.indexOf("x-action-col-0") != -1) { // edit user
+        if (action.indexOf("x-action-col-0") != -1) { // edit role
             this.showRoleWin(e.target, e, eOpts, rec);
-        } else if (action.indexOf("x-action-col-1") != -1) { // delete user
-            this.deleteRole(rec.get('id'));
-        } else if (action.indexOf("x-action-col-2") != -1) {
+        } else if (action.indexOf("x-action-col-1") != -1) { // delete role
+            this.deleteRole(rec);
+        } else if (action.indexOf("x-action-col-2") != -1) { // authority role
             this.authorityRole(e.target, rec);
         }
     },
 
-    deleteRole: function(id) {
-        Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
-            if (btn == 'yes') {
-                var roleStore = this.getRoleGrid().getStore();
-                Ext.create('security.model.Role', {
-                    id: id
-                }).destroy({
-                    success: function() {
-                    	roleStore.loadPage(1);
-                    }
-                });
-            }
-        }, this);
+    deleteRole: function(rec) {
+    	if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
+    		Ext.Msg.alert('提示','系统账号,无法删除!');	
+    	}else{
+    		Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+    			if (btn == 'yes') {
+    				var roleStore = this.getRoleGrid().getStore();
+    				Ext.create('security.model.Role', {
+    					id: rec.get('id')
+    				}).destroy({
+    					success: function() {
+    						roleStore.loadPage(1);
+    					}
+    				});
+    			}
+    		}, this);
+    	}
     },
 
     saveRole: function(btn) {

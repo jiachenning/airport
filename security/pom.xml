@@ -15,7 +15,7 @@
   <packaging>war</packaging>
   <name>security</name>
 
-  <dependencies>
+  <dependencies> 
     
     <dependency>
       <groupId>com.wonders</groupId>

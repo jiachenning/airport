@@ -31,6 +31,9 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 	
 	String type
 	
+	@NotNull
+	int ordernum
+	
 	long parentId
 	
 	@Override

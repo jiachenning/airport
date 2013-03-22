@@ -86,5 +86,17 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	List<Account> findByUserLoginNameNot(@RequestParam String loginName){
 		return accountRepository.findByUserLoginNameNot(loginName);
 	}
+	
+	@RequestMapping(value = "validateAccount", method = RequestMethod.GET)
+	protected @ResponseBody
+	String validateAccount(@RequestParam String name,
+			@RequestParam long userId, @RequestParam long groupId){
+		List<Account> list = accountRepository.validateAccout(name, groupId, userId);
+		if(list.size() == 0 ){
+			return "{success: true}";
+		}else {
+			return "{success: false}";
+		}
+	}
 
 }

@@ -95,7 +95,7 @@ Ext.define('security.controller.UserAccountManager', {
         if (action.indexOf("x-action-col-0") != -1) { // edit user
             this.showUserWin(e.target, e, eOpts, rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete user
-            this.deleteUser(rec.get('id'));
+            this.deleteUser(rec);
         }
     },
     
@@ -113,19 +113,23 @@ Ext.define('security.controller.UserAccountManager', {
         });
     },
 
-    deleteUser: function(id) {
-        Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
-            if (btn == 'yes') {
-                var userStore = this.getUserGrid1().getStore();
-                Ext.create('security.model.User', {
-                    id: id
-                }).destroy({
-                    success: function() {
-                    	userStore.loadPage(1);
-                    }
-                });
-            }
-        }, this);
+    deleteUser: function(rec) {
+    	if(rec.get('loginName') == 'admin'){
+    		Ext.Msg.alert("提示","系统管理员无法删除!");
+    	}else{
+    		Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+    			if (btn == 'yes') {
+    				var userStore = this.getUserGrid1().getStore();
+    				Ext.create('security.model.User', {
+    					id: rec.get('id')
+    				}).destroy({
+    					success: function() {
+    						userStore.loadPage(1);
+    					}
+    				});
+    			}
+    		}, this);
+    	}
     },
 
     maintainUserAccount: function(btn) {
@@ -314,22 +318,37 @@ Ext.define('security.controller.UserAccountManager', {
 			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id');
 		
 		if (f.isValid()) {
-			
-			f.updateRecord();
-			
-			var account = f.getRecord(),
-				accountStore = this.getAccountGrid2().getStore();
-				
-			account.set('user',  {id: userId});
-			account.set('group', {id: f.findField('groupId').value});
-				
-			account.save({
-				success : function(user) {
-					win.hide();
-					accountStore.getProxy().setExtraParam('userId', userId);
-					accountStore.load();
-				}
-			});
+			Ext.Ajax.request({
+	            url: 'accounts/validateAccount',
+	            method: 'get',
+	            params: {
+	            	name : f.findField('name').value,
+	                userId: userId,
+	                groupId: f.findField('groupId').value
+	            },
+	            success: function(response, options) {
+	            	var respText = Ext.JSON.decode(response.responseText),
+	            		json = eval('(' + respText + ')');
+	            	if(json.success){
+	            		f.updateRecord();
+	        			
+	        			var account = f.getRecord(),
+	        				accountStore = this.getAccountGrid2().getStore();
+	        				
+	        			account.set('user',  {id: userId});
+	        			account.set('group', {id: f.findField('groupId').value});
+	        				
+	        			account.save({
+	        				success : function(user) {
+	        					win.hide();
+	        					accountStore.getProxy().setExtraParam('userId', userId);
+	        					accountStore.load();
+	        				}
+	        			});
+              		}else 
+              			Ext.Msg.alert('失败', '该用户已有这个账号!');
+	            }
+	        });
 		}
 	}
 });
