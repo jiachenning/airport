@@ -83,13 +83,22 @@ Ext.define('security.controller.DictionaryController', {
         	win.option = 'add';
 			var record = Ext.create('security.model.Dictionary', {
 				'parent': {id: node.get('id')},
-				'parentName': node.get('name')
+				'parentName': node.get('text')
 			});
 			f.loadRecord(record);
 		}else if(opts == 'update'){
+			if(node.get('text') == '根节点') {
+				Ext.Msg.alert('提示','根节点不能修改!');
+				return;
+			}
 			win.option = 'update';
-			node.set('parent', {id: node.parentNode.get('id')});
-			node.set('parentName', node.parentNode.get('name'));
+			if (node.isRoot()){
+				node.set('parent', {id: '1'});
+				node.set('parentName', '根节点');
+			}else {
+				node.set('parent', {id: node.parentNode.get('id')});
+				node.set('parentName', node.parentNode.get('text'));
+			}
 			f.loadRecord(node);
 		}else {
 			win.option = 'new';
@@ -108,25 +117,25 @@ Ext.define('security.controller.DictionaryController', {
 			this.ctmenu = Ext.widget('menu', {
 				width: 80,
 				items:[{
-					text: '添加数据',
+					text: '添加字典',
 					icon: 'icons/group_add.png',
 					scope: this,
 					handler: function(menuItem) {
 						this.showDictionaryWin(menuItem, 'add');
 					}
 		        },'-',{
-		        	text: '编辑数据',
+		        	text: '编辑字典',
 		        	icon: 'icons/group_edit.png',
 		        	scope: this,
 					handler: function(menuItem) {
 						this.showDictionaryWin(menuItem, 'update');
 					}
 		        },'-',{
-		        	text: '删除数据',
+		        	text: '删除字典',
 		        	scope: this,
 		        	icon: 'icons/group_delete.png',
 					handler: function(menuItem) {
-						//this.deleteAuthority(menuItem);
+						this.deleteDictionary(menuItem);
 					}
 		        }]
 		    });
@@ -144,31 +153,47 @@ Ext.define('security.controller.DictionaryController', {
 			f.updateRecord();
 			var dictionary = f.getRecord();
 			var selectedNode = tree.getSelectionModel().getLastSelected();
-			dictionary.save({
-                success: function() {
-                    win.hide();
-                }
-            });
-			if(option == 'new'){
-				tree.setRootNode({
-			        text: dictionary.get('name'),
-			        id: dictionary.get('id'),
-			        expanded: true
-			    });
-			}else if(option == 'add'){
-            	if (selectedNode.isLeaf()) {
-					selectedNode.set('leaf',false);
-				}
-            	Ext.Msg.alert('提示','新增成功!');
-            	var store = tree.getStore();
-            	store.load({
-            		node: selectedNode
-            	});
-            }else if(option == 'update'){
-                selectedNode.set('text', dictionary.get('name'));
-                selectedNode.set('version', dictionary.get('version')+1);
-            	Ext.Msg.alert('提示','更新成功!');
-            }
+			Ext.Ajax.request({
+	            url: 'dictionary/validateDictionaryCode',
+	            method: 'get',
+	            params: {
+	            	code : dictionary.get('code'),
+	                id: dictionary.get('id')
+	            },
+	            success: function(response, options) {
+	            	var respText = Ext.JSON.decode(response.responseText),
+	            		json = eval('(' + respText + ')');
+	            	if(json.success){
+	            		dictionary.save({
+	                        success: function() {
+	                        	if(option == 'new'){
+	                				tree.setRootNode({
+	                			        text: dictionary.get('name'),
+	                			        id: dictionary.get('id'),
+	                			        expanded: true
+	                			    });
+	                			}else if(option == 'add'){
+	                            	if (selectedNode.isLeaf()) {
+	                					selectedNode.set('leaf',false);
+	                				}
+	                            	var store = tree.getStore();
+	                            	store.load({
+	                            		node: selectedNode
+	                            	});
+	                            	Ext.Msg.alert('提示','新增成功!');
+	                            }else if(option == 'update'){
+	                                selectedNode.set('text', dictionary.get('name'));
+	                                selectedNode.set('version', dictionary.get('version')+1);
+	                            	Ext.Msg.alert('提示','更新成功!');
+	                            }
+	                            win.hide();
+	                        }
+	                    });
+              		}else 
+              			Ext.Msg.alert('失败', '该字典代码已存在!');
+	            }
+	        });
+			
 		}
     },
     
@@ -226,6 +251,36 @@ Ext.define('security.controller.DictionaryController', {
 		    });
 			//tree.reload();
     	}
+    },
+    deleteDictionary: function(menuItem) {
+		var selectedNode = this.getDictionaryTree().getSelectionModel().getLastSelected(),
+			parentNode = selectedNode.parentNode;
+		if(selectedNode != null){
+	        var isLeaf = selectedNode.isLeaf();
+			if(isLeaf){
+				Ext.Msg.show({
+					title:'提示',
+					msg: '确定删除节点?',
+					buttons: Ext.Msg.YESNO,
+					icon: Ext.Msg.QUESTION,
+					fn: function(btn){
+                        if(btn=='yes'){
+                        	selectedNode.destroy({
+                        		success: function() {
+                        			if(parentNode.childNodes.length == 0 ){
+                                		parentNode.set('leaf',true);
+                                	}
+                                }
+                            });
+				    	}
+				    }
+				});
+			}else{
+				Ext.Msg.alert('提示','请选择叶子节点删除!');
+			}
+		}else{
+			Ext.Msg.alert('提示','请先选择一个节点!');
+		}
     }
 	
 });

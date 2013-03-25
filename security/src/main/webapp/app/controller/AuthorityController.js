@@ -105,34 +105,48 @@ Ext.define('security.controller.AuthorityController', {
         if (f.isValid()) {
             f.updateRecord();
             var authority = f.getRecord();
-            
             var selectedNode = this.getAuthorityTree().getSelectionModel().getLastSelected();
-            authority.save({
-                success: function() {
-                    win.hide();
-                }
-            });
+            var store = this.getAuthorityStore();
             var id = authority.get('id');
-            if(id == ''){
-            	if (selectedNode.isLeaf()) {
-					selectedNode.set('leaf',false);
-				}
-            	Ext.Msg.alert('提示','新增成功!');
-            	var store = this.getAuthorityStore();
-            	store.load({
-            		node: selectedNode
-            	});
-            }else{
-                selectedNode.set('text', authority.get('name'));
-                selectedNode.set('version', authority.get('version')+1);
-            	Ext.Msg.alert('提示','更新成功!');
-            }
-            
+            Ext.Ajax.request({
+	            url: 'authority/validateAuthorityCode',
+	            method: 'get',
+	            params: {
+	            	code : authority.get('code'),
+	                id: id
+	            },
+	            success: function(response, options) {
+	            	var respText = Ext.JSON.decode(response.responseText),
+	            		json = eval('(' + respText + ')');
+	            	if(json.success){
+	            		authority.save({
+                            success: function() {
+                            	if(id == ''){
+        	                    	if (selectedNode.isLeaf()) {
+        	        					selectedNode.set('leaf',false);
+        	        				}
+        	                    	store.load({
+        	                    		node: selectedNode
+        	                    	});
+        	                    	Ext.Msg.alert('提示','新增成功!');
+        	                    }else{
+        	                        selectedNode.set('text', authority.get('name'));
+        	                        selectedNode.set('version', authority.get('version')+1);
+        	                    	Ext.Msg.alert('提示','更新成功!');
+        	                    }
+                                win.hide();
+                            }
+                        });
+              		}else 
+              			Ext.Msg.alert('失败', '该权限代码已存在!');
+	            }
+	        });
         }
     },
     
 	deleteAuthority: function(menuItem) {
-		var selectedNode = this.getAuthorityTree().getSelectionModel().getLastSelected();
+		var selectedNode = this.getAuthorityTree().getSelectionModel().getLastSelected(),
+			parentNode = selectedNode.parentNode;
 		if(selectedNode != null){
 	        var isLeaf = selectedNode.isLeaf();
 			if(isLeaf){
@@ -145,8 +159,8 @@ Ext.define('security.controller.AuthorityController', {
                         if(btn=='yes'){
                         	selectedNode.destroy({
                         		success: function() {
-                        			if(selectedNode.parentNode.childNodes.length ==1 ){
-                                		selectedNode.parentNode.set('leaf',true);
+                        			if(parentNode.childNodes.length == 0 ){
+                                		parentNode.set('leaf',true);
                                 	}
                                 }
                             });

@@ -33,6 +33,9 @@ Ext.define('security.model.Dictionary', {
         name: 'parentId',
         type: 'int',
         persist : false
+    },{
+        name: 'ordernum',
+        type: 'int'
     }],
     proxy: {
         type: 'rest',

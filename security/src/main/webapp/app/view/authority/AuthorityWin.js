@@ -51,6 +51,7 @@ Ext.define('security.view.authority.AuthorityWin', {
                     fieldLabel: '资源类型',
                     name: 'type',
                     queryMode: 'local',
+                    forceSelection: true,
                     store: [
                         ['0', '菜单'],
                         ['1', '功能']

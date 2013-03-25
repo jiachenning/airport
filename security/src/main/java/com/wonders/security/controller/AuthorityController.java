@@ -1,5 +1,6 @@
 package com.wonders.security.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,8 +37,14 @@ public class AuthorityController extends AbstractCrudController<Authority, Long>
 	
 	@RequestMapping(value = "validateAuthorityCode", method = RequestMethod.GET)
 	protected @ResponseBody
-	String validateAuthorityCode(@RequestParam String code){
-		List<Authority> list = authorityRepository.validateAuthorityCode(code);
+	String validateAuthorityCode(@RequestParam String code,
+			@RequestParam(required = false) long id){
+		List<Authority> list = new ArrayList<Authority>();
+		if (id == 0){
+			list = authorityRepository.validateAuthorityCode(code);
+		}else{
+			list = authorityRepository.validateAuthorityCode(code,id);
+		}
 		if(list.size() == 0 ){
 			return "{success: true}";
 		}else {

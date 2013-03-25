@@ -8,6 +8,7 @@ Ext.define('security.store.Dictionary', {
         id: 1,
         expanded: true
     },
+    sorters: ['ordernum'],
     proxy: {
         type: 'rest',
         url: 'dictionary/findByParentId'

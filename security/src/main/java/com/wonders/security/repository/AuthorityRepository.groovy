@@ -12,4 +12,7 @@ interface AuthorityRepository extends MyRepository<Authority, Long> {
 	
 	@Query("from Authority where code = ?1")
 	List<Authority> validateAuthorityCode(code)
+	
+	@Query("from Authority where code = ?1 and id <> ?2")
+	List<Authority> validateAuthorityCode(code, id)
 }
