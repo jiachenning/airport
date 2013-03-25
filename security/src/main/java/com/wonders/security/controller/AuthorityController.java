@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wonders.framework.controller.AbstractCrudController;
@@ -31,6 +32,17 @@ public class AuthorityController extends AbstractCrudController<Authority, Long>
 	protected @ResponseBody
 	List<Authority> findByParentId(@PathVariable long parentId) {
 		return authorityRepository.findByParentId(parentId);
+	}
+	
+	@RequestMapping(value = "validateAuthorityCode", method = RequestMethod.GET)
+	protected @ResponseBody
+	String validateAuthorityCode(@RequestParam String code){
+		List<Authority> list = authorityRepository.validateAuthorityCode(code);
+		if(list.size() == 0 ){
+			return "{success: true}";
+		}else {
+			return "{success: false}";
+		}
 	}
 
 }

@@ -32,6 +32,9 @@ Ext.define('security.model.Authority', {
     },{
         name: 'version',
         type: 'int'
+    },{
+        name: 'ordernum',
+        type: 'int'
     }],
     proxy: {
         type: 'rest',

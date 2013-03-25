@@ -56,6 +56,12 @@ Ext.define('security.view.authority.AuthorityWin', {
                         ['1', '功能']
                     ]
                 },{
+                    xtype: 'numberfield',
+                    fieldLabel: '排序',
+                    name: 'ordernum',
+                    minValue: 0,
+                    maxValue: 500
+                },{
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',

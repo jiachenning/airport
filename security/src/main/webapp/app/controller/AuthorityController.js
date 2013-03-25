@@ -70,7 +70,10 @@ Ext.define('security.controller.AuthorityController', {
 	showAuthorityWin: function(menuItem, option) {
 		
 		var node = this.getAuthorityTree().getSelectionModel().getLastSelected();
-		
+		if(node.get('text') == '资源根节点' && option == 'update') {
+			Ext.Msg.alert('提示','根节点不能修改!');
+			return;
+		}
 		if (!node.isExpanded()) {
 			node.expand();
 		}
@@ -84,12 +87,12 @@ Ext.define('security.controller.AuthorityController', {
 		if(option == 'add'){
 			var record = Ext.create('security.model.Authority', {
 				'parent': {id: node.get('id')},
-				'parentName': node.get('name')
+				'parentName': node.get('text')
 			});
 			f.loadRecord(record);
 		}else if(option == 'update'){
 			node.set('parent', {id: node.parentNode.get('id')});
-			node.set('parentName', node.parentNode.get('name'));
+			node.set('parentName', node.parentNode.get('text'));
 			f.loadRecord(node);
 		}
 	
