@@ -24,6 +24,7 @@
     <module>parent</module>
     <module>core</module>
     <module>security</module>
+    <module>serviceCentral</module>
   </modules>
 
 </project>
