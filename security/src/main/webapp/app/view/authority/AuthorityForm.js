@@ -10,6 +10,7 @@ Ext.define('security.view.authority.AuthorityForm', {
 		Ext.applyIf(me, {
 			defaults: {
                 xtype: 'textfield',
+                readOnly: true,
                 anchor: '90%'
             },
 			items : [ {

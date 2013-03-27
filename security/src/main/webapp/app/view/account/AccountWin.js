@@ -33,7 +33,7 @@ Ext.define('security.view.account.AccountWin', {
                 bodyPadding: 5,
                 frame: true,
                 fieldDefaults: {
-                    labelWidth: 65,
+                    labelWidth: 65
                 },
                 defaults: {
                     xtype: 'textfield',

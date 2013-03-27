@@ -23,7 +23,7 @@ Ext.define('security.view.user.UserWin', {
                 bodyPadding: 5,
                 frame: true,
                 fieldDefaults: {
-                    labelWidth: 65,
+                    labelWidth: 65
                 },
                 defaults: {
                     xtype: 'textfield',

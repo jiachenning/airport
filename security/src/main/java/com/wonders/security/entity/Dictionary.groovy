@@ -25,11 +25,14 @@ class Dictionary extends AbstractTreeNode<Dictionary, Long> {
 	
 	boolean enabled
 	
-	@Column(unique = false)
+	@Column(unique = true)
 	String code
 	
 	@NotNull
 	int ordernum
+	
+	@NotNull
+	String typecode
 	
 	String description
 	

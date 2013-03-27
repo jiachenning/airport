@@ -34,6 +34,9 @@ Ext.define('security.model.Dictionary', {
         type: 'int',
         persist : false
     },{
+        name: 'typecode',
+        type: 'string'
+    },{
         name: 'ordernum',
         type: 'int'
     }],

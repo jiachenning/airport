@@ -3,10 +3,7 @@ package com.wonders.security.entity;
 import static javax.persistence.TemporalType.DATE
 
 import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.ManyToOne
 import javax.persistence.Table
-import javax.persistence.Transient;
 import javax.persistence.Version
 import javax.validation.constraints.NotNull
 
@@ -21,9 +18,11 @@ class DictionaryManage extends AbstractPersistable<Long> {
 
 	@NotNull
 	String name
+	
+	String typecode
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	Dictionary dictionary
+/*	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	Dictionary dictionary*/
 	
 	String description
 	

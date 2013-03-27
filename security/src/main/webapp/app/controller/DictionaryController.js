@@ -31,9 +31,6 @@ Ext.define('security.controller.DictionaryController', {
             'dictionarymgrpanel > dictionarygrid button[tooltip="添加"]': {
                 click: this.showDictionaryManageWin
             },
-            'dictionarymgrpanel > dictionarytree button[tooltip="添加"]': {
-                click: this.showDictionaryWin
-            },
     		'dictionarywin button[text="保存"]': {
                 click: this.saveDictionary
             },
@@ -57,8 +54,12 @@ Ext.define('security.controller.DictionaryController', {
         }
     	win.show(btn, function() {
             var f = win.child('form').getForm();
+            var typecode = f.findField('typecode');
             if (!rec) {
                 rec = Ext.create('security.model.DictionaryManage');
+                typecode.setVisible(true);
+            }else{
+            	typecode.setVisible(false);
             }
             f.loadRecord(rec);
         });
@@ -83,30 +84,20 @@ Ext.define('security.controller.DictionaryController', {
         	win.option = 'add';
 			var record = Ext.create('security.model.Dictionary', {
 				'parent': {id: node.get('id')},
-				'parentName': node.get('text')
+				'parentName': node.get('text'),
+				'typecode': node.get('typecode')
 			});
 			f.loadRecord(record);
 		}else if(opts == 'update'){
-			if(node.get('text') == '根节点') {
-				Ext.Msg.alert('提示','根节点不能修改!');
-				return;
-			}
 			win.option = 'update';
 			if (node.isRoot()){
-				node.set('parent', {id: '1'});
-				node.set('parentName', '根节点');
+				Ext.Msg.alert('提示','根节点不能修改!');
+				return;
 			}else {
 				node.set('parent', {id: node.parentNode.get('id')});
 				node.set('parentName', node.parentNode.get('text'));
 			}
 			f.loadRecord(node);
-		}else {
-			win.option = 'new';
-			var record = Ext.create('security.model.Dictionary', {
-				'parent': {id: '1'},
-				'parentName': '根节点'
-			});
-			f.loadRecord(record);
 		}
 		
         win.show(btn);
@@ -166,13 +157,7 @@ Ext.define('security.controller.DictionaryController', {
 	            	if(json.success){
 	            		dictionary.save({
 	                        success: function() {
-	                        	if(option == 'new'){
-	                				tree.setRootNode({
-	                			        text: dictionary.get('name'),
-	                			        id: dictionary.get('id'),
-	                			        expanded: true
-	                			    });
-	                			}else if(option == 'add'){
+	                        	if(option == 'add'){
 	                            	if (selectedNode.isLeaf()) {
 	                					selectedNode.set('leaf',false);
 	                				}
@@ -223,38 +208,64 @@ Ext.define('security.controller.DictionaryController', {
         if (action.indexOf("x-action-col-0") != -1) { // edit dictionary
             this.showDictionaryManageWin(e.target, e, eOpts, rec);
         } else if (action.indexOf("x-action-col-1") != -1) { // delete dictionary
-            this.deleteDictionaryManage(rec.get('id'));
+            this.deleteDictionaryManage(rec);
         } 
     },
-    deleteDictionaryManage: function(id) {
-        Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
-            if (btn == 'yes') {
-                var gridStore = this.getDictionaryGrid().getStore();
-                Ext.create('security.model.DictionaryManage', {
-                    id: id
-                }).destroy({
-                    success: function() {
-                    	gridStore.loadPage(1);
-                    }
-                });
+    deleteDictionaryManage: function(rec) {
+    	var gridStore = this.getDictionaryGrid().getStore();
+    	Ext.Ajax.request({
+            url: 'dictionary/isTypecodeExist',
+            method: 'get',
+            params: {
+            	typecode : rec.get('typecode'),
+            },
+            success: function(response, options) {
+            	var respText = Ext.JSON.decode(response.responseText),
+            		json = eval('(' + respText + ')');
+            	if(json.success){
+            		Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+                        if (btn == 'yes') {
+                            Ext.create('security.model.DictionaryManage', {
+                                id: rec.get('id')
+                            }).destroy({
+                                success: function() {
+                                	gridStore.loadPage(1);
+                                }
+                            });
+                        }
+                    });
+          		}else 
+          			Ext.Msg.alert('失败', '该字典类型有记录,请先删除记录!');
             }
-        }, this);
+        });
+        
     },
     onDictionaryGridSelectionChange: function(model, selected, eOpts) {
     	if (selected.length) {
-    		var dictionary = selected[0].get('dictionary'),
-    			tree = this.getDictionaryTree();
+    		var tree = this.getDictionaryTree();
+    		var store = tree.getStore();
+    		store.setProxy({
+    			type: 'rest',
+    	        url: 'dictionary/findByParentId',
+    	        extraParams:{
+    	        	typecode : selected[0].get('typecode')
+    	        }
+    		});
     		tree.setRootNode({
-		        text: dictionary.name,
-		        id: dictionary.id,
+		        text: selected[0].get('name'),
+		        typecode: selected[0].get('typecode'),
+		        id: 1,
 		        expanded: true
 		    });
-			//tree.reload();
     	}
     },
     deleteDictionary: function(menuItem) {
 		var selectedNode = this.getDictionaryTree().getSelectionModel().getLastSelected(),
 			parentNode = selectedNode.parentNode;
+		if(selectedNode.isRoot()){
+			Ext.Msg.alert('提示','根节点无法删除!');
+			return;
+		}
 		if(selectedNode != null){
 	        var isLeaf = selectedNode.isLeaf();
 			if(isLeaf){

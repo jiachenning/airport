@@ -15,6 +15,9 @@ Ext.define('security.view.authority.AuthorityManagerPanel', {
 		var me = this;
 
 		Ext.applyIf(me, {
+			defaults: {
+                border: true
+            },
 			items : [ {
 				xtype : 'authoritytree',
 				flex : 2

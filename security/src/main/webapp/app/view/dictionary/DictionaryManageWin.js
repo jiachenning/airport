@@ -14,13 +14,13 @@ Ext.define('security.view.dictionary.DictionaryManageWin', {
     initComponent: function(arguments) {
         
         var me = this;
-        var	dictionaryStore = Ext.create('Ext.data.Store', {
+        /*var	dictionaryStore = Ext.create('Ext.data.Store', {
             fields: ['id','name'],
             proxy: {
                 type: 'rest',
                 url: 'dictionary/findByParentId/1'
             }
-        });
+        });*/
         
         Ext.applyIf(me, {
             items: [{
@@ -29,7 +29,7 @@ Ext.define('security.view.dictionary.DictionaryManageWin', {
                 bodyPadding: 5,
                 frame: true,
                 fieldDefaults: {
-                    labelWidth: 65,
+                    labelWidth: 65
                 },
                 defaults: {
                     xtype: 'textfield',
@@ -43,6 +43,9 @@ Ext.define('security.view.dictionary.DictionaryManageWin', {
                     fieldLabel: '字典描述',
                     name: 'description'
                 },{
+                	fieldLabel: '字典类型',
+                    name: 'typecode'
+                }/*,{
                     xtype: 'combobox',
                     fieldLabel: '字典树',
                     name: 'dictionaryId',
@@ -50,7 +53,7 @@ Ext.define('security.view.dictionary.DictionaryManageWin', {
                     displayField: 'name',
                     editable: false,
                     store: dictionaryStore
-                }]
+                }*/]
             }],
             buttonAlign: 'center',
             buttons: [{

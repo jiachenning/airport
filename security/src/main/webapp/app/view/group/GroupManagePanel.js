@@ -11,13 +11,17 @@ Ext.define('security.view.group.GroupManagePanel', {
 		type : 'hbox',
 		align : 'stretch'
 	},
-	bodyPadding : 1,
+	//bodyPadding : 1,
 
 	initComponent : function(arguments) {
 
 		var me = this;
 
 		Ext.applyIf(me, {
+			defaults: {
+                border: true,
+                margin: '1 1 1 1'
+            },
 			items : [ {
 				xtype : 'rootgroupgrid',
 				hasToolbar : this.hasToolbar,

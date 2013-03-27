@@ -31,8 +31,9 @@ public class DictionaryController extends AbstractCrudController<Dictionary, Lon
 	
 	@RequestMapping(value = "findByParentId/{parentId}", method = RequestMethod.GET)
 	protected @ResponseBody
-	List<Dictionary> findByParentId(@PathVariable long parentId) {
-		return dictionaryRepository.findByParentId(parentId);
+	List<Dictionary> findByParentId(@PathVariable long parentId,
+			@RequestParam(required = false) String typecode) {
+		return dictionaryRepository.findByParentId(parentId, typecode);
 	}
 	
 	@RequestMapping(value = "validateDictionaryCode", method = RequestMethod.GET)
@@ -45,6 +46,17 @@ public class DictionaryController extends AbstractCrudController<Dictionary, Lon
 		}else{
 			list = dictionaryRepository.validateDictionaryCode(code,id);
 		}
+		if(list.size() == 0 ){
+			return "{success: true}";
+		}else {
+			return "{success: false}";
+		}
+	}
+	
+	@RequestMapping(value = "isTypecodeExist", method = RequestMethod.GET)
+	protected @ResponseBody
+	String isTypecodeExist(@RequestParam String typecode){
+		List<Dictionary> list = dictionaryRepository.findByTypecode(typecode);
 		if(list.size() == 0 ){
 			return "{success: true}";
 		}else {

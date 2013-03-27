@@ -15,6 +15,9 @@ Ext.define('security.view.dictionary.DictionaryManagePanel', {
 		var me = this;
 
 		Ext.applyIf(me, {
+			defaults: {
+                border: true
+            },
 			items : [ {
 				xtype : 'dictionarygrid',
 				flex : 1,
@@ -38,8 +41,7 @@ Ext.define('security.view.dictionary.DictionaryManagePanel', {
     	        collapsible: true
     	    }, {
 				xtype : 'dictionarytree',
-				flex : 1,
-				operable: true
+				flex : 1
 			} ]
 		});
 

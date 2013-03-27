@@ -34,6 +34,10 @@ Ext.define('security.view.dictionary.DictionaryGrid', {
             text: '字典描述',
             dataIndex: 'description',
             width: 200
+        },{
+            text: '字典类型',
+            dataIndex: 'typecode',
+            width: 80
         }];
         
         if (this.operable) {

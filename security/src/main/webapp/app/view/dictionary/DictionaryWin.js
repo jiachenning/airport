@@ -23,7 +23,7 @@ Ext.define('security.view.dictionary.DictionaryWin', {
                 bodyPadding: 5,
                 frame: true,
                 fieldDefaults: {
-                    labelWidth: 85,
+                    labelWidth: 85
                 },
                 defaults: {
                     xtype: 'textfield',
@@ -56,6 +56,10 @@ Ext.define('security.view.dictionary.DictionaryWin', {
                     name: 'ordernum',
                     minValue: 0,
                     maxValue: 500
+                },{
+                    fieldLabel: '字典类型',
+                    name: 'typecode',
+                    readOnly: true
                 },{
                     xtype: 'textarea',
                     allowBlank: true,

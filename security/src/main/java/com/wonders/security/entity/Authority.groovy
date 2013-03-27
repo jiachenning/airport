@@ -1,12 +1,12 @@
 package com.wonders.security.entity
 
-import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.persistence.Transient
+import javax.persistence.UniqueConstraint
 import javax.validation.constraints.NotNull
 
 import org.hibernate.Hibernate
@@ -24,7 +24,6 @@ class Authority extends AbstractTreeNode<Authority, Long> {
 	
 	boolean enabled
 	
-	@Column(unique = true)
 	String code
 	
 	String description

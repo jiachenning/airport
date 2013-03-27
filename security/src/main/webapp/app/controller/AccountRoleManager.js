@@ -29,7 +29,7 @@ Ext.define('security.controller.AccountRoleManager', {
             },
             'rolelistwin button[text="确定"]': {
                 click: this.addRolesToAccount
-            },
+            }
         });
     },
 
