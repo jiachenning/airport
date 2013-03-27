@@ -32,6 +32,17 @@
     </dependency>
     <!-- web layer end -->
 
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+    </dependency>
+
+    <!-- groovy -->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+    </dependency>
+    
     <!-- logging begin -->
     <dependency>
       <groupId>org.slf4j</groupId>

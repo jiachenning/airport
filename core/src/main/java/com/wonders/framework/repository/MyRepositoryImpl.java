@@ -112,7 +112,7 @@ public class MyRepositoryImpl<T, ID extends Serializable> extends
 		Root<T> root = query.from(domainClass);
 		query.select(root);
 
-		applySearchParamsCriteria(params, query);
+		applySearchParamsToCriteria(params, query);
 
 		if (sort != null) {
 			query.orderBy(toOrders(sort, root, builder));
@@ -129,13 +129,13 @@ public class MyRepositoryImpl<T, ID extends Serializable> extends
 		Root<T> root = query.from(domainClass);
 		query.select(builder.count(root));
 
-		applySearchParamsCriteria(params, query);
+		applySearchParamsToCriteria(params, query);
 
 		return entityManager.createQuery(query);
 	}
 
 	@SuppressWarnings("unchecked")
-	private <S> void applySearchParamsCriteria(Map<?, ?> params, CriteriaQuery<S> query) {
+	private <S> void applySearchParamsToCriteria(Map<?, ?> params, CriteriaQuery<S> query) {
 		
 		if (MapUtils.isEmpty(params)) {
 			return;
