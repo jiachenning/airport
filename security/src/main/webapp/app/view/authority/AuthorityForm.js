@@ -8,14 +8,14 @@ Ext.define('security.view.authority.AuthorityForm', {
 		var me = this;
 
 		Ext.applyIf(me, {
+			defaults: {
+                xtype: 'textfield',
+                anchor: '90%'
+            },
 			items : [ {
-				xtype : 'textfield',
-				anchor : '90%',
 				name: 'text',
 				fieldLabel : '资源名称'
 			}, {
-				xtype : 'textfield',
-				anchor : '90%',
 				name: 'code',
 				fieldLabel : '资源代码'
 			}, {
@@ -38,9 +38,12 @@ Ext.define('security.view.authority.AuthorityForm', {
                     ['1', '功能']
                 ]
             }, {
+                xtype: 'numberfield',
+                fieldLabel: '排序',
+                name: 'ordernum'
+            }, {
                 xtype: 'textarea',
                 fieldLabel: '描述',
-                anchor : '90%',
                 name: 'description'
             }]
 		});

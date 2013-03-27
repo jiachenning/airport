@@ -28,6 +28,9 @@ class Dictionary extends AbstractTreeNode<Dictionary, Long> {
 	@Column(unique = false)
 	String code
 	
+	@NotNull
+	int ordernum
+	
 	String description
 	
 	@Override

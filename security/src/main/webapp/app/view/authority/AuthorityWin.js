@@ -51,10 +51,17 @@ Ext.define('security.view.authority.AuthorityWin', {
                     fieldLabel: '资源类型',
                     name: 'type',
                     queryMode: 'local',
+                    forceSelection: true,
                     store: [
                         ['0', '菜单'],
                         ['1', '功能']
                     ]
+                },{
+                    xtype: 'numberfield',
+                    fieldLabel: '排序',
+                    name: 'ordernum',
+                    minValue: 0,
+                    maxValue: 500
                 },{
                     xtype: 'textarea',
                     allowBlank: true,

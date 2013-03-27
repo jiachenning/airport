@@ -148,6 +148,7 @@ Ext.define('security.controller.GroupController', {
 	    	treeStore.setRootNode({
 	            text: selected[0].get('name'),
 	            id: selected[0].get('id'),
+	            nodetype: selected[0].get('nodetype'),
 	            expanded: true
 	        });
 	    	accountGridStore.removeAll();
@@ -222,7 +223,7 @@ Ext.define('security.controller.GroupController', {
 		
 		var node = this.getGroupTree().getSelectionModel().getLastSelected();
 
-		if(node.isRoot()) { return; }
+//		if(node.isRoot()) { return; }
 		
 		if(node.get('nodetype') == 'B' && 'add' == actionType) {
 			

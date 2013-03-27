@@ -9,4 +9,10 @@ interface AuthorityRepository extends MyRepository<Authority, Long> {
 
 	@Query("select distinct(a) from Authority a left join fetch a.children where a.parent.id = ?1")
 	List<Authority> findByParentId(parentId)
+	
+	@Query("from Authority where code = ?1")
+	List<Authority> validateAuthorityCode(code)
+	
+	@Query("from Authority where code = ?1 and id <> ?2")
+	List<Authority> validateAuthorityCode(code, id)
 }

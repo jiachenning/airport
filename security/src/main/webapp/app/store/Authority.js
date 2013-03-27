@@ -7,6 +7,7 @@ Ext.define('security.store.Authority', {
         id: 1,
         expanded: true
     },
+    sorters: ['ordernum'],
     proxy: {
         type: 'rest',
         url: 'authority/findByParentId'
