@@ -12,7 +12,6 @@
   
   <artifactId>security</artifactId>
   <packaging>war</packaging>
-  <name>security</name>
 
   <dependencies> 
     

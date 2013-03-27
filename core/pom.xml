@@ -11,7 +11,6 @@
   </parent>
 
   <artifactId>core</artifactId>
-  <name>core</name>
 
   <dependencies>
 
@@ -24,7 +23,8 @@
     <!-- web layer begin -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
       <scope>provided</scope>
     </dependency>
 
