@@ -100,6 +100,12 @@ Ext.define('security.controller.UserAccountManager', {
     },
     
     showUserWin: function(btn, e, eOpts, rec) {
+    	if(rec){
+    		if(rec.get('loginName') == 'admin'){
+        		Ext.Msg.alert('提示','系统用户,无法修改!');
+        		return;
+        	}
+    	}
         var win = Ext.getCmp('userwin');
         if (!win) {
             win = Ext.create('security.view.user.UserWin');
@@ -315,7 +321,8 @@ Ext.define('security.controller.UserAccountManager', {
 		
 		var win = this.getAccountWin(), 
 			f = win.child('form').getForm(),
-			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id');
+			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id'),
+			accountStore = this.getAccountGrid2().getStore();
 		
 		if (f.isValid()) {
 			Ext.Ajax.request({
@@ -331,9 +338,7 @@ Ext.define('security.controller.UserAccountManager', {
 	            		json = eval('(' + respText + ')');
 	            	if(json.success){
 	            		f.updateRecord();
-	        			
-	        			var account = f.getRecord(),
-	        				accountStore = this.getAccountGrid2().getStore();
+	        			var account = f.getRecord();
 	        				
 	        			account.set('user',  {id: userId});
 	        			account.set('group', {id: f.findField('groupId').value});

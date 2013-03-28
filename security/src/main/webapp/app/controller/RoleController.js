@@ -40,21 +40,23 @@ Ext.define('security.controller.RoleController', {
     },
 
     showRoleWin: function(btn, e, eOpts, rec) {
-    	if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
-    		Ext.Msg.alert('提示','系统账号,无法修改!');	
-    	}else{
-    		var win = Ext.getCmp('rolewin');
-    		if (!win) {
-    			win = Ext.widget('rolewin');
-    		}
-    		win.show(btn, function() {
-    			var f = win.child('form').getForm();
-    			if (!rec) {
-    				rec = Ext.create('security.model.Role');
-    			}
-    			f.loadRecord(rec);
-    		});
+    	if(rec){
+    		if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
+        		Ext.Msg.alert('提示','系统账号,无法修改!');	
+        		return;
+        	}
     	}
+		var win = Ext.getCmp('rolewin');
+		if (!win) {
+			win = Ext.widget('rolewin');
+		}
+		win.show(btn, function() {
+			var f = win.child('form').getForm();
+			if (!rec) {
+				rec = Ext.create('security.model.Role');
+			}
+			f.loadRecord(rec);
+		});
     },
 
     maintainAccRole: function(btn) {
