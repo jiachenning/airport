@@ -21,6 +21,9 @@ Ext.define('security.view.group.RootGroupGrid', {
             text: '部门名称',
             dataIndex: 'name'
         }, {
+            text: '部门编号',
+            dataIndex: 'groupcode'
+        }, {
             text: '描述',
             dataIndex: 'description',
             flex: 1

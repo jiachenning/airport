@@ -102,7 +102,7 @@ Ext.define('security.controller.AccountRoleManager', {
                 roleIds.push(role.get('id'));
             });
 
-            Ext.Msg.confirm('确认', '你确定要删除吗？', function(btn) {
+            Ext.Msg.confirm('提示', '你确定要删除吗？', function(btn) {
                 if (btn == 'yes') {
                     Ext.Ajax.request({
                         url: 'accounts/removeRolesFromAccount',

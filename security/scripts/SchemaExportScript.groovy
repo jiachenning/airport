@@ -23,7 +23,6 @@ def configuration = new Configuration()
 		.addAnnotatedClass(Role.class)
 		.addAnnotatedClass(Authority.class)
 		.addAnnotatedClass(User.class)
-		.addAnnotatedClass(Department.class)
 
 new SE(configuration)
 		.setDelimiter(";")

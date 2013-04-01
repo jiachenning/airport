@@ -123,7 +123,7 @@ Ext.define('security.controller.GroupController', {
     	}
     	
     	var id = rec.get('id');
-        Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+        Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
                 var rootGroupStore = this.getRootGroupGrid().getStore();
                 Ext.create('security.model.RootGroup', {
@@ -186,6 +186,13 @@ Ext.define('security.controller.GroupController', {
 		        	scope: this,
 					handler: function(menuItem) {
 						this.showAccountListWin(menuItem);
+					}
+		        },'-',{
+		        	text: '删除资源',
+		        	scope: this,
+		        	icon: 'icons/group_delete.png',
+					handler: function(menuItem) {
+						this.deleteGroup(menuItem);
 					}
 		        }]
 		    });
@@ -307,6 +314,46 @@ Ext.define('security.controller.GroupController', {
 			
 			accountStore.getProxy().setExtraParam('groupId', groupId);
 			accountStore.reload();
+		}
+    },
+    
+    deleteGroup: function(menuItem) {
+		var selectedNode = this.getGroupTree().getSelectionModel().getLastSelected(),
+			parentNode = selectedNode.parentNode,
+			accountStore = this.getAccountGrid().getStore();
+		if(selectedNode.isRoot()){
+			Ext.Msg.alert('提示','根节点无法删除!');
+			return;
+		}
+		if(accountStore.getCount() > 0){
+			Ext.Msg.alert('提示','该节点有账号关联,无法删除!');
+			return;
+		}
+		if(selectedNode != null){
+	        var isLeaf = selectedNode.isLeaf();
+			if(isLeaf){
+				Ext.Msg.show({
+					title:'提示',
+					msg: '确定删除节点?',
+					buttons: Ext.Msg.YESNO,
+					icon: Ext.Msg.QUESTION,
+					fn: function(btn){
+                        if(btn=='yes'){
+                        	selectedNode.destroy({
+                        		success: function() {
+                        			if(parentNode.childNodes.length == 0 ){
+                                		parentNode.set('leaf',true);
+                                	}
+                                }
+                            });
+				    	}
+				    }
+				});
+			}else{
+				Ext.Msg.alert('提示','请选择子节点删除!');
+			}
+		}else{
+			Ext.Msg.alert('提示','请先选择一个节点!');
 		}
     }
 

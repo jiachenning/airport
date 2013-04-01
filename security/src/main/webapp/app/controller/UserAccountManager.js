@@ -114,6 +114,9 @@ Ext.define('security.controller.UserAccountManager', {
             var f = win.child('form').getForm();
             if (!rec) {
                 rec = Ext.create('security.model.User');
+                win.setTitle('新增用户通讯录');
+            }else{
+            	win.setTitle('维护用户通讯录');
             }
             f.loadRecord(rec);
         });
@@ -123,7 +126,7 @@ Ext.define('security.controller.UserAccountManager', {
     	if(rec.get('loginName') == 'admin'){
     		Ext.Msg.alert("提示","系统管理员无法删除!");
     	}else{
-    		Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+    		Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
     			if (btn == 'yes') {
     				var userStore = this.getUserGrid1().getStore();
     				Ext.create('security.model.User', {
@@ -184,15 +187,30 @@ Ext.define('security.controller.UserAccountManager', {
             f.updateRecord();
             var userStore = this.getUserGrid1().getStore(),
                 user = f.getRecord();
-            
-            user.set('password', hex_md5(f.findField('password').value));
-            
-            user.save({
-                success: function(user) {
-                    win.hide();
-                    userStore.loadPage(1);
+            Ext.Ajax.request({
+                url: 'users/isLoginNameExist',
+                method: 'get',
+                params: {
+                	loginName : user.get('loginName'),
+                	id : user.get('id')
+                },
+                success: function(response, options) {
+                	var respText = Ext.JSON.decode(response.responseText),
+                		json = eval('(' + respText + ')');
+                	if(json.success){
+                		user.set('password', hex_md5(f.findField('password').value));
+                        
+                        user.save({
+                            success: function(user) {
+                                win.hide();
+                                userStore.loadPage(1);
+                            }
+                        });
+              		}else 
+              			Ext.Msg.alert('失败', '该登录名已存在!');
                 }
             });
+            
         }
     },
 
@@ -226,6 +244,10 @@ Ext.define('security.controller.UserAccountManager', {
 	            var f = win.child('form').getForm();
 	            if (!rec) {
 	                rec = Ext.create('security.model.Account');
+	                f.findField('checkgroup').setVisible(true);
+	            }else{
+	            	f.findField('checkgroup').setVisible(false);
+	            	f.findField('accountId').setVisible(false);
 	            }
 	            if(win.loginName != loginName){
 	            	f.findField('accountId').getStore().load({
@@ -233,6 +255,7 @@ Ext.define('security.controller.UserAccountManager', {
 	            			loginName: loginName
 	            		}
 	            	});
+	            	win.loginName = loginName;
 	            }
 	            f.loadRecord(rec);
 	        });
@@ -242,7 +265,7 @@ Ext.define('security.controller.UserAccountManager', {
     },
     
     deleteAccount: function(id) {
-        Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+        Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
             if (btn == 'yes') {
                 var accountStore = this.getAccountGrid2().getStore();
                 var account = Ext.create('security.model.Account', {

@@ -6,4 +6,6 @@ import com.wonders.security.entity.User
 interface UserRepository extends MyRepository<User, Long> {
 
 	User findByLoginName(loginName)
+	
+	User findByLoginNameAndIdNot(loginName, id)
 }

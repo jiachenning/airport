@@ -7,8 +7,6 @@
 
     drop table sec_authority cascade constraints;
 
-    drop table sec_department cascade constraints;
-
     drop table sec_group cascade constraints;
 
     drop table sec_role cascade constraints;
@@ -53,14 +51,6 @@
         primary key (id)
     );
 
-    create table sec_department (
-        id number(19,0) not null,
-        deptdesc varchar2(255 char),
-        deptname varchar2(255 char),
-        version number(10,0) not null,
-        primary key (id)
-    );
-
     create table sec_group (
         id number(19,0) not null,
         version number(10,0) not null,
@@ -69,7 +59,7 @@
         name varchar2(255 char),
         nodetype varchar2(255 char),
         ordernum number(10,0) not null,
-        department_id number(19,0),
+        groupcode varchar2(255 char),
         parent_id number(19,0),
         primary key (id)
     );
@@ -141,9 +131,7 @@
         references sec_authority;
 
     alter table sec_group 
-        add constraint FKB39AD5114E3B5B7A 
-        foreign key (department_id) 
-        references sec_department;
+        add constraint FKB39AD5114E3B5B7A ;
 
     alter table sec_group 
         add constraint FKB39AD5112C02444F 

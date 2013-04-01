@@ -17,6 +17,10 @@ Ext.define('security.model.Account', {
         mapping: 'group.name',
         persist: false
     },{
+        name: 'groupId',
+        mapping: 'group.id',
+        persist: false
+    },{
         name: 'user'
     }],
     proxy: {

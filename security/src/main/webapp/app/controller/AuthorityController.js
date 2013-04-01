@@ -132,6 +132,9 @@ Ext.define('security.controller.AuthorityController', {
         	                    }else{
         	                        selectedNode.set('text', authority.get('name'));
         	                        selectedNode.set('version', authority.get('version')+1);
+        	                        store.load({
+        	                    		node: selectedNode.parentNode
+        	                    	});
         	                    	Ext.Msg.alert('提示','更新成功!');
         	                    }
                                 win.hide();
@@ -168,7 +171,7 @@ Ext.define('security.controller.AuthorityController', {
 				    }
 				});
 			}else{
-				Ext.Msg.alert('提示','请选择叶子节点删除!');
+				Ext.Msg.alert('提示','请选择子节点删除!');
 			}
 		}else{
 			Ext.Msg.alert('提示','请先选择一个节点!');

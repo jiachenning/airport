@@ -223,7 +223,7 @@ Ext.define('security.controller.DictionaryController', {
             	var respText = Ext.JSON.decode(response.responseText),
             		json = eval('(' + respText + ')');
             	if(json.success){
-            		Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+            		Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
                         if (btn == 'yes') {
                             Ext.create('security.model.DictionaryManage', {
                                 id: rec.get('id')
@@ -287,7 +287,7 @@ Ext.define('security.controller.DictionaryController', {
 				    }
 				});
 			}else{
-				Ext.Msg.alert('提示','请选择叶子节点删除!');
+				Ext.Msg.alert('提示','请选择子节点删除!');
 			}
 		}else{
 			Ext.Msg.alert('提示','请先选择一个节点!');

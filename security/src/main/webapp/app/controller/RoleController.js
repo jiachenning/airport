@@ -89,7 +89,7 @@ Ext.define('security.controller.RoleController', {
     	if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
     		Ext.Msg.alert('提示','系统账号,无法删除!');	
     	}else{
-    		Ext.Msg.confirm('确认', '你确定要删除吗?', function(btn) {
+    		Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
     			if (btn == 'yes') {
     				var roleStore = this.getRoleGrid().getStore();
     				Ext.create('security.model.Role', {

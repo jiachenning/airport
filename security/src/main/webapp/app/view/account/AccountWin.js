@@ -40,6 +40,7 @@ Ext.define('security.view.account.AccountWin', {
                     anchor: '100%'
                 },
                 items: [{
+                	name: 'checkgroup',
                     xtype: 'radiogroup',
                     fieldLabel: '选择',
                     cls: 'x-check-group-alt',

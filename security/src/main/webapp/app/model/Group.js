@@ -27,6 +27,9 @@ Ext.define('security.model.Group', {
     },{
         name: 'nodetype',
         type: 'string'
+    },{
+        name: 'groupcode',
+        type: 'string'
     }],
     proxy: {
         type: 'rest',
