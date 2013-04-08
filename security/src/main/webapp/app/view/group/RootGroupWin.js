@@ -29,7 +29,8 @@ Ext.define('security.view.group.RootGroupWin', {
                 },
                 items: [{
                     fieldLabel: '部门名称',
-                    name: 'name'
+                    name: 'name',
+                    maxLength:80
                 }, {
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
@@ -44,7 +45,8 @@ Ext.define('security.view.group.RootGroupWin', {
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',
-                    name: 'description'
+                    name: 'description',
+                    maxLength:200
                 }]
             }],
             buttonAlign: 'center',

@@ -32,14 +32,18 @@ Ext.define('security.view.user.UserWin', {
                 },
                 items: [{
                     fieldLabel: '姓名',
-                    name: 'username'
+                    name: 'username',
+                    maxLength:80
                 },{
                     fieldLabel: '登录名',
-                    name: 'loginName'
+                    name: 'loginName',
+                    maxLength:80
                 },{
                     fieldLabel: '密码',
                     name: 'password',
-                    inputType: 'password'
+                    inputType: 'password',
+                    regex:/^\w{6,15}$/,
+                    regexText:'请输入长度在6-16之间，只包含字母，数字和下划线的字符串'
                 },{
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
@@ -67,12 +71,15 @@ Ext.define('security.view.user.UserWin', {
                 },{
                     fieldLabel: '地址',
                     name: 'address',
-                    allowBlank: true
+                    allowBlank: true,
+                    maxLength:200
                 },{
                     xtype: 'datefield',
                     fieldLabel: '出生年月',
                     name: 'birthday',
-                    format: 'Y-m-d'
+                    format: 'Y-m-d',
+                    allowBlank: true,
+                    maxValue:new Date()
                 },{
                     xtype: 'combobox',
                     fieldLabel: '用户类型',

@@ -33,13 +33,17 @@ Ext.define('security.view.dictionary.DictionaryWin', {
                 items: [{
                     fieldLabel: '上级节点名称',
                     name: 'parentName',
-        			allowBlank: true
+        			allowBlank: true,
+        			disabled:true
                 },{
                     fieldLabel: '名称',
-                    name: 'name'
+                    name: 'name',
+                    maxLength:80
                 },{
                     fieldLabel: '代码',
-                    name: 'code'
+                    name: 'code',
+                    regex:/^\w{0,79}$/,
+                    regexText:'请输入长度不超过80，由数字，字母，下划线组成的字符串'
                 },{
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
@@ -64,7 +68,8 @@ Ext.define('security.view.dictionary.DictionaryWin', {
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',
-                    name: 'description'
+                    name: 'description',
+                    maxLength:200
                 }]
             }],
             buttonAlign: 'center',

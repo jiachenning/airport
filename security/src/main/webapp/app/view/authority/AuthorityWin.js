@@ -30,13 +30,16 @@ Ext.define('security.view.authority.AuthorityWin', {
                 items: [{
                     fieldLabel: '父节点资源',
                     name: 'parentName',
-                    disabled: true
+                    disabled: true//父节点不可修改
                 },{
                     fieldLabel: '资源名称',
-                    name: 'name'
+                    name: 'name',
+                    maxLength:80
                 },{
                     fieldLabel: '资源代码',
-                    name: 'code'
+                    name: 'code',
+                    regex:/^\w{0,79}$/,
+                    regexText:'请输入长度不超过80，由数字，字母，下划线组成的字符串'
                 },{
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
@@ -67,17 +70,22 @@ Ext.define('security.view.authority.AuthorityWin', {
                     xtype: 'textarea',
                     allowBlank: true,
                     fieldLabel: '描述',
-                    name: 'description'
+                    name: 'description',
+                    maxLength:200
                 }]
             }],
             buttonAlign: 'center',
             buttons: [{
                 text: '保存',
-                tooltip: '保存'
+                tooltip: '保存',
+                icon: 'icons/accept.png'
             },{
-                text: '重置',
+                text: '关闭',
+            	tooltip: '关闭',
+                icon: 'icons/cancel.png',
+				scope: this,
                 handler: function() {
-                    this.up('window').child('form').getForm().reset();
+                	this.hide();
                 }
             }]
         });

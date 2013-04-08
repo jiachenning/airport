@@ -30,13 +30,12 @@ Ext.define('security.view.group.GroupWin', {
                 items: [{
                     fieldLabel: '上级部门名称',
                     name: 'parentText',
+                    disabled:true,
                     allowBlank: true
                 }, {
                     fieldLabel: '部门名称',
-                    name: 'name'
-                }, {
-                    fieldLabel: '部门编号',
-                    name: 'groupcode'
+                    name: 'name',
+                    maxLength:16
                 }, {
                     xtype: 'combobox',
                     fieldLabel: '是否启用',

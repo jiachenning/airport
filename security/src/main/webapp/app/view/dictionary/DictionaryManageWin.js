@@ -38,13 +38,17 @@ Ext.define('security.view.dictionary.DictionaryManageWin', {
                 },
                 items: [{
                     fieldLabel: '字典名称',
-                    name: 'name'
+                    name: 'name',
+                    maxLength:80
                 },{
                     fieldLabel: '字典描述',
-                    name: 'description'
+                    name: 'description',
+                    maxLength:200
                 },{
                 	fieldLabel: '字典类型',
-                    name: 'typecode'
+                    name: 'typecode',
+                    regex:/^\w{0,79}$/,
+                    regex:'请输入长度不超过80，由数字，字母，下划线组成的字符串'
                 }/*,{
                     xtype: 'combobox',
                     fieldLabel: '字典树',
