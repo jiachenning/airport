@@ -21,17 +21,6 @@ Ext.define('security.view.dictionary.DictionaryManagePanel', {
 			items : [ {
 				xtype : 'dictionarygrid',
 				flex : 1,
-				storeConfig: {
-    	            autoLoad: true,
-    	            proxy: {
-    	                type: 'rest',
-    	                url: 'dictionaryManage',
-    	                reader: {
-    	                    type: 'json',
-    	                    root: 'content'
-    	                }
-    	            }
-    	        },
     	        searchable: true,
     	        pagable: true,
     	        operable: true

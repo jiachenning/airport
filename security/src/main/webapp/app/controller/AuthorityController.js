@@ -101,6 +101,7 @@ Ext.define('security.controller.AuthorityController', {
 	
 	saveAuthority: function(btn) {          
         var win = this.getAuthorityWin(),
+        	formdetails = this.getAuthorityForm(),
 			f = win.child('form').getForm();
         if (f.isValid()) {
             f.updateRecord();
@@ -135,6 +136,7 @@ Ext.define('security.controller.AuthorityController', {
         	                        store.load({
         	                    		node: selectedNode.parentNode
         	                    	});
+        	                        formdetails.loadRecord(selectedNode);
         	                    	Ext.Msg.alert('提示','更新成功!');
         	                    }
                                 win.hide();

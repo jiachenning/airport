@@ -29,7 +29,8 @@ Ext.define('security.view.authority.AuthorityWin', {
                 },
                 items: [{
                     fieldLabel: '父节点资源',
-                    name: 'parentName'
+                    name: 'parentName',
+                    disabled: true
                 },{
                     fieldLabel: '资源名称',
                     name: 'name'

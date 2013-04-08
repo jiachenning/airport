@@ -1,6 +1,5 @@
 Ext.define('security.controller.DictionaryController', {
     extend: 'Ext.app.Controller',
-    stores: ['Dictionary', 'DictionaryManage'],
 
     views: [
         'dictionary.DictionaryManagePanel',
@@ -198,6 +197,7 @@ Ext.define('security.controller.DictionaryController', {
                     gridStore.loadPage(1);
                 }
             });
+			//Ext.Msg.alert('提示','新增成功!');
 		}
     },
     

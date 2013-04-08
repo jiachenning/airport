@@ -9,7 +9,7 @@ Ext.define('security.view.dictionary.DictionaryTree', {
 		var me = this;
 
 		Ext.applyIf(me, {
-			store: 'Dictionary'
+			store: Ext.create('security.store.Dictionary')
 		});
 		
 		me.callParent(arguments);
