@@ -28,7 +28,7 @@ public class RoleServiceTest extends AbstractSpringTests {
 		assertEquals(2, (long) role.getId());
 		
 		Set<Authority> authorities = role.getAuthorities();
-		assertEquals(2, authorities.size());
+		assertEquals(3, authorities.size());
 	}
 
 }

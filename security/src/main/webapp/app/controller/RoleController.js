@@ -123,11 +123,11 @@ Ext.define('security.controller.RoleController', {
     },
     
     authorityRole: function(btn, rec) {
-    	var win = Ext.getCmp('authorityRolewin');
-    	if (!win) {
+    	//var win = Ext.getCmp('authorityRolewin');
+    	//if (!win) {
     		win = Ext.widget('authority-role-win');
-    		win.record = rec;
-        }
+        //}
+    	win.record = rec;
       	win.show(btn, function() {
       		var authoritytree = win.child('authority-checked-tree');
       		var root = authoritytree.getRootNode();

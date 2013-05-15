@@ -26,14 +26,7 @@ class RoleService {
 		
 		if (role) {
 			def auths = authorityRepository.findAll(authIds as List)
-			
-			role.authorities.each { auth ->
-				if (!auths.contains(auth)) {
-					role.authorities.remove(auth)
-				}
-			}
-			
-			role.authorities.addAll(auths)
+			role.authorities = auths
 		}
 		role
 	}

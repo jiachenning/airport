@@ -33,4 +33,10 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 		return groupRepository.findByParentId(parentId);
 	}
 	
+	@RequestMapping(value = "findAllGroup", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Group> findAllGroup() {
+		return groupRepository.findAll();
+	}
+	
 }

@@ -61,13 +61,7 @@ class AccountService {
 		if (account) {
 			def auths = authorityRepository.findAll(authIds as List)
 			
-			account.authorities.each { auth ->
-				if (!auths.contains(auth)) {
-					account.authorities.remove(auth)
-				}
-			}
-			
-			account.authorities.addAll(auths)
+			account.authorities = auths
 		}
 		account
 	}

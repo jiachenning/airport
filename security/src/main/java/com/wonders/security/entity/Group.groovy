@@ -43,7 +43,7 @@ class Group extends AbstractTreeNode<Group, Long> {
 	}
 	
 	@Override
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	@JsonIgnore
 	Set<Group> getChildren() {
 		super.getChildren()
