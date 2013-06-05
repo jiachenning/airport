@@ -2,7 +2,9 @@ package com.wonders.security.controller;
 
 import javax.inject.Inject;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,12 @@ public class UserController extends AbstractCrudController<User, Long> {
 		return userRepository;
 	}
 	
+	@RequestMapping(value = "findByLoginName/{loginName}", method = RequestMethod.GET)
+	protected @ResponseBody
+	User findByLoginName(@PathVariable String loginName) {
+		return userRepository.findByLoginName(loginName);
+	}
+	
 	@RequestMapping(value = "isLoginNameExist", method = RequestMethod.GET)
 	protected @ResponseBody
 	String isLoginNameExist(@RequestParam String loginName,
@@ -39,6 +47,24 @@ public class UserController extends AbstractCrudController<User, Long> {
 			return "{success: true}";
 		}else {
 			return "{success: false}";
+		}
+	}
+	
+	@RequestMapping(value = "validateUser/{loginName}/{password}", method = RequestMethod.GET)
+	protected @ResponseBody
+	User validateUser(@PathVariable String loginName, @PathVariable String password){
+		User user = null;
+		user = userRepository.findByLoginName(loginName);
+		if(user != null){
+			Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+			String pwd = md5.encodePassword(password, null);
+			if(pwd.equals(user.getPassword())){
+				return user;
+			}else {
+				return null;
+			}
+		}else {
+			return null;
 		}
 	}
 
