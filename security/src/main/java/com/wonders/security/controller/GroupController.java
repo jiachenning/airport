@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wonders.framework.controller.AbstractCrudController;
@@ -37,6 +38,21 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 	protected @ResponseBody
 	List<Group> findAllGroup() {
 		return groupRepository.findAll();
+	}
+	
+	@RequestMapping(value = "findByAccount/{accountId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Group> findByAccount(@PathVariable long accountId) {
+		return groupRepository.findByAccount(accountId);
+	}
+	
+	@RequestMapping(value = "findByNameLike", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Group> findByNameLike(@RequestParam(defaultValue = "") String name) {
+		if(name.equals("")){
+			return groupRepository.findAll();
+		}
+		return groupRepository.findByNameLike("%" + name + "%");
 	}
 	
 }

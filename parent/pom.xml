@@ -393,9 +393,9 @@
         <jdbc.driver.version>11.2.0.3</jdbc.driver.version>
 
         <jdbc.db.driver>oracle.jdbc.driver.OracleDriver</jdbc.db.driver>
-        <jdbc.db.url>jdbc:oracle:thin:@10.1.43.201:1521:orcl</jdbc.db.url>
-        <jdbc.db.username>orcl</jdbc.db.username>
-        <jdbc.db.password>wonders</jdbc.db.password>
+        <jdbc.db.url>jdbc:oracle:thin:@10.1.43.202:1521:orcl</jdbc.db.url>
+        <jdbc.db.username>framework</jdbc.db.username>
+        <jdbc.db.password>framework2013</jdbc.db.password>
       </properties>
     </profile>
     

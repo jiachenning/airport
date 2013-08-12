@@ -13,4 +13,9 @@ interface GroupRepository extends MyRepository<Group, Long> {
 	@Query("from Group")
 	List<Group> findAll()
 	
+	@Query("select distinct(a.group) from Account a where a.id = ?1")
+	List<Group> findByAccount(accountId)
+	
+	List<Group> findByNameLike(name)
+	
 }
