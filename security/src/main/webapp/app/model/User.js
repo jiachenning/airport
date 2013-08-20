@@ -27,6 +27,9 @@ Ext.define('security.model.User', {
         name: 'address',
         type: 'string'
     },{
+    	name: 'imoId',
+    	type: 'string'
+    },{
         name: 'birthday',
         type: 'date',
         defaultValue: new Date()

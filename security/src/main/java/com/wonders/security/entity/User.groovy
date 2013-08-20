@@ -37,6 +37,9 @@ class User extends AbstractPersistable<Long> {
 	
 	String address
 	
+	// adder:zhuhaijian, 20130812
+	String imoId;
+	
 	@Temporal(DATE)
 	Date birthday
 
