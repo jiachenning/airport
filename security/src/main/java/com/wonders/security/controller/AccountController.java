@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,19 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	protected @ResponseBody
 	List<Account> findByUserId(@RequestParam long userId) {
 		return accountRepository.findByUserId(userId);
+	}
+	
+	// adder:zhuhaijian,20130903
+	@RequestMapping(value = "findAccountByUserId/{userId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Account> findAccountByUserId(@PathVariable long userId) {
+		return accountRepository.findByUserId(userId);
+	}
+	
+	@RequestMapping(value = "findAccountByAccountId/{accountId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Account> findAccountByAccountId(@PathVariable long accountId) {
+		return accountRepository.findAccountByAccountId(accountId);
 	}
 
 	@RequestMapping("addRolesToAccount")
@@ -79,6 +93,25 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	protected @ResponseBody
 	String findAccountAuthority(@RequestParam long accountId){
 		return accountService.findAccountAuthority(accountId);
+	}
+	
+	// adder:zhuhaijian,20130904
+	@RequestMapping(value = "findAccountAuthorityByAccountId/{accountId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	String findAccountAuthorityByAccountId(@PathVariable long accountId){
+		return accountService.findAccountAuthority(accountId);
+	}
+	
+	@RequestMapping(value = "findAccountRoleByAccountId/{accountId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	String findAccountRoleByAccountId(@PathVariable long accountId){
+		return accountService.findAccountRole(accountId);
+	}
+	
+	@RequestMapping(value = "findAccountGroupByAccountId/{accountId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	String findAccountGroupByAccountId(@PathVariable long accountId){
+		return accountService.findAccountGroup(accountId);
 	}
 	
 	@RequestMapping(value = "findByUserLoginNameNot", method = RequestMethod.GET)

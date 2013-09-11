@@ -73,5 +73,21 @@ class AccountService {
 		
 		(account.authorities*.id).join(',')
 	}
+	
+	@Transactional(readOnly = true)
+	String findAccountRole(long accountId) {
+		
+		def account = accountRepository.findOne(accountId)
+				
+				(account.roles*.name).join(',')
+	}
+	
+	@Transactional(readOnly = true)
+	String findAccountGroup(long accountId) {
+		
+		def account = accountRepository.findOne(accountId)
+				
+				account.group.name
+	}
 
 }
