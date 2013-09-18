@@ -25,10 +25,14 @@ Ext.define('security.view.maintain.AccountRoleMaintainPanel', {
     	            proxy: {
     	                type: 'rest',
     	                url: 'accounts',
+    	                startParam: undefined,
+    	                pageParam: 'page.page',
+    	                limitParam: 'page.size',
     	                extraParams: {'search_group_fetch': ''},
     	                reader: {
     	                    type: 'json',
-    	                    root: 'content'
+    	                    root: 'content',
+    	                    totalProperty: 'totalElements'
     	                }
     	            }
     	        },

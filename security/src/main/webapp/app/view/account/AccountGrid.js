@@ -63,9 +63,7 @@ Ext.define('security.view.account.AccountGrid', {
     getGridDockedItems: function() {
         
         var dockedItems = this.dockedItems || [];
-        
-        if (!dockedItems) {
-            
+        if (dockedItems.length == 0) {
             if (this.searchable) {
                 dockedItems.push({
                     xtype: 'toolbar',

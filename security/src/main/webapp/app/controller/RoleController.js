@@ -123,11 +123,11 @@ Ext.define('security.controller.RoleController', {
     },
     
     authorityRole: function(btn, rec) {
-    	//var win = Ext.getCmp('authorityRolewin');
-    	//if (!win) {
+    	var win = this.getAuthorityRoleWin();
+    	if (!win) {
     		win = Ext.widget('authority-role-win');
-        //}
-    	win.record = rec;
+    		win.record = rec;
+        }    	
       	win.show(btn, function() {
       		var authoritytree = win.child('authority-checked-tree');
       		var root = authoritytree.getRootNode();
@@ -159,6 +159,7 @@ Ext.define('security.controller.RoleController', {
     },
     
     addRoleAuthority: function(btn) {
+
 	    var	win = this.getAuthorityRoleWin(),
 	    	roleId = win.record.get('id'),
 	    	authoritytree = win.child('authority-checked-tree'),
@@ -167,7 +168,7 @@ Ext.define('security.controller.RoleController', {
 	    Ext.Array.each(records, function(rec){
 	    	authIds.push(rec.get('id'));
 	    });
-	    
+
 	    Ext.Ajax.request({
             url: 'roles/addRoleAuthority',
             params: {

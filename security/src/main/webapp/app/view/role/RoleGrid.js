@@ -81,7 +81,7 @@ Ext.define('security.view.role.RoleGrid', {
     getGridDockedItems: function() {
         
         var me = this,
-            dockedItems = me.dockedItems || []; 
+            dockedItems = me.dockedItems || [];
 
         if (dockedItems.length == 0) {
 
