@@ -138,4 +138,10 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 		}
 	}
 
+	// adder:zhuhaijian,20130903,查询所有协调员
+	@RequestMapping(value = "findAllAccount/{accountId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Account> findAllAccount(@PathVariable long accountId) {
+		return accountRepository.findAllAccount(accountId);
+	}
 }
