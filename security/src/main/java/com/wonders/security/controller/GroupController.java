@@ -55,4 +55,17 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 		return groupRepository.findByNameLike("%" + name + "%");
 	}
 	
+	@RequestMapping(value = "isNameExist", method = RequestMethod.GET)
+	protected @ResponseBody
+	String isNameExist(@RequestParam String name){
+		Group group = null;
+		group = groupRepository.findByName(name);
+
+		if(group == null ){
+			return "{success: true}";
+		}else {
+			return "{success: false}";
+		}
+	}
+	
 }

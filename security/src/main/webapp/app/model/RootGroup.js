@@ -8,6 +8,9 @@ Ext.define('security.model.RootGroup', {
         name: 'name',
         type: 'string'
     },{
+    	name: 'groupcode',
+    	type: 'string'
+    },{
         name: 'text',
         type: 'string'
     },{

@@ -94,13 +94,28 @@ Ext.define('security.controller.GroupController', {
 	        rootGroup.set('parent', {id: 1});
 	        rootGroup.set('nodetype', 'root');
 	        
-	        rootGroup.save({
-	            success: function(rootGroup) {
-	                win.hide();
-	                rootGroupStore.loadPage(1);
-	                groupTreeStore.load();
-	            }
-	        });
+	        Ext.Ajax.request({
+                url: 'groups/isNameExist',
+                method: 'get',
+                params: {
+                	name : rootGroup.get('name')
+                },
+                success: function(response, options) {
+                	var respText = Ext.JSON.decode(response.responseText),
+                		json = eval('(' + respText + ')');
+                	if(json.success){
+                        
+                		rootGroup.save({
+            	            success: function(rootGroup) {
+            	                win.hide();
+            	                rootGroupStore.loadPage(1);
+            	                groupTreeStore.load();
+            	            }
+            	        });
+              		}else 
+              			Ext.Msg.alert('失败', '该部门名称已存在!');
+                }
+            });
 	    }
     },
     

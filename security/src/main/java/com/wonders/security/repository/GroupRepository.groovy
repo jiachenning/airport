@@ -18,4 +18,5 @@ interface GroupRepository extends MyRepository<Group, Long> {
 	
 	List<Group> findByNameLike(name)
 	
+	Group findByName(name)
 }
