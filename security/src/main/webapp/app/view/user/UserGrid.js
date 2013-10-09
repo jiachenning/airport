@@ -34,7 +34,8 @@ Ext.define('security.view.user.UserGrid', {
             text: '是否启用',
             dataIndex: 'enabled',
             trueText: '是',
-            falseText: '否'
+            falseText: '否',
+            width:70
         },{
             text: '性别',
             dataIndex: 'gender',
@@ -44,7 +45,8 @@ Ext.define('security.view.user.UserGrid', {
                 } else {
                     return '女'
                 }
-            }
+            },
+            width:50
         },{
             text: '电话',
             dataIndex: 'telephone'
