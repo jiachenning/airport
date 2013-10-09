@@ -67,7 +67,8 @@ Ext.define('security.view.user.UserWin', {
                 },{
                     fieldLabel: '电话',
                     name: 'telephone',
-                    allowBlank: true
+                    allowBlank: true,
+                    maxLength:13
                 },{
                     fieldLabel: '地址',
                     name: 'address',
