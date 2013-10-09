@@ -31,7 +31,11 @@ Ext.define('security.view.group.RootGroupWin', {
                     fieldLabel: '部门名称',
                     name: 'name',
                     maxLength:80
-                }, {
+                },{
+                    fieldLabel: '部门编号',
+                    name: 'groupcode',
+                    maxLength:80
+                },{
                     xtype: 'combobox',
                     fieldLabel: '是否启用',
                     name: 'enabled',

@@ -22,6 +22,7 @@ Ext.define('security.view.user.UserWin', {
                 url: 'users',
                 bodyPadding: 5,
                 frame: true,
+                msgTarget: 'side',
                 fieldDefaults: {
                     labelWidth: 65
                 },

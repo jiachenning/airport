@@ -191,12 +191,28 @@ Ext.define('security.controller.DictionaryController', {
 			var dictionaryManage = f.getRecord(),
 				dictionaryId = dictionaryManage.get('dictionaryId');
 			dictionaryManage.set('dictionary',{id:dictionaryId});
-			dictionaryManage.save({
-                success: function() {
-                    win.hide();
-                    gridStore.loadPage(1);
-                }
-            });
+			
+			Ext.Ajax.request({
+	            url: 'dictionaryManage/validateDictionaryName',
+	            method: 'get',
+	            params: {
+	            	name : dictionaryManage.get('name')
+	            },
+	            success: function(response, options) {
+	            	var respText = Ext.JSON.decode(response.responseText),
+	            		json = eval('(' + respText + ')');
+	            	if(json.success){
+	            		dictionaryManage.save({
+	                        success: function() {
+	                            win.hide();
+	                            gridStore.loadPage(1);
+	                        }
+	                    });
+              		}else 
+              			Ext.Msg.alert('失败', '该字典名称已存在!');
+	            }
+	        });
+					
 			//Ext.Msg.alert('提示','新增成功!');
 		}
     },
