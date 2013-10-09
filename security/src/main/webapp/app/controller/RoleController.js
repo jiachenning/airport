@@ -112,11 +112,25 @@ Ext.define('security.controller.RoleController', {
             f.updateRecord();
             var roleStore = this.getRoleGrid().getStore(),
                 role = f.getRecord();
-            
-            role.save({
-                success: function(role) {
-                    win.hide();
-                    roleStore.loadPage(1);
+            Ext.Ajax.request({
+                url: 'roles/isCodeExist',
+                method: 'get',
+                params: {
+                	code : role.get('code')
+                },
+                success: function(response, options) {
+                	var respText = Ext.JSON.decode(response.responseText),
+                		json = eval('(' + respText + ')');
+                	if(json.success){
+                        
+                		role.save({
+                            success: function(role) {
+                                win.hide();
+                                roleStore.loadPage(1);
+                            }
+                        });
+              		}else 
+              			Ext.Msg.alert('失败', '该代码已存在!');
                 }
             });
         }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wonders.framework.controller.AbstractCrudController;
 import com.wonders.framework.repository.MyRepository;
 import com.wonders.security.entity.Role;
+import com.wonders.security.entity.User;
 import com.wonders.security.repository.RoleRepository;
 import com.wonders.security.service.RoleService;
 
@@ -50,5 +51,17 @@ public class RoleController extends AbstractCrudController<Role, Long> {
 	String findRoleAuthority(@RequestParam long roleId){
 		return roleService.findRoleAuthority(roleId);
 	}
+	
+	@RequestMapping(value = "isCodeExist", method = RequestMethod.GET)
+	protected @ResponseBody
+	String isCodeExist(@RequestParam String code){
+		Role role = null;
+		role = roleRepository.findByCode(code);
 
+		if(role == null ){
+			return "{success: true}";
+		}else {
+			return "{success: false}";
+		}
+	}
 }

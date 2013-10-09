@@ -9,4 +9,6 @@ interface RoleRepository extends MyRepository<Role, Long> {
 
 	@Query("select a.roles from Account a where a.id = ?1")
 	List<Role> findByAccountId(accountId)
+	
+	Role findByCode(code)
 }
