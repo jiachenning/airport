@@ -289,9 +289,11 @@ Ext.define('security.controller.UserAccountManager', {
 	            if (!rec) {
 	                rec = Ext.create('security.model.Account');
 	                f.findField('checkgroup').setVisible(true);
+	                win.setTitle('新增用户帐号');
 	            }else{
 	            	f.findField('checkgroup').setVisible(false);
 	            	f.findField('accountId').setVisible(false);
+	            	win.setTitle('编缉用户帐号');
 	            }
 	            if(win.loginName != loginName){
 	            	f.findField('accountId').getStore().load({
@@ -386,19 +388,28 @@ Ext.define('security.controller.UserAccountManager', {
 	
 	saveAccount: function(btn) {
 		
-		var win = this.getAccountWin(), 
+		var accId,
+			win = this.getAccountWin(), 
 			f = win.child('form').getForm(),
 			userId = this.getUserGrid2().getSelectionModel().getLastSelected().get('id'),
 			accountStore = this.getAccountGrid2().getStore();
+
+		if(win.title == '编缉用户帐号') {
+			accId = f.getRecord().get('id');
+		} else {
+			accId = '999999';
+		}
 		
 		if (f.isValid()) {
 			Ext.Ajax.request({
-	            url: 'accounts/validateAccount',
+	            //url: 'accounts/validateAccount',
+				url: 'accounts/validateAccountExist',
 	            method: 'get',
 	            params: {
 	            	name : f.findField('name').value,
 	                userId: userId,
-	                groupId: f.findField('groupId').value
+	                groupId: f.findField('groupId').value,
+	                accId: accId
 	            },
 	            success: function(response, options) {
 	            	var respText = Ext.JSON.decode(response.responseText),

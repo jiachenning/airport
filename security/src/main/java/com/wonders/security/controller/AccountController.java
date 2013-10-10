@@ -144,4 +144,20 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 	List<Account> findAllAccount(@PathVariable long accountId) {
 		return accountRepository.findAllAccount(accountId);
 	}
+	
+	
+	@RequestMapping(value = "validateAccountExist", method = RequestMethod.GET)
+	protected @ResponseBody
+	String validateAccountExist(@RequestParam String name,
+			@RequestParam long userId, @RequestParam long groupId, @RequestParam long accId){
+		List<Account> list = accountRepository.validateAccout(name, groupId, userId);
+		if(list.size() == 0 ){
+			return "{success: true}";
+		}else {
+			if(accId == list.get(0).getId()) {
+				return "{success: true}";
+			}
+			return "{success: false}";
+		}
+	}
 }

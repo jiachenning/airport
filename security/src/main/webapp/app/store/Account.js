@@ -4,6 +4,6 @@ Ext.define('security.store.Account', {
     model: 'security.model.Account',
     proxy: {
         type: 'rest',
-        url: 'accounts'
+        url: 'accounts/findByUserId'
     }
 });
