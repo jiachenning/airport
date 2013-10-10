@@ -1,6 +1,6 @@
 Ext.define('security.controller.UserAccountManager', {
     extend: 'Ext.app.Controller',
-    uses: ['security.view.user.UserWin'],
+    uses: ['security.view.user.UserWin', 'security.view.user.UserEditWin'],
 
     views: ['user.UserGrid', 'account.AccountGrid', 'user.UserManagerPanel', 
             'account.AccountWin', 'authority.AuthorityAccountWin'],
@@ -26,6 +26,9 @@ Ext.define('security.controller.UserAccountManager', {
     },{
     	ref: 'authorityAccountWin',
         selector: 'authority-account-win'
+    },{
+        ref: 'userEditWin',
+        selector: 'usereditwin'
     }],
     
     init: function() {
@@ -47,6 +50,9 @@ Ext.define('security.controller.UserAccountManager', {
             },
             'userwin button[text="保存"]': {
                 click: this.saveUser
+            },
+            'usereditwin button[text="保存"]': {
+                click: this.editUser
             },
             'accountgrid button[tooltip="添加"]': {
                 click: this.showAccountWin
@@ -100,24 +106,26 @@ Ext.define('security.controller.UserAccountManager', {
     },
     
     showUserWin: function(btn, e, eOpts, rec) {
+    	var win;
     	if(rec){
     		if(rec.get('loginName') == 'admin'){
         		Ext.Msg.alert('提示','系统用户,无法修改!');
         		return;
         	}
+    		win = Ext.getCmp('usereditwin');
+            if (!win) {
+                win = Ext.create('security.view.user.UserEditWin');
+            }
+    	} else {
+	        win = Ext.getCmp('userwin');
+	        if (!win) {
+	            win = Ext.create('security.view.user.UserWin');
+	        }
+	        win.setTitle('新增用户通讯录');
     	}
-        var win = Ext.getCmp('userwin');
-        if (!win) {
-            win = Ext.create('security.view.user.UserWin');
-        }
     	win.show(btn, function() {
             var f = win.child('form').getForm();
-            if (!rec) {
-                rec = Ext.create('security.model.User');
-                win.setTitle('新增用户通讯录');
-            }else{
-            	win.setTitle('维护用户通讯录');
-            }
+            if(!rec) {rec = Ext.create('security.model.User');}
             f.loadRecord(rec);
         });
     },
@@ -181,6 +189,42 @@ Ext.define('security.controller.UserAccountManager', {
 
     saveUser: function(btn) {
         var win = this.getUserWin(),
+              f = win.child('form').getForm();
+        if (f.isValid()) {
+            f.updateRecord();
+            var userStore = this.getUserGrid1().getStore(),
+                user = f.getRecord();
+
+            Ext.Ajax.request({
+                url: 'users/isLoginNameExist',
+                method: 'get',
+                params: {
+                	loginName : user.get('loginName'),
+                	id : user.get('id')
+                },
+                success: function(response, options) {
+                	var respText = Ext.JSON.decode(response.responseText),
+                		json = eval('(' + respText + ')');
+                	if(json.success){
+                        
+                		user.set('password', hex_md5(f.findField('password').value));
+                        
+                        user.save({
+                            success: function(user) {
+                                win.hide();
+                                userStore.loadPage(1);
+                            }
+                        });
+              		}else 
+              			Ext.Msg.alert('失败', '该登录名已存在!');
+                }
+            });
+            
+        }
+    },
+    
+    editUser: function(btn) {
+        var win = this.getUserEditWin(),
             f = win.child('form').getForm();
         
         if (f.isValid()) {
@@ -198,7 +242,7 @@ Ext.define('security.controller.UserAccountManager', {
                 	var respText = Ext.JSON.decode(response.responseText),
                 		json = eval('(' + respText + ')');
                 	if(json.success){
-                		user.set('password', hex_md5(f.findField('password').value));
+                		//user.set('password', hex_md5(f.findField('password').value));
                         
                         user.save({
                             success: function(user) {
