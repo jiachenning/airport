@@ -56,8 +56,10 @@ Ext.define('security.controller.DictionaryController', {
             var typecode = f.findField('typecode');
             if (!rec) {
                 rec = Ext.create('security.model.DictionaryManage');
+                win.setTitle('新增字典');
                 typecode.setVisible(true);
             }else{
+            	win.setTitle('编辑字典');
             	typecode.setVisible(false);
             }
             f.loadRecord(rec);
@@ -185,18 +187,26 @@ Ext.define('security.controller.DictionaryController', {
 		var win = this.getDictionaryManageWin(),
 			f = win.child('form').getForm(),
 			gridStore = this.getDictionaryGrid().getStore();
+		var id ;
+		if(win.title == '编辑字典') {
+			id = f.getRecord().get('id');
+		} else {
+			id = '999999';
+		}
+		
 		
 		if(f.isValid()){
 			f.updateRecord();
 			var dictionaryManage = f.getRecord(),
 				dictionaryId = dictionaryManage.get('dictionaryId');
 			dictionaryManage.set('dictionary',{id:dictionaryId});
-			
+			var id = dictionaryManage.get('id');
 			Ext.Ajax.request({
-	            url: 'dictionaryManage/validateDictionaryName',
+	            url: 'dictionaryManage/validateDictionaryNameWithoutSelf',
 	            method: 'get',
 	            params: {
-	            	name : dictionaryManage.get('name')
+	            	name : dictionaryManage.get('name'),
+	            	id : id 
 	            },
 	            success: function(response, options) {
 	            	var respText = Ext.JSON.decode(response.responseText),

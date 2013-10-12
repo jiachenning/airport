@@ -38,5 +38,21 @@ public class DictionaryManageController extends AbstractCrudController<Dictionar
 			return "{success: false}";
 		}
 	}
+	@RequestMapping(value = "validateDictionaryNameWithoutSelf", method = RequestMethod.GET)
+	protected @ResponseBody
+	String validateDictionaryNameWithoutSelf(@RequestParam String name, @RequestParam long id){
+		DictionaryManage dictionaryManage = null;
+		dictionaryManage = dictionaryManageRepository.findByName(name);
+
+		if(dictionaryManage == null){
+			
+			return "{success: true}";
+		}else {
+			if (dictionaryManage.getId() == id){
+				return "{success: true}";
+			}
+			return "{success: false}";
+		}
+	}
 	
 }
