@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wonders.framework.controller.AbstractCrudController;
 import com.wonders.framework.repository.MyRepository;
 import com.wonders.security.entity.Account;
+import com.wonders.security.entity.Role;
 import com.wonders.security.repository.AccountRepository;
 import com.wonders.security.service.AccountService;
 
@@ -157,6 +158,19 @@ public class AccountController extends AbstractCrudController<Account, Long> {
 			if(accId == list.get(0).getId()) {
 				return "{success: true}";
 			}
+			return "{success: false}";
+		}
+	}
+	
+	@RequestMapping(value = "validateRoleRelationExist", method = RequestMethod.GET)
+	protected @ResponseBody
+	String validateAccountRelationExist(@RequestParam long roleId){
+		System.out.println("it enters the interface");
+		List<Account> accounts = accountRepository.findByRoleId(roleId);
+		if(accounts == null || accounts.isEmpty()){
+			return "{success: true}";
+		}else{
+			System.out.println("accountSize: "+accounts.size());
 			return "{success: false}";
 		}
 	}

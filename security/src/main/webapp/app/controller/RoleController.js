@@ -86,22 +86,41 @@ Ext.define('security.controller.RoleController', {
     },
 
     deleteRole: function(rec) {
-    	if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
-    		Ext.Msg.alert('提示','系统账号,无法删除!');	
-    	}else{
-    		Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
-    			if (btn == 'yes') {
-    				var roleStore = this.getRoleGrid().getStore();
-    				Ext.create('security.model.Role', {
-    					id: rec.get('id')
-    				}).destroy({
-    					success: function() {
-    						roleStore.loadPage(1);
-    					}
-    				});
-    			}
-    		}, this);
-    	}
+    	var roleStore = this.getRoleGrid().getStore();
+    	Ext.Ajax.request({
+            url: 'accounts/validateRoleRelationExist',
+            method: 'get',
+            params: {
+            	roleId : rec.get('id')
+            },
+            success: function(response, options) {
+            	var respText = Ext.JSON.decode(response.responseText),
+            		json = eval('(' + respText + ')');
+            	if(json.success){
+            		//删除
+            		if(rec.get('code') == 'admin' || rec.get('code') == 'default'){
+                		Ext.Msg.alert('提示','系统账号,无法删除!');	
+                	}else{
+                		Ext.Msg.confirm('提示', '你确定要删除吗?', function(btn) {
+                			if (btn == 'yes') {
+                				alert("teee");
+                				
+                				Ext.create('security.model.Role', {
+                					id: rec.get('id')
+                				}).destroy({
+                					success: function() {
+                						roleStore.loadPage(1);
+                					}
+                				});
+                			}
+                		}, this);
+                	}
+          		}else 
+          			//因绑定帐号，无法删除
+          			Ext.Msg.alert('失败', '该角色已绑定帐号，无法删除!');
+            }
+        });
+    	
     },
 
     saveRole: function(btn) {

@@ -1,5 +1,7 @@
 package com.wonders.security.repository
 
+import javax.persistence.NamedQuery;
+
 import org.springframework.data.jpa.repository.Query
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,4 +29,8 @@ interface AccountRepository extends MyRepository<Account, Long> {
 	
 	@Query("from Account a join fetch a.group join fetch a.user join fetch a.roles where a.id != ?1")
 	List<Account> findAllAccount(accountId)
+	
+	@Query("from Account a join fetch a.roles r where r.id =  ?1")
+	List<Account> findByRoleId(roleId)
+		
 }
