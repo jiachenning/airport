@@ -75,7 +75,10 @@ Ext.define('security.controller.GroupController', {
     	win.show(btn, function() {
             var f = win.child('form').getForm();
             if (!rec) {
+            	win.setTitle('新增组织部门');
                 rec = Ext.create('security.model.RootGroup');
+            } else {
+            	win.setTitle('编辑组织部门');
             }
             f.loadRecord(rec);
         });
@@ -84,7 +87,15 @@ Ext.define('security.controller.GroupController', {
     saveRootGroup: function() {
     	var win = this.getRootGroupWin(),
         f = win.child('form').getForm();
-    
+    	
+    	var id ;
+    	if(win.title == '编辑组织部门'){
+    		id = f.getRecord().get('id');
+    	}else{
+    		id = '999999';
+    	}
+    	
+    	
 	    if (f.isValid()) {
 	        f.updateRecord();
 	        var groupTreeStore = this.getGroupTree().getStore(),
@@ -95,10 +106,11 @@ Ext.define('security.controller.GroupController', {
 	        rootGroup.set('nodetype', 'root');
 	        
 	        Ext.Ajax.request({
-                url: 'groups/isNameExist',
+                url: 'groups/isNameExistWithoutSelf',
                 method: 'get',
                 params: {
-                	name : rootGroup.get('name')
+                	name : rootGroup.get('name'),
+                	id : id
                 },
                 success: function(response, options) {
                 	var respText = Ext.JSON.decode(response.responseText),

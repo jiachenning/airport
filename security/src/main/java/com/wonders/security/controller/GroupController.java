@@ -68,4 +68,20 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 		}
 	}
 	
+	@RequestMapping(value = "isNameExistWithoutSelf", method = RequestMethod.GET)
+	protected @ResponseBody
+	String isNameExistWithourSelf(@RequestParam String name, @RequestParam long id){
+		Group group = null;
+		group = groupRepository.findByName(name);
+		
+		if(group == null ){
+			return "{success: true}";
+		}else {
+			if(group.getId() == id){
+				return "{success: true}";
+			}
+			return "{success: false}";
+		}
+	}
+	
 }
