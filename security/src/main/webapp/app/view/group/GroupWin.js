@@ -67,6 +67,11 @@ Ext.define('security.view.group.GroupWin', {
                     allowBlank: true,
                     fieldLabel: '描述',
                     name: 'description'
+                }, {
+                    xtype: 'textfield',
+                    allowBlank: true,
+                    fieldLabel: '紧急联系方式',
+                    name: 'emephone'
                 }]
             }],
             buttonAlign: 'center',

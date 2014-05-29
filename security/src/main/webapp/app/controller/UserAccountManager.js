@@ -332,6 +332,8 @@ Ext.define('security.controller.UserAccountManager', {
     		win = Ext.widget('authority-account-win');
     		win.record = rec;
         }
+    	if(rec.get('id') != win.record.get('id')) win.record = rec;
+    	
       	win.show(btn, function() {
       		var authoritytree = win.child('authority-checked-tree');
       		var root = authoritytree.getRootNode();

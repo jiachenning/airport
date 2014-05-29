@@ -193,7 +193,7 @@ public class MyRepositoryImpl<T, ID extends Serializable> extends
 			path = path.get(names[i]);
 		}
 
-		//value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
+		value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
 		Object val = convert(names, value);
 		switch (operator) {
 		case "eq":

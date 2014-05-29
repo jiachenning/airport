@@ -1,5 +1,6 @@
 package com.wonders.security.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,6 +52,11 @@ public class GroupController extends AbstractCrudController<Group, Long> {
 	List<Group> findByNameLike(@RequestParam(defaultValue = "") String name) {
 		if(name.equals("")){
 			return groupRepository.findAll();
+		}
+		try {
+			name = new String(name.getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
 		return groupRepository.findByNameLike("%" + name + "%");
 	}

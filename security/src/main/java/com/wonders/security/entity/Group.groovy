@@ -36,6 +36,8 @@ class Group extends AbstractTreeNode<Group, Long> {
 	
 	String groupcode
 	
+	String emephone
+	
 	@Override
 	@ManyToOne(fetch = FetchType.LAZY)
 	Group getParent() {
