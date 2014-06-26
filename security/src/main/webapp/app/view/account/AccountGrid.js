@@ -69,8 +69,8 @@ Ext.define('security.view.account.AccountGrid', {
                     xtype: 'toolbar',
                     items: {
                         xtype: 'searchfield',
-                        paramName: 'search_loginName_like',
-                        emptyText: '请输入一个登录名！',
+                        paramName: 'search_name_like',
+                        emptyText: '请输入一个账号名称！',
                         width: 200,
                         store: this.store
                     }

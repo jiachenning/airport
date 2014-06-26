@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wonders.framework.controller.AbstractCrudController;
 import com.wonders.framework.repository.MyRepository;
 import com.wonders.security.entity.Role;
-import com.wonders.security.entity.User;
 import com.wonders.security.repository.RoleRepository;
 import com.wonders.security.service.RoleService;
 
@@ -50,6 +50,12 @@ public class RoleController extends AbstractCrudController<Role, Long> {
 	protected @ResponseBody
 	String findRoleAuthority(@RequestParam long roleId){
 		return roleService.findRoleAuthority(roleId);
+	}
+	
+	@RequestMapping(value = "findRoleAuthority/{roleId}", method = RequestMethod.GET)
+	protected @ResponseBody
+	List<Role> findRoleAuthorityByRoleId(@PathVariable long roleId){
+		return roleRepository.findRoleAuthorityByRoleId(roleId);
 	}
 	
 	@RequestMapping(value = "isCodeExist", method = RequestMethod.GET)
