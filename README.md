@@ -17,5 +17,4 @@
 *PACKAGE*
 	
 	mvn clean package -Dmaven.test.skip
-
-The security.war will be under target directory.
+	#Then, the security.war will be under target directory.
