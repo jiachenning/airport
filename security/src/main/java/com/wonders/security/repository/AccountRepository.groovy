@@ -24,7 +24,7 @@ interface AccountRepository extends MyRepository<Account, Long> {
 	@Query("from Account a join fetch a.group where a.name = ?1 and a.group.id = ?2 and a.user.id = ?3")
 	List<Account> validateAccout(name, groupId, userId)
 	
-	@Query("select distinct a from Account a join fetch a.group join fetch a.user join fetch a.roles join fetch a.authorities where a.id = ?1")
+	@Query("select distinct a from Account a left outer join fetch a.group left outer join fetch a.user left outer join fetch a.roles left outer join fetch a.authorities where a.id = ?1")
 	List<Account> findAccountByAccountId(accountId)
 	
 	@Query("from Account a join fetch a.group join fetch a.user join fetch a.roles where a.id != ?1")
